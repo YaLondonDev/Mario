@@ -1,8 +1,7 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import * as path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin'; // eslint-disable-line import/no-extraneous-dependencies
 
 module.exports = {
-  mode: 'development',
   entry: './src/index.tsx',
   devtool: 'inline-source-map',
   module: {
@@ -12,13 +11,6 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: [
-              '@babel/preset-env',
-              '@babel/preset-react',
-              '@babel/preset-typescript',
-            ],
-          },
         },
       },
       {
@@ -55,7 +47,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     compress: true,
-    port: 9000,
+    port: process.env.PORT || 9000,
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.svg', '.png', '.jpg'],
