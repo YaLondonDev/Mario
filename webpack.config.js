@@ -54,7 +54,8 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, 'public'),
-    port: process.env.PORT || 3000,
+    compress: true,
+    port: 9000,
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.svg', '.png', '.jpg'],
