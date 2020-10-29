@@ -1,0 +1,30 @@
+.btn{
+    background: var(--color-accent);
+    border-radius: 8px;
+    border: none;
+    min-width: 200px;
+    font-size: 24px;
+    padding: 15px 30px;
+    color: var(--color-text-default);
+    font-weight: bold;
+    transition: .3s all;
+    cursor: pointer;
+    &:hover{
+        background: #F93B3B;
+    }
+    &__with_bg{
+        width: 450px;
+        height: 176px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: url('../../assets/img/btn_bg.png');
+        &:hover{
+           background: url('../../assets/img/btn_bg.png');
+           color: #F93B3B;
+        }
+    }
+    &_submit{
+        margin: 45px auto 0 auto;
+    }
+}
