@@ -9,8 +9,10 @@
     font-weight: bold;
     transition: .3s all;
     cursor: pointer;
-    &:hover{
-        background: #F93B3B;
+    &_base{
+        &:hover{
+            background: #F93B3B;
+        }
     }
     &__with_bg{
         width: 450px;
@@ -20,7 +22,6 @@
         justify-content: center;
         background: url('../../assets/img/btn_bg.png');
         &:hover{
-           background: url('../../assets/img/btn_bg.png');
            color: #F93B3B;
         }
     }

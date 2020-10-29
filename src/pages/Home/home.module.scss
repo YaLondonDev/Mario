@@ -1,5 +1,9 @@
 .wrapper{
     padding: 0 30px;
+    @media all and (max-width:767px) {
+        padding: 0 15px;
+        overflow-x: hidden;
+    }
 }
 .main{
     display: flex;
@@ -7,6 +11,9 @@
     min-height: calc(100vh - 200px);
     max-width: 1200px;
     margin: 0 auto;
+    @media all and (max-width: 1270px){
+        justify-content: center;
+    }
     &__left{
         width: 50%;
         position: relative;
@@ -28,6 +35,9 @@
             bottom: 0;
             z-index: 1;
         }
+        @media all and (max-width: 1270px) {
+            display: none;
+        } 
     }
     &__right{
         width: 50%;
@@ -35,6 +45,9 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        @media all and (max-width:767px){
+            width: 100%;
+        }
     }
 }
 

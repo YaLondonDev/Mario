@@ -12,11 +12,21 @@
     background-size: cover;
     position: relative;
     padding: 110px;
+    @media all and (max-width: 767px) {
+        background: transparent;
+        padding: 30px;
+        max-width: calc(100% - 30px);
+        margin: 0 auto;
+        height: max-content;
+    }
     &:after{
         content: '';
         background: #000;
         position: absolute;
         top: 80px; right: 80px; bottom: 80px; left: 80px;
+        @media all and (max-width: 767px){
+            top: 0px; right: 0px; bottom: 0px; left: 0px;
+        }
     }
     &__content{
         position: relative;

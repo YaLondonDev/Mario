@@ -8,7 +8,7 @@ const Header: FC = () => (
     <Logo />
     <div className={styles.header__right}>
       <Menu />
-      <Button className="btn_base">
+      <Button className="btn_base" type="button">
         <Link to="/signin">Авторизация</Link>
       </Button>
     </div>
