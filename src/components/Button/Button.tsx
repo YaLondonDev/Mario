@@ -1,4 +1,5 @@
 import React, { FC, ReactNode } from 'react';
+import classNames from 'classnames';
 import styles from './button.module.scss';
 
 type Props = {
@@ -7,16 +8,13 @@ type Props = {
   type: string
 }
 
-const Button: FC<Props> = (props:Props) => {
-  const { className, children, type } = props;
-  return (
-    <button
-      className={`${styles.btn} ${styles[className]}`}
-      type={type ? 'submit' : 'button'}
-    >
-      { children}
-    </button>
-  );
-};
+const Button: FC = ({ className, children, type }: Props) => (
+  <button
+    className={classNames(styles.btn, styles[className])}
+    type={type ? 'submit' : 'button'}
+  >
+    { children}
+  </button>
+);
 
 export default Button;
