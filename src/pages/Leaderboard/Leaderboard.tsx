@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
+import base from '../../styles/base.module.scss';
 import styles from './leaderboard.module.scss';
 
 const Leaderboard: FC = () => (
-  <div className={styles.wrapper}>
+  <div className={base.wrapper}>
     <div className={styles.leaderboard}>
       <div className={styles.leaderboard__content}>
-        <h2 className={styles.title}>Таблица лидеров</h2>
+        <h1 className={base.title}>Таблица лидеров</h1>
         <ul className={styles.leaderboard__list}>
           <li className={styles.leaderboard__list_item}>
             <span className={styles.leaderboard__list_item_text}>

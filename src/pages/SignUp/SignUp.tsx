@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
+import base from '../../styles/base.module.scss';
 import styles from './signup.module.scss';
 import { Input, Button } from '../../components';
 
 const SignIn: FC = () => (
-  <div className={styles.wrapper}>
+  <div className={base.wrapper}>
     <div className={styles.auth_form}>
       <div className={styles.auth_form__content}>
-        <h2 className={styles.title}>Регистрация</h2>
+        <h1 className={base.title}>Регистрация</h1>
         <form action="#" className={styles.form}>
           <Input label="Имя" name="first_name" placeholder="Введите имя" type="text" />
           <Input label="Фамилия" name="second_name" placeholder="Введите фамилия" type="text" />

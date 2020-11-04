@@ -1,11 +1,11 @@
-.logo{
-    font-weight: bold;
-    font-size: 36px;
-    line-height: 53px;
+.logo {
     color: var(--color-text-default);
-    text-decoration: none;
     display: block;
-    @media all and (max-width: 767px){
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 53px;
+    text-decoration: none;
+    @media all and (max-width: 767px) {
         font-size: 24px;
     }
 }

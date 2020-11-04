@@ -1,35 +1,38 @@
 .header {
+    align-content: flex-start;
+    align-items: flex-start;
+    background: url("/src/assets/img/header_bg.png") repeat-x;
     display: flex;
-    align-items:flex-start;
-    align-content:flex-start;
     height: 200px;
+    padding: 30px 30px 0;
     width: 100%;
-    padding: 30px 30px 0 30px;
-    background: url('/src/assets/img/header_bg.png') repeat-x;
-    @media all and (max-width: 767px){
-        padding: 30px 15px 0 15px;
+    @media all and (max-width: 767px) {
+        padding: 30px 15px 0;
     }
-    &__right{
+
+    &__right {
         display: flex;
-        justify-content: flex-end;
         flex-grow: 1;
+        justify-content: flex-end;
     }
-    button{
-        @media all and (max-width: 992px){
-            min-width: 50px;
-            width: 60px;
-            height: 60px;
-            display: flex;
+
+    button {
+        @media all and (max-width: 992px) {
             align-items: center;
+            display: flex;
+            height: 60px;
+            min-width: 50px;
             padding: 0;
-            a{
-                display: block;
-                font-size: 0;
-                background: url('../../assets/img/user_icon.png') no-repeat;
+            width: 60px;
+
+            a {
+                background: url("../../assets/img/user_icon.png") no-repeat;
                 background-position: center;
                 background-size: 40px;
-                width: 60px;
+                display: block;
+                font-size: 0;
                 height: 60px;
+                width: 60px;
             }
         }
     }

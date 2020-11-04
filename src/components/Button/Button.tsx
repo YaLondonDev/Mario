@@ -5,10 +5,10 @@ import styles from './button.module.scss';
 type Props = {
   className: string,
   children: ReactNode,
-  type: string
-}
+  type?: 'button' | 'submit'
+};
 
-const Button: FC = ({ className, children, type }: Props) => (
+const Button: FC<Props> = ({ className, children, type }) => (
   <button
     className={classNames(styles.btn, styles[className])}
     type={type ? 'submit' : 'button'}
@@ -16,5 +16,9 @@ const Button: FC = ({ className, children, type }: Props) => (
     { children}
   </button>
 );
+
+Button.defaultProps = {
+  type: 'button',
+};
 
 export default Button;

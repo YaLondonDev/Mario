@@ -1,68 +1,70 @@
-.wrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 200px);
-}
-
-.auth_form{
-    width: 500px;
-    height: 670px;
-    background: url('../../assets/img/form_bg.png') no-repeat;
+.auth_form {
+    background: url("../../assets/img/form_bg.png") no-repeat;
     background-size: cover;
-    position: relative;
+    height: 670px;
+    margin: 0 auto;
     padding: 110px;
-    @media all and (max-width: 767px){
+    position: relative;
+    width: 500px;
+    @media all and (max-width: 767px) {
         background: transparent;
-        padding: 30px;
-        max-width: calc(100% - 30px);
-        margin: 0 auto;
         height: max-content;
+        max-width: calc(100% - 30px);
+        padding: 30px;
     }
-    &:after{
-        content: '';
-        background: #000;
+
+    &::after {
+        background: #000000;
+        bottom: 130px;
+        content: "";
+        left: 80px;
         position: absolute;
-        top: 80px; right: 80px; bottom: 130px; left: 80px;
-        @media all and (max-width: 767px){
-            top: 0px; right: 0px; bottom: 0px; left: 0px; 
+        right: 80px;
+        top: 80px;
+        @media all and (max-width: 767px) { bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0; 
         }
     }
-    &__content{
+
+    &__content {
         display: flex;
         flex-direction: column;
         position: relative;
         z-index: 2;
-        a{
-            width: 100%;
+
+        a {
             display: block;
-            text-align: center;
             margin-top: 10px;
+            text-align: center;
             text-decoration: underline;
+            width: 100%;
         }
-        .form{
+
+        .form {
             display: flex;
             flex-wrap: wrap;
-            & > div {
+
+            div {
                 width: 100%;
             }
-            h2{
+
+            h2 {
                 width: 100%;
             }
-            .btn_submit{
+
+            .btn_submit {
                 margin-top: auto;
             }
-            a{
-                width: 100%;
+
+            a {
                 display: block;
-                text-align: center;
                 margin-top: 10px;
+                text-align: center;
                 text-decoration: underline;
+                width: 100%;
             }
         }
     }
-}
-.title{
-    text-align: center;
-    margin-bottom: 30px;
 }
