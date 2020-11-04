@@ -11,7 +11,8 @@ type Props = {
 const Button: FC<Props> = ({ className, children, type }) => (
   <button
     className={classNames(styles.btn, styles[className])}
-    type={type ? 'submit' : 'button'}
+    // eslint-disable-next-line react/button-has-type
+    type={type}
   >
     { children}
   </button>
