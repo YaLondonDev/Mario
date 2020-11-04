@@ -1,0 +1,42 @@
+.btn {
+    background: var(--color-accent);
+    border: 0;
+    border-radius: 8px;
+    color: var(--color-text-default);
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: 700;
+    min-width: 200px;
+    padding: 15px 30px;
+    transition: 0.3s all;
+
+    &_base {
+        &:hover {
+            background: var(--color-accent-saturated);
+        }
+
+    }
+
+    &__with_bg {
+        align-items: center;
+        background: url("../../assets/img/btn_bg.png");
+        display: flex;
+        height: 176px;
+        justify-content: center;
+        width: 450px;
+
+        &:hover {
+            color: var(--color-accent-saturated);
+        }
+
+    }
+
+    &_submit {
+        margin: 45px auto 0;
+
+        &:hover {
+            background: var(--color-accent-saturated);
+        }
+
+    }
+}

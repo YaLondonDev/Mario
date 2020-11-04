@@ -1,0 +1,84 @@
+.leaderboard {
+    background: url("../../assets/img/leaderboard_bg.png") no-repeat;
+    background-size: cover;
+    height: 670px;
+    margin: 0 auto;
+    padding: 110px;
+    position: relative;
+    width: 760px;
+    @media all and (max-width: 767px) {
+        background: transparent;
+        height: max-content;
+        max-width: calc(100% - 30px);
+        padding: 30px;
+    }
+
+    &::after {
+        background: #000000;
+        bottom: 80px;
+        content: "";
+        left: 80px;
+        position: absolute;
+        right: 80px;
+        top: 80px;
+        @media all and (max-width: 767px) { bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+        }
+    }
+
+    &__content {
+        position: relative;
+        z-index: 2;
+    }
+
+    &__list {
+        list-style: none;
+        max-height: 350px;
+        overflow-y: scroll;
+        padding-right: 20px;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: var(--color-text-default);
+            border-radius: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: var(--color-accent);
+            border-radius: 4px;
+        }
+
+        &_item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            position: relative;
+            width: 100%;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            &::after {
+                border-bottom: 1px dashed var(--color-text-default);
+                bottom: 7px;
+                content: "";
+                position: absolute;
+                width: 100%;
+                z-index: 1;
+            }
+
+            &_text {
+                background: #000000;
+                padding: 5px 0;
+                position: relative;
+                z-index: 2;
+            }
+        }
+    }
+}

@@ -1,0 +1,70 @@
+.auth_form {
+    background: url("../../assets/img/form_bg.png") no-repeat;
+    background-size: cover;
+    height: 670px;
+    margin: 0 auto;
+    padding: 110px;
+    position: relative;
+    width: 500px;
+    @media all and (max-width: 767px) {
+        background: transparent;
+        height: max-content;
+        max-width: calc(100% - 30px);
+        padding: 30px;
+    }
+
+    &::after {
+        background: #000000;
+        bottom: 130px;
+        content: "";
+        left: 80px;
+        position: absolute;
+        right: 80px;
+        top: 80px;
+        @media all and (max-width: 767px) { bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0; 
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 2;
+
+        a {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            text-decoration: underline;
+            width: 100%;
+        }
+
+        .form {
+            display: flex;
+            flex-wrap: wrap;
+
+            div {
+                width: 100%;
+            }
+
+            h2 {
+                width: 100%;
+            }
+
+            .btn_submit {
+                margin-top: auto;
+            }
+
+            a {
+                display: block;
+                margin-top: 10px;
+                text-align: center;
+                text-decoration: underline;
+                width: 100%;
+            }
+        }
+    }
+}
