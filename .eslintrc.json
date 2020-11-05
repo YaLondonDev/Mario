@@ -22,8 +22,15 @@
   },
   "rules": {
     "no-use-before-define": [0],
-    "@typescript-eslint/no-use-before-define": [1],
+    "object-curly-newline":"off",
+    "no-unused-vars": "off",
     "no-undef": "off",
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "no-new": "off",
+    "react/jsx-props-no-spreading": [0],
+    "react/static-property-placement": [0],
+    "@typescript-eslint/no-use-before-define": [1],
+    "@typescript-eslint/no-unused-vars": ["error"],
     "import/extensions": [
       "error",
       "ignorePackages",
