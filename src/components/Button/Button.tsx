@@ -1,12 +1,8 @@
-import React, { FC, HTMLAttributes, ReactNode } from 'react';
+import React, { FC } from 'react';
 import classNames from 'classnames';
 import styles from './button.module.scss';
 
-type Props = {
-  className?: string;
-  children: ReactNode;
-  type?: 'button' | 'submit';
-} & HTMLAttributes<HTMLButtonElement>;
+import { Props } from './types';
 
 const Button: FC<Props> = ({ className, children, type, ...props }) => (
   <button

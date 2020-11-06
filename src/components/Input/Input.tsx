@@ -1,16 +1,19 @@
-import React, { FC, AllHTMLAttributes } from 'react';
+import React, { FC } from 'react';
 import styles from './input.module.scss';
 import { FormGroup } from '../index';
 
-type Props = {label: string} & AllHTMLAttributes<HTMLElement>
+import { Props } from './types';
 
-const Input: FC<Props> = ({
-  label, name, placeholder, type,
-}) => (
+const Input: FC<Props> = ({ label, name, placeholder, type }) => (
   <FormGroup>
     <label htmlFor={name} className={styles.label}>
-      { label }
-      <input type={type} id={name} placeholder={placeholder} className={styles.input} />
+      {label}
+      <input
+        type={type}
+        id={name}
+        placeholder={placeholder}
+        className={styles.input}
+      />
     </label>
   </FormGroup>
 );
