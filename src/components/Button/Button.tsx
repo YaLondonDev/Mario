@@ -1,20 +1,17 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
 import classNames from 'classnames';
 import styles from './button.module.scss';
 
-type Props = {
-  className: string,
-  children: ReactNode,
-  type?: 'button' | 'submit'
-};
+import { Props } from './types';
 
-const Button: FC<Props> = ({ className, children, type }) => (
+const Button: FC<Props> = ({ className, children, type, ...props }) => (
   <button
     className={classNames(styles.btn, styles[className])}
     // eslint-disable-next-line react/button-has-type
     type={type}
+    {...props}
   >
-    { children}
+    {children}
   </button>
 );
 
