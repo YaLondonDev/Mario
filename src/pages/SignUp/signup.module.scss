@@ -1,7 +1,6 @@
 .auth_form {
-    background: url("../../assets/img/leaderboard_bg.png") no-repeat;
-    background-size: cover;
-    height: 670px;
+    background: url("../../assets/img/leaderboard_bg.png") no-repeat center center;
+    background-size: 100%;
     margin: 0 auto;
     padding: 110px;
     position: relative;
@@ -24,7 +23,7 @@
         @media all and (max-width: 767px) { bottom: 0;
             left: 0;
             right: 0;
-            top: 0; 
+            top: 0;
         }
     }
 

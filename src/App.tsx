@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, Game, Leaderboard, SignIn, SignUp } from './pages';
+import { Home, Game, Leaderboard, SignIn, SignUp, UserPage } from './pages';
 import { Header } from './components';
 import { UiContext } from './components/UiContext';
 
@@ -23,6 +23,7 @@ export const App: FC = () => {
           <Route path="/leaderboard" component={Leaderboard} exact />
           <Route path="/signin" component={SignIn} exact />
           <Route path="/signup" component={SignUp} exact />
+          <Route path="/user" component={UserPage} exact />
         </Switch>
       </div>
     </UiContext.Provider>
