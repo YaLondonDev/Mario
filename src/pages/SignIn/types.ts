@@ -1,4 +1,4 @@
-export type SignInFields = {
+export type TSignInFields = {
   login: string;
   password: string;
 }

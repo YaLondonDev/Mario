@@ -5,9 +5,9 @@ import * as Yup from 'yup';
 import base from '../../styles/base.module.scss';
 import styles from './userpage.module.scss';
 import { Button } from '../../components';
-import { PropsInput, PropsUserPage } from './types';
+import { TPropsInput, TPropsUserPage } from './types';
 
-const EditField: FC<PropsInput> = ({
+const EditField: FC<TPropsInput> = ({
   label,
   name,
   value,
@@ -38,7 +38,7 @@ const EditField: FC<PropsInput> = ({
   </div>
 );
 
-const EditForm: FC<PropsUserPage> = ({
+const EditForm: FC<TPropsUserPage> = ({
   firstName,
   lastName,
   login,
@@ -65,7 +65,7 @@ const EditForm: FC<PropsUserPage> = ({
       phone: Yup.string(),
       password: Yup.string(),
     }),
-    // values: PropsUserPage
+    // values: TPropsUserPage
     onSubmit: () => {
       toggleEditMode(false);
       // console.log(JSON.stringify(values, null, 2));

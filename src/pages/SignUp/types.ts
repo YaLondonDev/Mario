@@ -1,4 +1,4 @@
-export type SignUpFields = {
+export type TSignUpFields = {
   firstName: string;
   lastName: string;
   login: string;
