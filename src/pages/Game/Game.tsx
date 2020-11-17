@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import { Button } from '../../components';
 import { UiContext } from '../../components/UiContext';
-import { Game as WizardGame } from '../../game/Game';
+import { Game as WizardGame } from '../../game/core/Game';
 import styles from './game.module.scss';
 
 const Game: FC = () => {
@@ -35,6 +35,7 @@ const Game: FC = () => {
       new WizardGame(canvasRef.current, {
         width: window.innerWidth,
         height: window.innerHeight,
+        scale: 0.8,
       }),
     );
   }, [canvasRef]);
