@@ -33,8 +33,8 @@ const Game: FC = () => {
 
     setGame(
       new WizardGame(canvasRef.current, {
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: 1440,
+        height: 720,
         scale: 0.8,
       }),
     );

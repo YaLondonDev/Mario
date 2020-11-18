@@ -15,7 +15,9 @@ export type TAllowedMoveDirections = {
 };
 
 export type TMoveSettings = {
-  speed: number;
+  xVelocity: number,
+  yVelocity: number,
+  jumping: boolean,
 };
 
 // наследник от GameObject, который умеет двигаться
@@ -31,7 +33,9 @@ export class MovableGameObject extends GameObject {
 
   // параметры применяемые к движению, в данном случае только скорость движения
   protected moveSettings: TMoveSettings = {
-    speed: 5,
+    xVelocity: 0,
+    yVelocity: 0,
+    jumping: true,
   };
 
   constructor(props: TMovableGameObjectProps) {
@@ -57,19 +61,18 @@ export class MovableGameObject extends GameObject {
     const { keyboard } = GameContainer;
     const {
       allowedMoveDirections: directions,
-      moveSettings: { speed },
     } = this;
 
     if (directions.left && keyboard.isKeyPressed(keyMap.LEFT)) {
-      this.position.x -= speed;
+      this.position.x -= 0;
     } else if (directions.right && keyboard.isKeyPressed(keyMap.RIGHT)) {
-      this.position.x += speed;
+      this.position.x += 0;
     }
 
     if (directions.up && keyboard.isKeyPressed(keyMap.UP)) {
-      this.position.y -= speed;
+      this.position.y -= 0;
     } else if (directions.down && keyboard.isKeyPressed(keyMap.DOWN)) {
-      this.position.y += speed;
+      this.position.y += 0;
     }
   };
 

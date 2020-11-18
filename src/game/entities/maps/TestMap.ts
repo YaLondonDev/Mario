@@ -10,29 +10,22 @@ export class TestMap extends GameMap {
       new Wizard({
         context,
         position: {
-          x: 0,
-          y: window.innerHeight - 512 / 1.355,
+          x: -200,
+          y: 0,
         },
       }),
       new Ground({
         context,
         position: {
           x: 0,
-          y: window.innerHeight,
+          y: 880,
         },
       }),
       new Ground({
         context,
         position: {
           x: 750,
-          y: window.innerHeight,
-        },
-      }),
-      new Ground({
-        context,
-        position: {
-          x: 1500,
-          y: window.innerHeight,
+          y: 880,
         },
       }),
     ];
