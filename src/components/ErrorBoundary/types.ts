@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 
-export interface Props {
+export interface IProps {
   children: ReactNode;
 }
 
-export interface State {
+export interface IState {
   error: any,
   errorInfo: any,
 }
