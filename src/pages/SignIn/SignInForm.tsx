@@ -1,11 +1,15 @@
 import React, { FC } from 'react';
-// @ts-ignore
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import { TSignInFields } from './types';
 import styles from './signin.module.scss';
 import { Button, Input } from '../../components';
+
+const signInValidationSchema = Yup.object({
+  login: Yup.string().required('Заполните поле'),
+  password: Yup.string().required('Заполните поле'),
+});
 
 export const SignInForm: FC = () => {
   const {
@@ -19,15 +23,8 @@ export const SignInForm: FC = () => {
       login: '',
       password: '',
     },
-    validationSchema: Yup.object({
-      login: Yup.string().required('Заполните поле'),
-      password: Yup.string().required('Заполните поле'),
-    }),
-    onSubmit: (data: TSignInFields, { setErrors }) => {
-      setErrors({
-        login: 'Ошибка с сервера',
-        password: 'Ошибка с сервера',
-      });
+    validationSchema: signInValidationSchema,
+    onSubmit: (data: TSignInFields) => {
       console.log(JSON.stringify(data, null, 2));
     },
   });

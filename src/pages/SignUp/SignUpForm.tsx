@@ -1,11 +1,19 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
-// @ts-ignore
 import * as Yup from 'yup';
 import { TSignUpFields } from './types';
 import { Button, Input } from '../../components';
 import styles from './signup.module.scss';
+
+const signUpValidationSchema = Yup.object({
+  firstName: Yup.string().required('Заполните поле'),
+  lastName: Yup.string().required('Заполните поле'),
+  login: Yup.string().required('Заполните поле'),
+  email: Yup.string().email('Некорректный email').required('Заполните поле'),
+  password: Yup.string().required('Заполните поле'),
+  phone: Yup.string().required('Заполните поле'),
+});
 
 export const SignUpForm: FC = () => {
   const {
@@ -23,14 +31,7 @@ export const SignUpForm: FC = () => {
       password: '',
       phone: '',
     },
-    validationSchema: Yup.object({
-      firstName: Yup.string().required('Заполните поле'),
-      lastName: Yup.string().required('Заполните поле'),
-      login: Yup.string().required('Заполните поле'),
-      email: Yup.string().email('Некорректный email').required('Заполните поле'),
-      password: Yup.string().required('Заполните поле'),
-      phone: Yup.string().required('Заполните поле'),
-    }),
+    validationSchema: signUpValidationSchema,
     onSubmit: (data: TSignUpFields) => {
       console.log(JSON.stringify(data, null, 2));
     },
