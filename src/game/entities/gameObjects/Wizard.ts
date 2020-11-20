@@ -55,11 +55,16 @@ export class Wizard extends MovableGameObject {
       moveSettings: move,
       position,
     } = this;
+    const sprites = {
+      move: 0,
+      stay: 1,
+      jump: 2,
+    };
     if (directions.left && keyboard.isKeyPressed(keyMap.LEFT)) {
-      this.changeCurrentSpriteIndex(0);
+      this.changeCurrentSpriteIndex(sprites.move);
       move.xVelocity -= 1;
     } else if (directions.right && keyboard.isKeyPressed(keyMap.RIGHT)) {
-      this.changeCurrentSpriteIndex(0);
+      this.changeCurrentSpriteIndex(sprites.move);
       move.xVelocity += 1;
     }
     if (directions.up && keyboard.isKeyPressed(keyMap.UP) && move.jumping === false) {
@@ -86,7 +91,7 @@ export class Wizard extends MovableGameObject {
       position.x = canvasSize.width;
     }
     if (move.xVelocity < 1) {
-      this.changeCurrentSpriteIndex(1);
+      this.changeCurrentSpriteIndex(sprites.stay);
     }
   }
 }
