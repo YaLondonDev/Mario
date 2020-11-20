@@ -1,6 +1,7 @@
 import { GameMap } from '../../core/models/GameMap';
 import { Ground } from '../gameObjects/Ground';
 import { Wizard } from '../gameObjects/Wizard';
+import { HEIGHT, WIZARD_SPRITE_INDENT, PLATFORM_SPRITE_INDENT, PLATFORM_WIDTH } from '../../consts/size';
 
 export class TestMap extends GameMap {
   constructor(context: CanvasRenderingContext2D) {
@@ -10,29 +11,22 @@ export class TestMap extends GameMap {
       new Wizard({
         context,
         position: {
-          x: 0,
-          y: window.innerHeight - 512 / 1.355,
+          x: WIZARD_SPRITE_INDENT,
+          y: 0,
         },
       }),
       new Ground({
         context,
         position: {
           x: 0,
-          y: window.innerHeight,
+          y: HEIGHT + PLATFORM_SPRITE_INDENT,
         },
       }),
       new Ground({
         context,
         position: {
-          x: 750,
-          y: window.innerHeight,
-        },
-      }),
-      new Ground({
-        context,
-        position: {
-          x: 1500,
-          y: window.innerHeight,
+          x: PLATFORM_WIDTH,
+          y: HEIGHT + PLATFORM_SPRITE_INDENT,
         },
       }),
     ];
