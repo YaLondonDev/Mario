@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "webpack serve",
+    "start:dev": "webpack serve --mode development",
     "start:lint": "eslint ./src/**/*.ts ./src/**/*.tsx",
     "build": "webpack --mode production",
     "start": "node server.js"
@@ -37,6 +37,7 @@
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.6",
+    "@types/workbox-webpack-plugin": "^5.1.5",
     "@typescript-eslint/eslint-plugin": "^4.6.0",
     "@typescript-eslint/parser": "^4.6.0",
     "babel-loader": "^8.1.0",
@@ -70,6 +71,7 @@
     "express": "^4.17.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "workbox-webpack-plugin": "^5.1.4"
   }
 }
