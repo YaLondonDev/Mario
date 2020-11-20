@@ -1,5 +1,3 @@
-import { GameContainer } from '../GameContainer';
-import { keyMap } from '../services/KeyboardService';
 import { GameObject, TGameObjectProps } from './GameObject';
 
 export type TMovableGameObjectProps = TGameObjectProps & {
@@ -58,22 +56,7 @@ export class MovableGameObject extends GameObject {
   // в зависимости от нажатия клавиш на клавиатуре
   // (обратите внимание на работу с сервисом клавиатуры)
   public move = () => {
-    const { keyboard } = GameContainer;
-    const {
-      allowedMoveDirections: directions,
-    } = this;
 
-    if (directions.left && keyboard.isKeyPressed(keyMap.LEFT)) {
-      this.position.x -= 0;
-    } else if (directions.right && keyboard.isKeyPressed(keyMap.RIGHT)) {
-      this.position.x += 0;
-    }
-
-    if (directions.up && keyboard.isKeyPressed(keyMap.UP)) {
-      this.position.y -= 0;
-    } else if (directions.down && keyboard.isKeyPressed(keyMap.DOWN)) {
-      this.position.y += 0;
-    }
   };
 
   render() {

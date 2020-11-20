@@ -46,9 +46,6 @@ export class Game {
   // В этом методе устанавливаются значения высоты, ширины
   // и прочих параметров, которые переданы извне канвасу
   private initCanvas = () => {
-    // this.params.width = window.innerWidth;
-    // this.params.height = window.innerHeight;
-
     this.canvas.width = this.params.width;
     this.canvas.height = this.params.height;
 

@@ -8,13 +8,13 @@ import WizardSpriteIdle from '../../../assets/img/sprites/wizard_sprite-idle.png
 import { ImageResource } from '../../core/ImageResource';
 import { keyMap } from '../../core/services/KeyboardService';
 import { GameContainer } from '../../core/GameContainer';
+import { WIDTH, HEIGHT, WIZARD_SPRITE_INDENT } from '../../consts/size';
 
-enum canvasSize {
-  width = 1480,
-  height = 720
+enum sprites {
+  move = 0,
+  stay = 1,
+  jump = 2,
 }
-
-const spriteIndent = -200;
 
 export class Wizard extends MovableGameObject {
   constructor(props: TMovableGameObjectProps) {
@@ -55,11 +55,6 @@ export class Wizard extends MovableGameObject {
       moveSettings: move,
       position,
     } = this;
-    const sprites = {
-      move: 0,
-      stay: 1,
-      jump: 2,
-    };
     if (directions.left && keyboard.isKeyPressed(keyMap.LEFT)) {
       this.changeCurrentSpriteIndex(sprites.move);
       move.xVelocity -= 1;
@@ -77,18 +72,18 @@ export class Wizard extends MovableGameObject {
     move.xVelocity *= 0.9;
     move.yVelocity *= 0.9;
 
-    if (position.y > canvasSize.height + spriteIndent) {
-      position.y = canvasSize.height + spriteIndent;
+    if (position.y > HEIGHT + WIZARD_SPRITE_INDENT) {
+      position.y = HEIGHT + WIZARD_SPRITE_INDENT;
       move.yVelocity = 0;
       move.jumping = false;
     }
 
-    if (position.x < spriteIndent) {
-      position.x = spriteIndent;
+    if (position.x < WIZARD_SPRITE_INDENT) {
+      position.x = WIZARD_SPRITE_INDENT;
     }
 
-    if (position.x > canvasSize.width) {
-      position.x = canvasSize.width;
+    if (position.x > WIDTH) {
+      position.x = WIDTH;
     }
     if (move.xVelocity < 1) {
       this.changeCurrentSpriteIndex(sprites.stay);
