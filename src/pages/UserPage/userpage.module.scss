@@ -1,0 +1,51 @@
+.formWrapper {
+    background: #000000;
+    border-radius: 1em;
+    box-shadow: 0 10px 10px #00000094;
+    margin: 0 auto;
+    max-width: 660px;
+    padding: 40px;
+    width: 100%;
+}
+
+.field {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+    margin: 25px 0;
+}
+
+.label {
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    width: 120px;
+}
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+}
+
+.input {
+    appearance: none;
+    background: rgba(255, 255, 255, 0.15);
+    border: 0;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    padding: 5px 10px;
+}
+
+.error {
+    color: var(--color-accent-saturated);
+    font-size: 0.8em;
+    position: absolute;
+    top: 100%;
+}
+
+.value {
+    color: #cdcdcd;
+}
