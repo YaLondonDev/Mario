@@ -10,6 +10,7 @@ import { Button } from '../../components';
 import { UiContext } from '../../components/UiContext';
 import { Game as WizardGame } from '../../game/core/Game';
 import styles from './game.module.scss';
+import { WIDTH, HEIGHT } from '../../game/consts/size';
 
 const Game: FC = () => {
   const { uiSettings, setUiSettings } = useContext(UiContext);
@@ -33,8 +34,8 @@ const Game: FC = () => {
 
     setGame(
       new WizardGame(canvasRef.current, {
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: WIDTH,
+        height: HEIGHT,
         scale: 0.8,
       }),
     );
