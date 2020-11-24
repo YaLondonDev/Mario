@@ -1,6 +1,10 @@
 import * as path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin'; // eslint-disable-line import/no-extraneous-dependencies
 
+const { GenerateSW } = require('workbox-webpack-plugin');
+
+const googleFontsPattern = new RegExp('^https://fonts.(?:googleapis|gstatic).com/(.*)');
+
 module.exports = {
   entry: './src/index.tsx',
   devtool: 'inline-source-map',
@@ -60,6 +64,22 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './public/index.html'),
+    }),
+    new GenerateSW({
+      runtimeCaching: [
+        {
+          urlPattern: /images/,
+          handler: 'CacheFirst',
+        },
+        {
+          urlPattern: googleFontsPattern,
+          handler: 'CacheFirst',
+        },
+        {
+          urlPattern: /.*/,
+          handler: 'NetworkFirst',
+        },
+      ],
     }),
   ],
 };
