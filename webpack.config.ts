@@ -3,6 +3,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'; // eslint-disable-line impo
 
 const { GenerateSW } = require('workbox-webpack-plugin');
 
+const googleFontsPattern = new RegExp('^https://fonts.(?:googleapis|gstatic).com/(.*)');
+
 module.exports = {
   entry: './src/index.tsx',
   devtool: 'inline-source-map',
@@ -70,7 +72,7 @@ module.exports = {
           handler: 'CacheFirst',
         },
         {
-          urlPattern: new RegExp('^https://fonts.(?:googleapis|gstatic).com/(.*)'),
+          urlPattern: googleFontsPattern,
           handler: 'CacheFirst',
         },
         {
