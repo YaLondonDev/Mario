@@ -2,24 +2,7 @@ import {
   AuthActions,
   TAuthActionTypes,
 } from '../actions/authActions/auth.types';
-
-export type TUserProfile = {
-  id: number;
-  fistName: string;
-  secondName: string;
-  displayName?: string;
-  login: string;
-  email: string;
-  phone: string;
-  avatar?: string;
-};
-
-export type TAuthReducerState = {
-  isLoggedIn: boolean;
-  isLoading: boolean;
-  isFailed: boolean;
-  profile: TUserProfile | null;
-};
+import { TAuthReducerState } from './reducers.types';
 
 const initialState: TAuthReducerState = {
   isLoggedIn: false,
@@ -61,8 +44,6 @@ export const authReducer = (
         isFailed: false,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };

@@ -1,10 +1,12 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
+const HTTP_REGEX = /^https?:\/\/.*$/;
+
 export class ApiService {
   private readonly baseUrl = 'https://ya-praktikum.tech/api/v2';
 
   private prepareUrl(url: string): string {
-    if (/^https?:\/\/.*$/.test(url)) {
+    if (HTTP_REGEX.test(url)) {
       return url;
     }
 

@@ -1,6 +1,6 @@
-export const toSnakeCase = (obj: Record<string, any>) => {
+export const toSnakeCase = (obj: Record<string, unknown>) => {
   const keys = Object.keys(obj);
-  const result: Record<string, any> = {};
+  const result: Record<string, unknown> = {};
 
   keys.forEach((key) => {
     const snakeKey = key
