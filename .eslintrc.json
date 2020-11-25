@@ -12,7 +12,11 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "react-hooks" // https://ru.reactjs.org/docs/hooks-rules.html
+  ],
   "settings": {
     "import/resolver": {
       "node": {
@@ -51,6 +55,8 @@
       1,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
     ],
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "react-hooks/rules-of-hooks": "error", // Проверяем правила хуков
+    "react-hooks/exhaustive-deps": "warn" // Проверяем зависимости эффекта
   }
 }

@@ -4,7 +4,16 @@ import { FormGroup } from '../index';
 
 import { Props } from './types';
 
-const Input: FC<Props> = ({ label, name, placeholder, type, ...props }) => (
+const Input: FC<Props> = ({
+  label,
+  name,
+  placeholder,
+  type,
+  error,
+  onChange,
+  value,
+  ...props
+}) => (
   <FormGroup>
     <label htmlFor={name} className={styles.label}>
       {label}
@@ -14,8 +23,11 @@ const Input: FC<Props> = ({ label, name, placeholder, type, ...props }) => (
         name={name}
         placeholder={placeholder}
         className={styles.input}
+        onChange={onChange}
+        value={value}
         {...props}
       />
+      { error ? <span className={styles.error}>{ error }</span> : null }
     </label>
   </FormGroup>
 );

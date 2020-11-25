@@ -82,6 +82,10 @@ export class GameObject {
     this.position = { ...position };
   };
 
+  public changeCurrentSpriteIndex = (index: number) => {
+    this.spriteOptions.currentSpriteIndex = index;
+  };
+
   // устанавливает размеры объекта
   public setSize = (size: TSize) => {
     this.size = { ...size };
