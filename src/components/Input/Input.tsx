@@ -12,6 +12,7 @@ const Input: FC<Props> = ({
   error,
   onChange,
   value,
+  ...props
 }) => (
   <FormGroup>
     <label htmlFor={name} className={styles.label}>
@@ -19,10 +20,12 @@ const Input: FC<Props> = ({
       <input
         type={type}
         id={name}
+        name={name}
         placeholder={placeholder}
         className={styles.input}
         onChange={onChange}
         value={value}
+        {...props}
       />
       { error ? <span className={styles.error}>{ error }</span> : null }
     </label>

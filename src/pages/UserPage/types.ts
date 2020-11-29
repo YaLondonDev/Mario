@@ -1,12 +1,12 @@
 import { AllHTMLAttributes } from 'react';
 
-export type PropsInput = {
+export type TPropsInput = {
   label: string;
   error: string;
   editMode: boolean;
 } & AllHTMLAttributes<HTMLElement>;
 
-export type PropsUserPage = {
+export type TPropsUserPage = {
   firstName?: string,
   lastName?: string,
   login?: string,

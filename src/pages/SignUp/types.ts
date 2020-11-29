@@ -1,8 +1,5 @@
-export type SignUpFields = {
-  firstName: string;
-  lastName: string;
-  login: string;
-  email: string;
-  password: string;
-  phone: string;
-}
+import { TSignUpPayload } from '../../actions/authActions/auth.types';
+
+export type TSignUpFormProps = {
+  onSubmit: (form: TSignUpPayload) => void;
+};

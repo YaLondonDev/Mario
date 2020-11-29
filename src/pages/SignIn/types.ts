@@ -1,4 +1,5 @@
-export type SignInFields = {
-  login: string;
-  password: string;
-}
+import { TSignInPayload } from '../../actions/authActions/auth.types';
+
+export type TSignInFormProps = {
+  onSubmit: (form: TSignInPayload) => void;
+};
