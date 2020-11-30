@@ -51,7 +51,6 @@ export const UserPageForm: FC<TPropsUserPage> = ({
   login,
   email,
   phone,
-  password,
 }) => {
   const [editable, toggleEditMode] = useState(false);
 
@@ -67,14 +66,19 @@ export const UserPageForm: FC<TPropsUserPage> = ({
       login,
       email,
       phone,
-      password,
     },
+    enableReinitialize: true,
     validationSchema: userPageFormValidationSchema,
     onSubmit: (value: TPropsUserPage) => {
       toggleEditMode(false);
       console.log(JSON.stringify(value, null, 2));
     },
   });
+
+  const handleModeChange = (event: React.MouseEvent<HTMLElement>): void => {
+    event.preventDefault();
+    toggleEditMode(true);
+  };
 
   return (
     <form
@@ -121,24 +125,17 @@ export const UserPageForm: FC<TPropsUserPage> = ({
         error={errors.phone}
         editMode={editable}
       />
-      <EditField
-        label="ПАРОЛЬ"
-        name="password"
-        onChange={handleChange}
-        value={values.password}
-        error={errors.password}
-        editMode={editable}
-      />
-
-      { !editable ? (
-        <Button type="button" onClick={() => toggleEditMode(true)}>
-          Изменить
-        </Button>
-      ) : (
-        <Button type="submit" onClick={() => handleSubmit()}>
-          Сохранить
-        </Button>
-      )}
+      <div className={styles.btnWrap}>
+        { !editable ? (
+          <Button type="button" onClick={handleModeChange}>
+            Изменить
+          </Button>
+        ) : (
+          <Button type="submit" onClick={() => handleSubmit()}>
+            Сохранить
+          </Button>
+        )}
+      </div>
     </form>
   );
 };

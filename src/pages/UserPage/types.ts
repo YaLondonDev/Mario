@@ -14,3 +14,7 @@ export type TPropsUserPage = {
   phone?: string,
   password?: string
 } & AllHTMLAttributes<HTMLElement>;
+
+export type TAvatarProps = {
+  avatar?: string
+}
