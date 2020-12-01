@@ -1,4 +1,5 @@
 import React, { Component, ErrorInfo } from 'react';
+
 import { IProps, IState } from './types';
 
 class ErrorBoundary extends Component<IProps, IState> {
@@ -24,9 +25,9 @@ class ErrorBoundary extends Component<IProps, IState> {
         <div>
           <h2>Something went wrong.</h2>
           <details style={{ whiteSpace: 'pre-wrap' }}>
-            { error && error.toString() }
+            {error && error.toString()}
             <br />
-            { errorInfo.componentStack }
+            {errorInfo.componentStack}
           </details>
         </div>
       );

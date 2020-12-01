@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { Home, Game, Leaderboard, SignIn, SignUp, UserPage } from './pages';
 import { Header, ErrorBoundary } from './components';
 import { UiContext } from './components/UiContext';

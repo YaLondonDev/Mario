@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+
 import { authWather } from './actions/authActions/auth.sagas';
 import reducers from './reducers';
 

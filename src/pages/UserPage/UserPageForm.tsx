@@ -24,7 +24,7 @@ const EditField: FC<TPropsInput> = ({
 }) => (
   <div className={styles.field}>
     <label className={styles.label} htmlFor={name}>
-      { label }
+      {label}
     </label>
     <div className={styles.inputWrapper}>
       {
@@ -40,7 +40,7 @@ const EditField: FC<TPropsInput> = ({
           )
           : <span className={styles.value}>{value}</span>
       }
-      { error ? <span className={styles.error}>{ error }</span> : null }
+      {error && <span className={styles.error}>{error}</span>}
     </div>
   </div>
 );
@@ -70,9 +70,8 @@ export const UserPageForm: FC<TPropsUserPage> = ({
       password,
     },
     validationSchema: userPageFormValidationSchema,
-    onSubmit: (value: TPropsUserPage) => {
+    onSubmit: () => {
       toggleEditMode(false);
-      console.log(JSON.stringify(value, null, 2));
     },
   });
 

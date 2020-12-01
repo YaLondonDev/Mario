@@ -12,5 +12,5 @@ export type TPropsUserPage = {
   login?: string,
   email?: string,
   phone?: string,
-  password?: string
+  password?: string,
 } & AllHTMLAttributes<HTMLElement>;

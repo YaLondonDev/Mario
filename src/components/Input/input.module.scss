@@ -1,8 +1,8 @@
 .input {
     background: transparent;
     border: 0;
-    border-bottom: 1px solid var(--color-text-default);
-    color: var(--color-text-default);
+    border-bottom: 1px solid $color-text-default;
+    color: $color-text-default;
     font-size: 16px;
     margin-top: 10px;
     outline: 0;
@@ -11,7 +11,7 @@
 }
 
 .error {
-    color: var(--color-accent-saturated);
+    color: $color-accent-saturated;
     font-size: 0.8em;
     margin-top: 0.2em;
 }

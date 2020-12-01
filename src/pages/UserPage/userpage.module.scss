@@ -40,7 +40,7 @@
 }
 
 .error {
-    color: var(--color-accent-saturated);
+    color: $color-accent-saturated;
     font-size: 0.8em;
     position: absolute;
     top: 100%;

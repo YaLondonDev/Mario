@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
+
 import styles from './input.module.scss';
 import { FormGroup } from '../index';
-
 import { Props } from './types';
 
 const Input: FC<Props> = ({
@@ -27,7 +27,7 @@ const Input: FC<Props> = ({
         value={value}
         {...props}
       />
-      { error ? <span className={styles.error}>{ error }</span> : null }
+      {error && <span className={styles.error}>{error}</span>}
     </label>
   </FormGroup>
 );

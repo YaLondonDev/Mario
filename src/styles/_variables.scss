@@ -1,6 +1,9 @@
-:root {
-    --color-background: #152f3b;
-    --color-accent: #fa5c5c;
-    --color-accent-saturated: #f93b3b;
-    --color-text-default: #ffffff;
-}
+
+$color-background: #152f3b;
+$color-accent: #fa5c5c;
+$color-accent-saturated: #f93b3b;
+$color-text-default: #ffffff;
+
+$mediaLG: 1270px;
+$mediaSM: 992px;
+$mediaXS: 767px;

@@ -6,7 +6,7 @@
     padding: 110px;
     position: relative;
     width: 760px;
-    @media all and (max-width: 767px) {
+    @media all and (max-width: $mediaXS) {
         background: transparent;
         height: max-content;
         max-width: calc(100% - 30px);
@@ -21,7 +21,8 @@
         position: absolute;
         right: 80px;
         top: 80px;
-        @media all and (max-width: 767px) { bottom: 0;
+        @media all and (max-width: $mediaXS) { 
+            bottom: 0;
             left: 0;
             right: 0;
             top: 0;
@@ -44,12 +45,12 @@
         }
 
         &::-webkit-scrollbar-track {
-            background: var(--color-text-default);
+            background: $color-text-default;
             border-radius: 4px;
         }
 
         &::-webkit-scrollbar-thumb {
-            background: var(--color-accent);
+            background: $color-accent;
             border-radius: 4px;
         }
 
@@ -65,7 +66,7 @@
             }
 
             &::after {
-                border-bottom: 1px dashed var(--color-text-default);
+                border-bottom: 1px dashed $color-text-default;
                 bottom: 7px;
                 content: "";
                 position: absolute;

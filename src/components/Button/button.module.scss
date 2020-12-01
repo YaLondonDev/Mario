@@ -1,8 +1,8 @@
 .btn {
-    background: var(--color-accent);
+    background: $color-accent;
     border: 0;
     border-radius: 8px;
-    color: var(--color-text-default);
+    color: $color-text-default;
     cursor: pointer;
     font-size: 24px;
     font-weight: 700;
@@ -12,7 +12,7 @@
 
     &_base {
         &:hover {
-            background: var(--color-accent-saturated);
+            background: $color-accent-saturated;
         }
 
     }
@@ -26,7 +26,7 @@
         width: 450px;
 
         &:hover {
-            color: var(--color-accent-saturated);
+            color: $color-accent-saturated;
         }
 
     }
@@ -35,7 +35,7 @@
         margin: 45px auto 0;
 
         &:hover {
-            background: var(--color-accent-saturated);
+            background: $color-accent-saturated;
         }
 
     }

@@ -1,11 +1,12 @@
 import React, { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { authLogoutRequested } from '../../actions/authActions/auth.actions';
-import { TAuthReducerState } from '../../reducers/auth.reducer';
-import { TRootReducer } from '../../store';
-import { Logo, Menu, Button } from '../index';
+
 import styles from './header.module.scss';
+import { Logo, Menu, Button } from '../index';
+import { authLogoutRequested } from '../../actions/authActions/auth.actions';
+import { TAuthReducerState } from '../../reducers/reducers.types';
+import { TRootReducer } from '../../store';
 
 const Header: FC = () => {
   const dispatch = useDispatch();
