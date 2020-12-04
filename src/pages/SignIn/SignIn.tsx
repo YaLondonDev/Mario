@@ -4,23 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { TSignInPayload } from '../../actions/authActions/auth.types';
 import { signInRequested } from '../../actions/authActions/auth.actions';
-import { TAuthReducerState } from '../../reducers/reducers.types';
 import { SignInForm } from './SignInForm';
-import { TRootReducer } from '../../store';
 import base from '../../styles/base.module.scss';
 import styles from './signin.module.scss';
+import { loggedSelector } from '../../selector';
 
 const SignIn: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const authStore = useSelector<TRootReducer, TAuthReducerState>(
-    (root) => root.auth,
-  );
+  const isLoggedIn = useSelector(loggedSelector);
+
   useEffect(() => {
-    if (authStore.isLoggedIn) {
+    if (isLoggedIn) {
       history.push('/');
     }
-  }, [authStore, history]);
+  }, [isLoggedIn, history]);
 
   const handleSubmit = useCallback(
     (form: TSignInPayload) => {
