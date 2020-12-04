@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 import {
   MovableGameObject,
@@ -13,7 +14,7 @@ import WizardSpriteJump from '../../../assets/img/sprites/wizard_sprite-jump.png
 import { ImageResource } from '../../core/ImageResource';
 import { keyMap } from '../../core/services/KeyboardService';
 import { GameContainer } from '../../core/GameContainer';
-import { WIDTH, HEIGHT, WIZARD_HORIZONTAL_INDENT, WIZARD_VERTICAL_INDENT } from '../../consts/size';
+import { CANVAS, WIZARD } from '../../consts/size';
 import { MapArray } from '../maps/testMapArray';
 
 enum sprites {
@@ -37,8 +38,8 @@ export class Wizard extends MovableGameObject {
   constructor(props: TMovableGameObjectProps) {
     super({
       size: {
-        width: 512,
-        height: 512,
+        width: WIZARD.width,
+        height: WIZARD.height,
       },
       moveSettings: {
         xVelocity: 0,
@@ -70,41 +71,44 @@ export class Wizard extends MovableGameObject {
   }
 
   isCollided = (obstacle:TGameObjectProps, player:any) => {
-    if (
-      (player.position.x + (player.size.width + WIZARD_HORIZONTAL_INDENT)) > obstacle.position.x
-        && player.position.x - WIZARD_HORIZONTAL_INDENT < obstacle.position.x + obstacle.size.width
-        && (player.position.y) < obstacle.position.y + obstacle.size.height - WIZARD_VERTICAL_INDENT
-        && (player.position.y - WIZARD_VERTICAL_INDENT) + player.size.height > obstacle.position.y
-    ) {
+    const isCollideLeft = (player.position.x + (player.size.width + WIZARD.horizontal_indent)) > obstacle.position.x;
+    const isCollideRight = player.position.x - WIZARD.horizontal_indent < obstacle.position.x + obstacle.size.width;
+    const isCollideTop = (player.position.y) < obstacle.position.y + obstacle.size.height - WIZARD.vertical_indent;
+    const isCollideBottom = (player.position.y - WIZARD.vertical_indent) + player.size.height > obstacle.position.y;
+
+    if (isCollideLeft && isCollideRight && isCollideTop && isCollideBottom) {
       return true;
     }
     return false;
   }
 
-  collideHandler = (obst:TGameObjectProps, player:any) => {
-    if (this.isCollided(obst, player)) {
-      // eslint-disable-next-line max-len
-      if (this.prevPosition.x + (this.size.width + WIZARD_HORIZONTAL_INDENT) >= obst.position.x + obst.size.width) {
-        this.position.x = obst.position.x + obst.size.width + WIZARD_HORIZONTAL_INDENT;
+  collideHandler = (obstacle:TGameObjectProps, player:any) => {
+    if (this.isCollided(obstacle, player)) {
+      const isCollideRight = this.prevPosition.x + (this.size.width + WIZARD.horizontal_indent) >= obstacle.position.x + obstacle.size.width;
+      const isCollideLeft = this.prevPosition.x + (this.size.width + WIZARD.horizontal_indent) <= obstacle.position.x;
+      const isCollideTop = (this.prevPosition.y - WIZARD.vertical_indent) + this.size.height <= obstacle.position.y;
+      const isCollideBottom = this.prevPosition.y >= obstacle.position.y + obstacle.size.height;
+
+      if (isCollideRight) {
+        this.position.x = obstacle.position.x + obstacle.size.width + WIZARD.horizontal_indent;
         this.moveSettings.xVelocity = 0;
       }
-      if (this.prevPosition.x + (this.size.width + WIZARD_HORIZONTAL_INDENT) <= obst.position.x) {
-        this.position.x = obst.position.x - (this.size.width + WIZARD_HORIZONTAL_INDENT);
+      if (isCollideLeft) {
+        this.position.x = obstacle.position.x - (this.size.width + WIZARD.horizontal_indent);
         this.moveSettings.xVelocity = 0;
       }
-      if ((this.prevPosition.y - WIZARD_VERTICAL_INDENT) + this.size.height <= obst.position.y) {
-        this.position.y = obst.position.y - player.size.height + WIZARD_VERTICAL_INDENT;
+      if (isCollideTop) {
+        this.position.y = obstacle.position.y - player.size.height + WIZARD.vertical_indent;
         this.moveSettings.yVelocity = 0;
         this.moveSettings.jumping = false;
       }
-      if (this.prevPosition.y >= obst.position.y + obst.size.height) {
-        this.position.y = obst.position.y + obst.size.height;
+      if (isCollideBottom) {
+        this.position.y = obstacle.position.y + obstacle.size.height;
         this.moveSettings.yVelocity = 0;
       }
     }
   }
 
- // eslint-disable-next-line max-len
  coinHandler = (coin:TGameObjectProps, player:any) => {
    if (this.isCollided(coin, player)) {
      this.points += 1;
@@ -114,7 +118,6 @@ export class Wizard extends MovableGameObject {
 
   move = () => {
     const { keyboard } = GameContainer;
-    // console.log(this);
     const {
       allowedMoveDirections: directions,
       moveSettings: move,
@@ -140,18 +143,18 @@ export class Wizard extends MovableGameObject {
     position.y += move.yVelocity;
     move.xVelocity *= 0.9;
     move.yVelocity *= 0.9;
-    if (position.y > HEIGHT + WIZARD_HORIZONTAL_INDENT) {
-      position.y = HEIGHT + WIZARD_HORIZONTAL_INDENT;
+    if (position.y > CANVAS.height + WIZARD.horizontal_indent) {
+      position.y = CANVAS.height + WIZARD.horizontal_indent;
       move.yVelocity = 0;
       move.jumping = false;
     }
 
-    if (position.x < WIZARD_HORIZONTAL_INDENT) {
-      position.x = WIZARD_HORIZONTAL_INDENT;
+    if (position.x < WIZARD.horizontal_indent) {
+      position.x = WIZARD.horizontal_indent;
     }
 
-    if (position.x > WIDTH) {
-      position.x = WIDTH;
+    if (position.x > CANVAS.width) {
+      position.x = CANVAS.width;
     }
     if (move.xVelocity < 1) {
       this.changeCurrentSpriteIndex(sprites.stay);

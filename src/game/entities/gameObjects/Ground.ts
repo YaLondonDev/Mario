@@ -1,13 +1,14 @@
 import { GameObject, TGameObjectProps } from '../../core/models/GameObject';
 import GroundSprite from '../../../assets/img/sprites/ground.png';
 import { ImageResource } from '../../core/ImageResource';
+import { PLATFORM } from '../../consts/size';
 
 export class Ground extends GameObject {
   constructor(props: TGameObjectProps) {
     super({
       size: {
-        width: 1200,
-        height: 276,
+        width: PLATFORM.width,
+        height: PLATFORM.height,
       },
       sprites: [
         {

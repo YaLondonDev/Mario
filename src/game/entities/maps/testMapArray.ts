@@ -1,4 +1,4 @@
-import { HEIGHT, PLATFORM_WIDTH } from '../../consts/size';
+import { CANVAS, PLATFORM } from '../../consts/size';
 
 export const MapArray:any = {
   player: {
@@ -13,22 +13,22 @@ export const MapArray:any = {
       name: 'Ground',
       position: {
         x: 200,
-        y: HEIGHT + 59,
+        y: CANVAS.height + 59,
       },
       size: {
-        width: PLATFORM_WIDTH,
-        height: 180,
+        width: PLATFORM.width,
+        height: PLATFORM.height,
       },
     },
     {
       name: 'Ground',
       position: {
-        x: PLATFORM_WIDTH + 300,
-        y: HEIGHT - 150,
+        x: PLATFORM.width + 300,
+        y: CANVAS.height - 200,
       },
       size: {
-        width: PLATFORM_WIDTH,
-        height: 180,
+        width: PLATFORM.width,
+        height: PLATFORM.height,
       },
     },
   ],
@@ -36,8 +36,8 @@ export const MapArray:any = {
     {
       name: 'Coin',
       position: {
-        x: PLATFORM_WIDTH,
-        y: HEIGHT - 220,
+        x: PLATFORM.width,
+        y: CANVAS.height - 220,
       },
       size: {
         width: 512,
@@ -47,8 +47,8 @@ export const MapArray:any = {
     {
       name: 'Coin',
       position: {
-        x: PLATFORM_WIDTH + 400,
-        y: HEIGHT - 280,
+        x: PLATFORM.width + 400,
+        y: CANVAS.height - 280,
       },
       size: {
         width: 512,

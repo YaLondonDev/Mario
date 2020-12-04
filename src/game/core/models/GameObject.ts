@@ -35,7 +35,7 @@ export class GameObject {
   // 2d контекст
   context: CanvasRenderingContext2D;
 
-  public points: number = null;
+  public points: number = 0;
 
   // параметры спрайтов - объект, который содержит в себе 3 свойства:
   // 1. sprites[] - массив типа TSprite, представляет собой
@@ -150,7 +150,7 @@ export class GameObject {
         this.size.width, // ширина в которую будет вмещен текущий кадр
         this.size.height, // высота в которую будет вмещен текущий кадр
       );
-      if ((this.points)) {
+      if (this.points) {
         this.context.fillStyle = '#f93b3b';
         this.context.font = 'normal 120px Arial';
         this.context.fillText(this.points.toString(), 20, 120);
