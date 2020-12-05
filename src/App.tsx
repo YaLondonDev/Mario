@@ -8,6 +8,7 @@ import { UiContext } from './components/UiContext';
 import { TRootReducer } from './store';
 import { fetchProfileRequested } from './actions/authActions/auth.actions';
 import { TAuthReducerState } from './reducers/reducers.types';
+import { useGeolocation } from './hooks/useGeolocation';
 
 export type TUiSettings = {
   showHeader: boolean;
@@ -16,6 +17,7 @@ export type TUiSettings = {
 export const App: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [location, requestLocation] = useGeolocation();
   const authStore = useSelector<TRootReducer, TAuthReducerState>(
     (root) => root.auth,
   );
@@ -25,18 +27,32 @@ export const App: FC = () => {
 
   useEffect(() => {
     dispatch(fetchProfileRequested());
+    requestLocation();
   }, []);
 
   useEffect(() => {
     if (!authStore.isLoggedIn && !authStore.isLoading) {
       history.push('/signin');
     }
-  }, [authStore]);
+  }, [authStore, history]);
 
   return (
     <UiContext.Provider value={{ uiSettings, setUiSettings }}>
       <ErrorBoundary>
         <div className="page">
+          {location && (
+            <div
+              style={{
+                position: 'fixed',
+                right: '0',
+                background: '#fff',
+                color: '#000',
+                padding: '5px',
+              }}
+            >
+              {location}
+            </div>
+          )}
           {uiSettings.showHeader && <Header />}
           <Switch>
             <Route path="/" component={Home} exact />
