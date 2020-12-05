@@ -1,4 +1,4 @@
-export const deepFind = (obj: Record<string, any>, path: string) => {
+export const get = (obj: Record<string, any>, path: string) => {
   const paths = path.split('.');
   let current = obj;
 

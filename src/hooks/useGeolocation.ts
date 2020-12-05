@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { deepFind } from '../utils/deepFind';
+import { get } from '../utils/deepFind';
 import { useApi } from './useApi';
 
 const yaApiKey = '6c93de1d-bd6a-4804-af16-361e2056abfa';
@@ -18,15 +18,16 @@ export const useGeolocation = (): [string, () => void] => {
       } = position;
 
       try {
-        const res = await api.get(getApiUrl(longitude, latitude), {
+        const {
+          data: { response },
+        } = await api.get(getApiUrl(longitude, latitude), {
           withCredentials: false,
         });
-        const { response } = res.data;
-        const featureMember = deepFind(
+        const [featureMember] = get(
           response,
           'GeoObjectCollection.featureMember',
-        )[0];
-        const addressText = deepFind(
+        ) as Array<any>;
+        const addressText = get(
           featureMember,
           'GeoObject.metaDataProperty.GeocoderMetaData.text',
         );
