@@ -80,7 +80,7 @@ export const UserPageForm: FC<TPropsUserPage> = ({
       event.preventDefault();
       toggleEditMode(true);
     },
-    [],
+    [toggleEditMode],
   );
 
   return (

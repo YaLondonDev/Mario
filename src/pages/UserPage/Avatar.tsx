@@ -14,7 +14,7 @@ export const Avatar: FC<TAvatarProps> = ({
     () => {
       setEdit(true);
     },
-    [],
+    [setEdit],
   );
 
   const handleAvatar = useCallback(
@@ -33,7 +33,7 @@ export const Avatar: FC<TAvatarProps> = ({
           console.log('err - ', err);
         });
     },
-    [],
+    [fileInput],
   );
 
   return (

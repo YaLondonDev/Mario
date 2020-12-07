@@ -7,22 +7,25 @@ export const EditPassword: FC = () => {
   const [oldP, setOldP] = useState('');
   const [newP, setNewP] = useState('');
 
-  const handleEdit = () => {
-    setEdit(!edit);
-  };
+  const handleEdit = useCallback(
+    () => {
+      setEdit(!edit);
+    },
+    [setEdit],
+  );
 
   const handleChangeOld = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setOldP(e.target.value);
     },
-    [oldP],
+    [setOldP],
   );
 
   const handleChangeNew = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setNewP(e.target.value);
     },
-    [newP],
+    [setNewP],
   );
 
   const onSave = useCallback(
@@ -31,7 +34,7 @@ export const EditPassword: FC = () => {
         .then(({ status }) => {
           if (status === 200) {
             setOldP('');
-            setOldP('');
+            setNewP('');
 
             setEdit(false);
           }
@@ -40,7 +43,7 @@ export const EditPassword: FC = () => {
           console.error(err);
         });
     },
-    [],
+    [oldP, newP, setOldP, setNewP, setEdit],
   );
 
   return (
