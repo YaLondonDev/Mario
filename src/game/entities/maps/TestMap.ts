@@ -1,35 +1,39 @@
 import { GameMap } from '../../core/models/GameMap';
 import { Ground } from '../gameObjects/Ground';
 import { Wizard } from '../gameObjects/Wizard';
-import { HEIGHT, WIZARD_SPRITE_INDENT, PLATFORM_SPRITE_INDENT, PLATFORM_WIDTH } from '../../consts/size';
+import { Coin } from '../gameObjects/Coin';
+import { MapArray } from './testMapArray';
 
 export class TestMap extends GameMap {
   constructor(context: CanvasRenderingContext2D) {
     super(context);
 
-    this.mapObjects = [
+    this.mapObjects = [];
+
+    this.mapObjects.push(
       new Wizard({
         context,
-        position: {
-          x: WIZARD_SPRITE_INDENT,
-          y: 0,
-        },
+        position: MapArray.player.position,
       }),
-      new Ground({
-        context,
-        position: {
-          x: 0,
-          y: HEIGHT + PLATFORM_SPRITE_INDENT,
-        },
-      }),
-      new Ground({
-        context,
-        position: {
-          x: PLATFORM_WIDTH,
-          y: HEIGHT + PLATFORM_SPRITE_INDENT,
-        },
-      }),
-    ];
+    );
+
+    MapArray.obstacles.forEach((item:any) => {
+      this.mapObjects.push(
+        new Ground({
+          context,
+          position: item.position,
+        }),
+      );
+    });
+
+    MapArray.coins.forEach((item:any) => {
+      this.mapObjects.push(
+        new Coin({
+          context,
+          position: item.position,
+        }),
+      );
+    });
 
     this.loadResources();
   }
