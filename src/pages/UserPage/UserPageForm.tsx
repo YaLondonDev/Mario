@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { TPropsInput, TPropsUserPage } from './types';
@@ -51,7 +51,6 @@ export const UserPageForm: FC<TPropsUserPage> = ({
   login,
   email,
   phone,
-  password,
 }) => {
   const [editable, toggleEditMode] = useState(false);
 
@@ -67,13 +66,21 @@ export const UserPageForm: FC<TPropsUserPage> = ({
       login,
       email,
       phone,
-      password,
     },
+    enableReinitialize: true,
     validationSchema: userPageFormValidationSchema,
     onSubmit: () => {
       toggleEditMode(false);
     },
   });
+
+  const handleModeChange = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      event.preventDefault();
+      toggleEditMode(true);
+    },
+    [toggleEditMode],
+  );
 
   return (
     <form
@@ -120,24 +127,17 @@ export const UserPageForm: FC<TPropsUserPage> = ({
         error={errors.phone}
         editMode={editable}
       />
-      <EditField
-        label="ПАРОЛЬ"
-        name="password"
-        onChange={handleChange}
-        value={values.password}
-        error={errors.password}
-        editMode={editable}
-      />
-
-      { !editable ? (
-        <Button type="button" onClick={() => toggleEditMode(true)}>
-          Изменить
-        </Button>
-      ) : (
-        <Button type="submit" onClick={() => handleSubmit()}>
-          Сохранить
-        </Button>
-      )}
+      <div className={styles.btnWrap}>
+        { !editable ? (
+          <Button type="button" onClick={handleModeChange}>
+            Изменить
+          </Button>
+        ) : (
+          <Button type="submit" onClick={() => handleSubmit()}>
+            Сохранить
+          </Button>
+        )}
+      </div>
     </form>
   );
 };
