@@ -1,25 +1,19 @@
-const host = 'https://ya-praktikum.tech';
+import { host, defaultRequestOptions } from '../helpers/api';
 
-export const getUserById = (id: string | number):Promise<any> => fetch(`${host}/api/v2/user/${id}`, {
-  method: 'GET',
-  credentials: 'include',
-  headers: {
-    'content-type': 'application/json',
-  },
-});
+export const getUserById = (id: string | number):Promise<Response> => fetch(`${host}/api/v2/user/${id}`, defaultRequestOptions);
 
-export const changeAvatar = (avatar: any):Promise<any> => fetch(`${host}/api/v2/user/profile/avatar`, {
+export const changeAvatar = (avatar: any):Promise<Response> => fetch(`${host}/api/v2/user/profile/avatar`, {
+  ...defaultRequestOptions,
   method: 'PUT',
-  credentials: 'include',
+  headers: {
+    'content-type': 'multipart/form-data',
+  },
   body: avatar,
 });
 
-export const changePassword = (oldPassword: string, newPassword: string):Promise<any> => fetch(`${host}/api/v2/user/password`, {
+export const changePassword = (oldPassword: string, newPassword: string):Promise<Response> => fetch(`${host}/api/v2/user/password`, {
+  ...defaultRequestOptions,
   method: 'PUT',
-  credentials: 'include',
-  headers: {
-    'content-type': 'application/json',
-  },
   body: JSON.stringify({
     oldPassword,
     newPassword,

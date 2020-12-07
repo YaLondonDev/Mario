@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { TPropsInput, TPropsUserPage } from './types';
@@ -75,10 +75,13 @@ export const UserPageForm: FC<TPropsUserPage> = ({
     },
   });
 
-  const handleModeChange = (event: React.MouseEvent<HTMLElement>): void => {
-    event.preventDefault();
-    toggleEditMode(true);
-  };
+  const handleModeChange = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      event.preventDefault();
+      toggleEditMode(true);
+    },
+    [],
+  );
 
   return (
     <form

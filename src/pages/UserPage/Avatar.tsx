@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useCallback, useRef, useState } from 'react';
 import { TAvatarProps } from './types';
 import { changeAvatar } from '../../api/user';
 import styles from './userpage.module.scss';
@@ -10,25 +10,31 @@ export const Avatar: FC<TAvatarProps> = ({
   const fileInput = useRef(null);
   const [edit, setEdit] = useState(false);
 
-  const onChangeAvatar = () => {
-    setEdit(true);
-  };
+  const onChangeAvatar = useCallback(
+    () => {
+      setEdit(true);
+    },
+    [],
+  );
 
-  const handleAvatar = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-    const formData = new FormData();
-    const fileInputData = fileInput.current.files[0];
+  const handleAvatar = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.preventDefault();
+      const formData = new FormData();
+      const [fileInputData] = fileInput.current.files;
 
-    formData.append('avatar', fileInputData);
+      formData.append('avatar', fileInputData);
 
-    changeAvatar(formData)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('JSON - ', data);
-      }).catch((err) => {
-        console.log('err - ', err);
-      });
-  };
+      changeAvatar(formData)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('AVATAR - ', data);
+        }).catch((err) => {
+          console.log('err - ', err);
+        });
+    },
+    [],
+  );
 
   return (
     <form className={styles.avatar}>

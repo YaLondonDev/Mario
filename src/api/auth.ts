@@ -1,4 +1,4 @@
-const host = 'https://ya-praktikum.tech';
+import { host, defaultRequestOptions } from '../helpers/api';
 
 type TSignin = {
   login: string;
@@ -6,56 +6,25 @@ type TSignin = {
 }
 
 type TSignup = {
-  // eslint-disable-next-line camelcase
-  first_name: string;
-  // eslint-disable-next-line camelcase
-  second_name: string;
+  'first_name': string;
+  'second_name': string;
   login: string;
   email: string;
   password: string;
   phone: string;
 }
 
-export const signin = ({ login, password }: TSignin): Promise<any> => fetch(`${host}/api/v2/auth/signin`, {
+export const signin = (data: TSignin): Promise<Response> => fetch(`${host}/api/v2/auth/signin`, {
+  ...defaultRequestOptions,
   method: 'POST',
-  credentials: 'include',
-  headers: {
-    'content-type': 'application/json',
-  },
-  body: JSON.stringify({
-    login, password,
-  }),
+  body: JSON.stringify(data),
 });
 
-export const signup = ({
-  // eslint-disable-next-line camelcase
-  first_name,
-  // eslint-disable-next-line camelcase
-  second_name,
-  login,
-  email,
-  password,
-  phone,
-}: TSignup): Promise<any> =>
+export const signup = (data: TSignup): Promise<Response> =>
   fetch(`${host}/api/v2/auth/signup`, {
+    ...defaultRequestOptions,
     method: 'POST',
-    credentials: 'include',
-    headers: {
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      first_name,
-      second_name,
-      login,
-      email,
-      password,
-      phone,
-    }),
+    body: JSON.stringify(data),
   });
 
-export const getUserInfo = (): Promise<any> => fetch(`${host}/api/v2/auth/user`, {
-  credentials: 'include',
-  headers: {
-    'content-type': 'application/json',
-  },
-});
+export const getUserInfo = (): Promise<Response> => fetch(`${host}/api/v2/auth/user`, defaultRequestOptions);

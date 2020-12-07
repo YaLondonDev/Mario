@@ -6,16 +6,18 @@ import { getUserInfo } from '../../api/auth';
 import { Avatar } from './Avatar';
 import { EditPassword } from './EditPassword';
 
+const defaultUser = {
+  avatar: '',
+  displayName: '',
+  firstName: '',
+  lastName: '',
+  login: '',
+  email: '',
+  phone: '',
+};
+
 const UserPage: FC = () => {
-  const [user, setUser] = useState({
-    avatar: null,
-    displayName: null,
-    firstName: '',
-    lastName: '',
-    login: '',
-    email: '',
-    phone: '',
-  });
+  const [user, setUser] = useState(defaultUser);
 
   useEffect(() => {
     getUserInfo()

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useCallback } from 'react';
 import styles from './userpage.module.scss';
 import { changePassword } from '../../api/user';
 
@@ -11,28 +11,37 @@ export const EditPassword: FC = () => {
     setEdit(!edit);
   };
 
-  const handleChangeOld = (e: any) => {
-    setOldP(e.target.value);
-  };
+  const handleChangeOld = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setOldP(e.target.value);
+    },
+    [oldP],
+  );
 
-  const handleChangeNew = (e: any) => {
-    setNewP(e.target.value);
-  };
+  const handleChangeNew = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setNewP(e.target.value);
+    },
+    [newP],
+  );
 
-  const onSave = () => {
-    changePassword(oldP, newP)
-      .then(({ status }) => {
-        if (status === 200) {
-          setOldP('');
-          setOldP('');
+  const onSave = useCallback(
+    () => {
+      changePassword(oldP, newP)
+        .then(({ status }) => {
+          if (status === 200) {
+            setOldP('');
+            setOldP('');
 
-          setEdit(false);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+            setEdit(false);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+    [],
+  );
 
   return (
     <div className={styles.password}>
