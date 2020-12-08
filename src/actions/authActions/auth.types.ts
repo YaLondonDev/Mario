@@ -1,4 +1,4 @@
-import { TUserProfile } from '../../reducers/auth.reducer';
+import { TUserProfile } from '../../reducers/reducers.types';
 
 export type TSignUpPayload = {
   firstName: string;

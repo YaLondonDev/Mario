@@ -5,10 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Home, Game, Leaderboard, SignIn, SignUp, UserPage } from './pages';
 import { Header, ErrorBoundary } from './components';
 import { UiContext } from './components/UiContext';
-import { TRootReducer } from './store';
 import { fetchProfileRequested } from './actions/authActions/auth.actions';
-import { TAuthReducerState } from './reducers/reducers.types';
 import { useGeolocation } from './hooks/useGeolocation';
+import { loggedSelector } from './selector';
 
 export type TUiSettings = {
   showHeader: boolean;
@@ -18,9 +17,7 @@ export const App: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [location, requestLocation] = useGeolocation();
-  const authStore = useSelector<TRootReducer, TAuthReducerState>(
-    (root) => root.auth,
-  );
+  const isLoggedIn = useSelector(loggedSelector);
   const [uiSettings, setUiSettings] = useState<TUiSettings>({
     showHeader: true,
   });
@@ -31,10 +28,10 @@ export const App: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!authStore.isLoggedIn && !authStore.isLoading) {
+    if (!isLoggedIn) {
       history.push('/signin');
     }
-  }, [authStore, history]);
+  }, [isLoggedIn, history]);
 
   return (
     <UiContext.Provider value={{ uiSettings, setUiSettings }}>

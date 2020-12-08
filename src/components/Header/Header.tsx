@@ -5,14 +5,11 @@ import { Link } from 'react-router-dom';
 import styles from './header.module.scss';
 import { Logo, Menu, Button } from '../index';
 import { authLogoutRequested } from '../../actions/authActions/auth.actions';
-import { TAuthReducerState } from '../../reducers/reducers.types';
-import { TRootReducer } from '../../store';
+import { loggedSelector } from '../../selector';
 
 const Header: FC = () => {
   const dispatch = useDispatch();
-  const authStore = useSelector<TRootReducer, TAuthReducerState>(
-    (root) => root.auth,
-  );
+  const isLoggedIn = useSelector(loggedSelector);
 
   const handleLogout = useCallback(() => {
     dispatch(authLogoutRequested());
@@ -23,12 +20,12 @@ const Header: FC = () => {
       <Logo />
       <div className={styles.header__right}>
         <Menu />
-        {!authStore.isLoggedIn && (
+        {!isLoggedIn && (
           <Button className="btn_base" type="button">
             <Link to="/signin">Авторизация</Link>
           </Button>
         )}
-        {authStore.isLoggedIn && (
+        {isLoggedIn && (
           <Button onClick={handleLogout} className="btn_base" type="button">
             Выход
           </Button>
