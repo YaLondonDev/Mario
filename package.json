@@ -6,8 +6,8 @@
   "scripts": {
     "start:dev": "set MODE=development && webpack serve --mode development",
     "start:lint": "eslint ./src/**/*.ts ./src/**/*.tsx",
-    "build": "rimraf build && set MODE=production && webpack --mode production",
-    "start": "node server.js"
+    "start:server": "npm run build && node server.js",
+    "build": "rimraf build && set MODE=production && webpack --mode production"
   },
   "repository": {
     "type": "git",
