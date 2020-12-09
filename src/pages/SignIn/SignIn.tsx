@@ -2,12 +2,13 @@ import React, { FC, useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { TSignInPayload } from '../../actions/authActions/auth.types';
 import { signInRequested } from '../../actions/authActions/auth.actions';
-import { SignInForm } from './SignInForm';
+import { TSignInPayload } from '../../actions/authActions/auth.types';
 import base from '../../styles/base.module.scss';
-import styles from './signin.module.scss';
 import { loggedSelector } from '../../selector';
+import { Meta } from '../../components/Meta';
+import styles from './signin.module.scss';
+import { SignInForm } from './SignInForm';
 
 const SignIn: FC = () => {
   const history = useHistory();
@@ -29,6 +30,7 @@ const SignIn: FC = () => {
 
   return (
     <div className={base.wrapper}>
+      <Meta title="SignIn" />
       <div className={styles.auth_form}>
         <div className={styles.auth_form__content}>
           <h1 className={base.title}>Вход</h1>
