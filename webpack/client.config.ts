@@ -3,7 +3,7 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin'; // eslint-disable-line
 import { GenerateSW } from 'workbox-webpack-plugin';
 
-import { BUILD_DIR, PUBLIC_DIR, SRC_DIR } from './env';
+import { BUILD_DIR, IS_DEV, PUBLIC_DIR, SRC_DIR } from './env';
 import fileLoader from './loaders/file';
 import cssLoader from './loaders/css';
 import svgLoader from './loaders/svg';
@@ -52,7 +52,7 @@ const config: Configuration & DevServerConfiguration = {
   },
   plugins: [
     // @ts-ignore
-    process.env.MODE?.trim() === 'development' &&
+    IS_DEV &&
       new HtmlWebpackPlugin({
         template: path.resolve(PUBLIC_DIR, 'index.html'),
       }),
