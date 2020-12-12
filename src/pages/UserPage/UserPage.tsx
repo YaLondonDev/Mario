@@ -1,10 +1,12 @@
 import React, { FC, useState, useEffect } from 'react';
+
 import base from '../../styles/base.module.scss';
-import styles from './userpage.module.scss';
 import { UserPageForm } from './UserPageForm';
-import { getUserInfo } from '../../api/auth';
-import { Avatar } from './Avatar';
 import { EditPassword } from './EditPassword';
+import { Meta } from '../../components/Meta';
+import { getUserInfo } from '../../api/auth';
+import styles from './userpage.module.scss';
+import { Avatar } from './Avatar';
 
 const defaultUser = {
   avatar: '',
@@ -40,6 +42,7 @@ const UserPage: FC = () => {
 
   return (
     <div className={base.wrapper}>
+      <Meta title="UserPage" />
       <div className={styles.formWrapper}>
         <h1 className={base.title}>Личный кабинет</h1>
         <Avatar avatar={user.avatar} />

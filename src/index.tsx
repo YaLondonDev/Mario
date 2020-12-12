@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 
-import { App } from './App';
+import { initializeServiceWorkers } from './workbox';
 import { axiosConfig } from './utils/axiosConfig';
 import { store } from './store';
-import { initializeServiceWorkers } from './workbox';
 import './styles/default.scss';
+import { App } from './App';
 
 axiosConfig();
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <ReduxProvider store={store}>
     <Router>
       <App />
