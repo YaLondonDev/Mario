@@ -1,34 +1,32 @@
-import React, { FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import React, { FC, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
+import { authLogoutRequested } from 'src/actions/authActions/auth.actions';
+import { Logo, Menu, Button } from 'src/components';
+import { authSelector } from 'src/selectors';
+
 import styles from './header.module.scss';
-import { Logo, Menu, Button } from '../index';
-import { authLogoutRequested } from '../../actions/authActions/auth.actions';
-import { TAuthReducerState } from '../../reducers/reducers.types';
-import { TRootReducer } from '../../store';
 
 const Header: FC = () => {
   const dispatch = useDispatch();
-  const authStore = useSelector<TRootReducer, TAuthReducerState>(
-    (root) => root.auth,
-  );
+  const auth = useSelector(authSelector);
 
   const handleLogout = useCallback(() => {
     dispatch(authLogoutRequested());
-  }, [authLogoutRequested]);
+  }, [dispatch]);
 
   return (
     <header className={styles.header}>
       <Logo />
       <div className={styles.header__right}>
         <Menu />
-        {!authStore.isLoggedIn && (
+        {!auth.isLoggedIn && (
           <Button className="btn_base" type="button">
             <Link to="/signin">Авторизация</Link>
           </Button>
         )}
-        {authStore.isLoggedIn && (
+        {auth.isLoggedIn && (
           <Button onClick={handleLogout} className="btn_base" type="button">
             Выход
           </Button>

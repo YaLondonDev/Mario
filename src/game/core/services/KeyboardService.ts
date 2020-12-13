@@ -1,3 +1,5 @@
+import { isServer } from '../../../utils/isServer';
+
 // Коды основных игровых клавиш
 export enum keyMap {
   LEFT = 37,
@@ -19,8 +21,10 @@ export class KeyboardService {
   }
 
   private initHandlers = () => {
-    document.addEventListener('keydown', this.onKeyDown);
-    document.addEventListener('keyup', this.onKeyUp);
+    if (!isServer()) {
+      document.addEventListener('keydown', this.onKeyDown);
+      document.addEventListener('keyup', this.onKeyUp);
+    }
   };
 
   // По нажатию, добавляет код клавиши в pressed

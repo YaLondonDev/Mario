@@ -9,6 +9,11 @@
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "allowJs": true
-  }
+    "allowJs": true,
+    "baseUrl": "./",
+    "paths": {
+      "appSrc/*": ["src/*"]
+    }
+  },
+  "exclude": ["server.js"]
 }

@@ -6,11 +6,12 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Button } from '../../components';
-import { UiContext } from '../../components/UiContext';
 import { Game as WizardGame } from '../../game/core/Game';
+import { UiContext } from '../../components/UiContext';
+import { CANVAS } from '../../game/consts/size';
+import { Meta } from '../../components/Meta';
+import { Button } from '../../components';
 import styles from './game.module.scss';
-import { WIDTH, HEIGHT } from '../../game/consts/size';
 
 const Game: FC = () => {
   const { uiSettings, setUiSettings } = useContext(UiContext);
@@ -34,8 +35,8 @@ const Game: FC = () => {
 
     setGame(
       new WizardGame(canvasRef.current, {
-        width: WIDTH,
-        height: HEIGHT,
+        width: CANVAS.width,
+        height: CANVAS.height,
         scale: 0.8,
       }),
     );
@@ -43,6 +44,7 @@ const Game: FC = () => {
 
   return (
     <div>
+      <Meta title="Game" />
       {!started && (
         <div className={styles.wrapper}>
           <Button onClick={startGame} type="button">

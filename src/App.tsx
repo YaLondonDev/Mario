@@ -3,11 +3,12 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Home, Game, Leaderboard, SignIn, SignUp, UserPage } from './pages';
+import { fetchProfileRequested } from './actions/authActions/auth.actions';
+import { Geolocation } from './components/Geolocation';
 import { Header, ErrorBoundary } from './components';
 import { UiContext } from './components/UiContext';
-import { TRootReducer } from './store';
-import { fetchProfileRequested } from './actions/authActions/auth.actions';
-import { TAuthReducerState } from './reducers/reducers.types';
+import { authSelector } from './selectors';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 export type TUiSettings = {
   showHeader: boolean;
@@ -16,9 +17,7 @@ export type TUiSettings = {
 export const App: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const authStore = useSelector<TRootReducer, TAuthReducerState>(
-    (root) => root.auth,
-  );
+  const auth = useSelector(authSelector);
   const [uiSettings, setUiSettings] = useState<TUiSettings>({
     showHeader: true,
   });
@@ -28,23 +27,28 @@ export const App: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!authStore.isLoggedIn && !authStore.isLoading) {
+    if (!auth.isLoading && !auth.isLoggedIn) {
       history.push('/signin');
     }
-  }, [authStore]);
+  }, [auth, history]);
+
+  if (!auth.isLoggedIn && auth.isLoading) {
+    return <div>loading</div>;
+  }
 
   return (
     <UiContext.Provider value={{ uiSettings, setUiSettings }}>
       <ErrorBoundary>
         <div className="page">
+          {auth.isLoggedIn && <Geolocation />}
           {uiSettings.showHeader && <Header />}
           <Switch>
-            <Route path="/" component={Home} exact />
-            <Route path="/game" component={Game} exact />
-            <Route path="/leaderboard" component={Leaderboard} exact />
+            <ProtectedRoute path="/" component={Home} exact />
+            <ProtectedRoute path="/game" component={Game} exact />
+            <ProtectedRoute path="/leaderboard" component={Leaderboard} exact />
+            <ProtectedRoute path="/user" component={UserPage} exact />
             <Route path="/signin" component={SignIn} exact />
             <Route path="/signup" component={SignUp} exact />
-            <Route path="/user" component={UserPage} exact />
           </Switch>
         </div>
       </ErrorBoundary>

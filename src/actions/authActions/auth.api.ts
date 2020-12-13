@@ -1,10 +1,11 @@
-import { TUserProfile } from '../../reducers/auth.reducer';
-import { ApiService } from '../../services/api.service';
-import { toCamelCase } from '../../utils/toCamelCase';
-import { toSnakeCase } from '../../utils/toSnakeCase';
+import { TUserProfile } from 'src/reducers/reducers.types';
+import { ApiService } from 'src/services/api.service';
+import { toCamelCase } from 'src/utils/toCamelCase';
+import { toSnakeCase } from 'src/utils/toSnakeCase';
+
 import { TSignInPayload, TSignUpPayload } from './auth.types';
 
-export class AuthApiService extends ApiService {
+class AuthApiService extends ApiService {
   signUp = (signUpPayload: TSignUpPayload) =>
     this.post(`/auth/signup`, toSnakeCase(signUpPayload));
 
@@ -18,3 +19,5 @@ export class AuthApiService extends ApiService {
 
   logout = () => this.post(`/auth/logout`);
 }
+
+export default new AuthApiService();

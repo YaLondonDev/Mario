@@ -35,6 +35,8 @@ export class GameObject {
   // 2d контекст
   context: CanvasRenderingContext2D;
 
+  public points: number = 0;
+
   // параметры спрайтов - объект, который содержит в себе 3 свойства:
   // 1. sprites[] - массив типа TSprite, представляет собой
   // один или несколько спрайтов для объекта
@@ -82,6 +84,7 @@ export class GameObject {
     this.position = { ...position };
   };
 
+  // Изменяет индекс спрайта для объекта
   public changeCurrentSpriteIndex = (index: number) => {
     this.spriteOptions.currentSpriteIndex = index;
   };
@@ -147,6 +150,11 @@ export class GameObject {
         this.size.width, // ширина в которую будет вмещен текущий кадр
         this.size.height, // высота в которую будет вмещен текущий кадр
       );
+      if (this.points) {
+        this.context.fillStyle = '#f93b3b';
+        this.context.font = 'normal 120px Arial';
+        this.context.fillText(this.points.toString(), 20, 120);
+      }
       this.spriteTick(); // после отрисовки меняем кадр на следующий
     }
     if (GameContainer.config.isDebug()) { // если включен дебаг, то рисуем

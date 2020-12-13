@@ -1,6 +1,6 @@
 export type TUserProfile = {
-  id: number;
-  fistName: string;
+  id?: number;
+  firstName: string;
   secondName: string;
   displayName?: string;
   login: string;
@@ -15,3 +15,5 @@ export type TAuthReducerState = {
   isFailed: boolean;
   profile: TUserProfile | null;
 };
+
+export type TUserReducerState = TUserProfile;

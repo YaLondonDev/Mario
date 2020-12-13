@@ -1,9 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+
+import { Button } from 'src/components';
+
 import { TPropsInput, TPropsUserPage } from './types';
 import styles from './userpage.module.scss';
-import { Button } from '../../components';
 
 const userPageFormValidationSchema = Yup.object({
   firstName: Yup.string(),
@@ -27,19 +29,17 @@ const EditField: FC<TPropsInput> = ({
       {label}
     </label>
     <div className={styles.inputWrapper}>
-      {
-        editMode
-          ? (
-            <input
-              className={styles.input}
-              type="text"
-              name={name}
-              value={value}
-              onChange={onChange}
-            />
-          )
-          : <span className={styles.value}>{value}</span>
-      }
+      {editMode ? (
+        <input
+          className={styles.input}
+          type="text"
+          name={name}
+          value={value}
+          onChange={onChange}
+        />
+      ) : (
+        <span className={styles.value}>{value}</span>
+      )}
       {error && <span className={styles.error}>{error}</span>}
     </div>
   </div>
@@ -51,35 +51,34 @@ export const UserPageForm: FC<TPropsUserPage> = ({
   login,
   email,
   phone,
-  password,
 }) => {
   const [editable, toggleEditMode] = useState(false);
 
-  const {
-    handleChange,
-    values,
-    errors,
-    handleSubmit,
-  } = useFormik({
+  const { handleChange, values, errors, handleSubmit } = useFormik({
     initialValues: {
       firstName,
       lastName,
       login,
       email,
       phone,
-      password,
     },
+    enableReinitialize: true,
     validationSchema: userPageFormValidationSchema,
     onSubmit: () => {
       toggleEditMode(false);
     },
   });
 
+  const handleModeChange = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      event.preventDefault();
+      toggleEditMode(true);
+    },
+    [toggleEditMode],
+  );
+
   return (
-    <form
-      action="#"
-      className={styles.form}
-    >
+    <form className={styles.form} onSubmit={handleSubmit}>
       <EditField
         label="ИМЯ"
         name="firstName"
@@ -120,24 +119,15 @@ export const UserPageForm: FC<TPropsUserPage> = ({
         error={errors.phone}
         editMode={editable}
       />
-      <EditField
-        label="ПАРОЛЬ"
-        name="password"
-        onChange={handleChange}
-        value={values.password}
-        error={errors.password}
-        editMode={editable}
-      />
-
-      { !editable ? (
-        <Button type="button" onClick={() => toggleEditMode(true)}>
-          Изменить
-        </Button>
-      ) : (
-        <Button type="submit" onClick={() => handleSubmit()}>
-          Сохранить
-        </Button>
-      )}
+      <div className={styles.btnWrap}>
+        {!editable ? (
+          <Button type="button" onClick={handleModeChange}>
+            Изменить
+          </Button>
+        ) : (
+          <Button type="submit">Сохранить</Button>
+        )}
+      </div>
     </form>
   );
 };

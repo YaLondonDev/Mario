@@ -1,4 +1,5 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
+
 import {
   authLogoutSuccess,
   authRequested,
@@ -6,14 +7,12 @@ import {
   fetchProfileRequested,
   fetchProfileSuccess,
 } from './auth.actions';
-import { AuthApiService } from './auth.api';
+import authApi from './auth.api';
 import {
   AuthActions,
   TSignInRequestedAction,
   TSignUpRequestedAction,
 } from './auth.types';
-
-const authApi = new AuthApiService();
 
 function* signUp(action: TSignUpRequestedAction) {
   try {

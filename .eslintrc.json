@@ -41,6 +41,8 @@
     "@typescript-eslint/no-shadow": [1],
     "class-methods-use-this": "off",
     "react/button-has-type": "off",
+    "operator-linebreak": "off",
+    "import/no-unresolved": [0],
     "import/extensions": [
       "error",
       "ignorePackages",
