@@ -31,6 +31,9 @@ const config: Configuration = {
   resolve: {
     modules: ['src', 'node_modules'],
     extensions,
+    alias: {
+      src: path.resolve(__dirname, '../src'),
+    },
   },
   devtool: 'source-map',
   externals: [nodeExternals({ allowlist: [/\.(?!(?:tsx?|json)$).{1,5}$/i] })],

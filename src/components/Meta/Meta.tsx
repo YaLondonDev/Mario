@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import Helmet from 'react-helmet';
+
 import { TMetaProps } from './types';
 
 export const Meta: FC<TMetaProps> = ({ title, description }) => (

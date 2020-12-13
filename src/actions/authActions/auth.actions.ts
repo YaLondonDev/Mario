@@ -1,4 +1,5 @@
-import { TUserProfile } from '../../reducers/reducers.types';
+import { TUserProfile } from 'src/reducers/reducers.types';
+
 import {
   AuthActions,
   TAuthLogoutRequestedAction,
@@ -53,4 +54,9 @@ export const authLogoutSuccess = (): TAuthLogoutSuccessAction => ({
 
 export const authLogoutRequested = (): TAuthLogoutRequestedAction => ({
   type: AuthActions.AUTH_LOGOUT_REQUESTED,
+});
+
+export const profileUpdate = (profile: TUserProfile) => ({
+  type: AuthActions.PROFILE_UPDATE,
+  payload: profile,
 });

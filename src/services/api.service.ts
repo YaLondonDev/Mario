@@ -20,13 +20,16 @@ export class ApiService {
 
   public post = <T = any>(
     url: string,
+    data?: any,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> => axios.post(this.prepareUrl(url), config);
+  ): Promise<AxiosResponse<T>> =>
+    axios.post(this.prepareUrl(url), data, config);
 
   public put = <T = any>(
     url: string,
+    data?: any,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> => axios.put(this.prepareUrl(url), config);
+  ): Promise<AxiosResponse<T>> => axios.put(this.prepareUrl(url), data, config);
 
   public delete = <T = any>(
     url: string,
@@ -35,6 +38,10 @@ export class ApiService {
 
   public patch = <T = any>(
     url: string,
+    data?: any,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> => axios.patch(this.prepareUrl(url), config);
+  ): Promise<AxiosResponse<T>> =>
+    axios.patch(this.prepareUrl(url), data, config);
 }
+
+export default new ApiService();

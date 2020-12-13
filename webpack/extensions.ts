@@ -1,1 +1,1 @@
-export default ['.tsx', '.ts', '.js', '.svg', '.png', '.jpg'];
+export default ['.tsx', 'jsx', '.ts', '.js', '.svg', '.png', '.jpg'];

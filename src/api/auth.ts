@@ -1,9 +1,9 @@
-import { host, defaultRequestOptions } from '../helpers/api';
+import { host, defaultRequestOptions } from 'src/helpers/api';
 
 type TSignin = {
   login: string;
   password: string;
-}
+};
 
 type TSignup = {
   'first_name': string;
@@ -12,13 +12,14 @@ type TSignup = {
   email: string;
   password: string;
   phone: string;
-}
+};
 
-export const signin = (data: TSignin): Promise<Response> => fetch(`${host}/api/v2/auth/signin`, {
-  ...defaultRequestOptions,
-  method: 'POST',
-  body: JSON.stringify(data),
-});
+export const signin = (data: TSignin): Promise<Response> =>
+  fetch(`${host}/api/v2/auth/signin`, {
+    ...defaultRequestOptions,
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
 
 export const signup = (data: TSignup): Promise<Response> =>
   fetch(`${host}/api/v2/auth/signup`, {
@@ -27,4 +28,5 @@ export const signup = (data: TSignup): Promise<Response> =>
     body: JSON.stringify(data),
   });
 
-export const getUserInfo = (): Promise<Response> => fetch(`${host}/api/v2/auth/user`, defaultRequestOptions);
+export const getUserInfo = (): Promise<Response> =>
+  fetch(`${host}/api/v2/auth/user`, defaultRequestOptions);

@@ -40,6 +40,9 @@ const config: Configuration & DevServerConfiguration = {
   },
   resolve: {
     extensions,
+    alias: {
+      src: path.resolve(__dirname, '../src'),
+    },
   },
   stats: {
     errorDetails: true,

@@ -1,4 +1,4 @@
-import { TUserProfile } from '../../reducers/reducers.types';
+import { TUserProfile } from 'src/reducers/reducers.types';
 
 export type TSignUpPayload = {
   firstName: string;
@@ -23,6 +23,7 @@ export enum AuthActions {
   FETCH_PROFILE_SUCCESS = 'FETCH_PROFILE_SUCCESS',
   AUTH_LOGOUT_SUCCESS = 'AUTH_LOGOUT_SUCCESS',
   AUTH_LOGOUT_REQUESTED = 'AUTH_LOGOUT_REQUESTED',
+  PROFILE_UPDATE = 'PROFILE_UPDATE',
 }
 
 export type TAuthRequestedAction = {
@@ -61,9 +62,15 @@ export type TAuthLogoutRequestedAction = {
   type: AuthActions.AUTH_LOGOUT_REQUESTED;
 };
 
+export type TProfileUpdate = {
+  type: AuthActions.PROFILE_UPDATE;
+  payload: TUserProfile;
+};
+
 export type TAuthActionTypes =
   | TAuthRequestedAction
   | TAuthRequestFailed
   | TSignUpRequestedAction
   | TFetchProfileSuccessAction
-  | TAuthLogoutSuccessAction;
+  | TAuthLogoutSuccessAction
+  | TProfileUpdate;

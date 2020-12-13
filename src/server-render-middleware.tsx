@@ -4,9 +4,8 @@ import { StaticRouter } from 'react-router-dom';
 import { Request, Response } from 'express';
 import { renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
+import { App } from 'src/App';
 import { store } from './store';
-
-import { App } from './App';
 
 export default (req: Request, res: Response) => {
   const location = req.url;

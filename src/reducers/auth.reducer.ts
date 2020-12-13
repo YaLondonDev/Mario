@@ -43,6 +43,11 @@ export const authReducer = (
         isLoggedIn: false,
         isFailed: false,
       };
+    case AuthActions.PROFILE_UPDATE:
+      return {
+        ...state,
+        profile: action.payload,
+      };
     default:
       return state;
   }

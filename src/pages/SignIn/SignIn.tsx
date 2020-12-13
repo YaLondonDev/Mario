@@ -2,24 +2,24 @@ import React, { FC, useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { signInRequested } from '../../actions/authActions/auth.actions';
 import { TSignInPayload } from '../../actions/authActions/auth.types';
-import base from '../../styles/base.module.scss';
-import { loggedSelector } from '../../selector';
-import { Meta } from '../../components/Meta';
-import styles from './signin.module.scss';
+import { signInRequested } from '../../actions/authActions/auth.actions';
+import { authSelector } from '../../selectors';
 import { SignInForm } from './SignInForm';
+
+import styles from './signin.module.scss';
+import base from '../../styles/base.module.scss';
 
 const SignIn: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(loggedSelector);
+  const auth = useSelector(authSelector);
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (auth.isLoggedIn) {
       history.push('/');
     }
-  }, [isLoggedIn, history]);
+  }, [auth.isLoggedIn, history]);
 
   const handleSubmit = useCallback(
     (form: TSignInPayload) => {
@@ -30,7 +30,6 @@ const SignIn: FC = () => {
 
   return (
     <div className={base.wrapper}>
-      <Meta title="SignIn" />
       <div className={styles.auth_form}>
         <div className={styles.auth_form__content}>
           <h1 className={base.title}>Вход</h1>

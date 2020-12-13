@@ -1,57 +1,29 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 
 import base from '../../styles/base.module.scss';
-import { UserPageForm } from './UserPageForm';
-import { EditPassword } from './EditPassword';
-import { Meta } from '../../components/Meta';
-import { getUserInfo } from '../../api/auth';
 import styles from './userpage.module.scss';
+import { UserPageForm } from './UserPageForm';
 import { Avatar } from './Avatar';
-
-const defaultUser = {
-  avatar: '',
-  displayName: '',
-  firstName: '',
-  lastName: '',
-  login: '',
-  email: '',
-  phone: '',
-};
+import { EditPassword } from './EditPassword';
+import { authSelector } from '../../selectors';
 
 const UserPage: FC = () => {
-  const [user, setUser] = useState(defaultUser);
+  const auth = useSelector(authSelector);
 
-  useEffect(() => {
-    getUserInfo()
-      .then((res) => res.json())
-      .then((data) => {
-        setUser({
-          avatar: data.avatar,
-          displayName: data.display_name,
-          firstName: data.first_name,
-          lastName: data.second_name,
-          login: data.email,
-          email: data.email,
-          phone: data.phone,
-        });
-      })
-      .catch((err) => {
-        console.log('getUserInfo err - ', err);
-      });
-  }, []);
+  console.log(auth);
 
   return (
     <div className={base.wrapper}>
-      <Meta title="UserPage" />
       <div className={styles.formWrapper}>
         <h1 className={base.title}>Личный кабинет</h1>
-        <Avatar avatar={user.avatar} />
+        <Avatar avatar={auth.profile.avatar} />
         <UserPageForm
-          firstName={user.firstName}
-          lastName={user.lastName}
-          login={user.login}
-          email={user.email}
-          phone={user.phone}
+          firstName={auth.profile.firstName}
+          lastName={auth.profile.secondName}
+          login={auth.profile.login}
+          email={auth.profile.email}
+          phone={auth.profile.phone}
         />
         <EditPassword />
       </div>

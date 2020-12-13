@@ -3,11 +3,12 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Home, Game, Leaderboard, SignIn, SignUp, UserPage } from './pages';
+import { fetchProfileRequested } from './actions/authActions/auth.actions';
+import { Geolocation } from './components/Geolocation';
 import { Header, ErrorBoundary } from './components';
 import { UiContext } from './components/UiContext';
-import { fetchProfileRequested } from './actions/authActions/auth.actions';
-import { useGeolocation } from './hooks/useGeolocation';
-import { loggedSelector } from './selector';
+import { authSelector } from './selectors';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 export type TUiSettings = {
   showHeader: boolean;
@@ -16,48 +17,38 @@ export type TUiSettings = {
 export const App: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [location, requestLocation] = useGeolocation();
-  const isLoggedIn = useSelector(loggedSelector);
+  const auth = useSelector(authSelector);
   const [uiSettings, setUiSettings] = useState<TUiSettings>({
     showHeader: true,
   });
 
   useEffect(() => {
     dispatch(fetchProfileRequested());
-    requestLocation();
   }, []);
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!auth.isLoading && !auth.isLoggedIn) {
       history.push('/signin');
     }
-  }, [isLoggedIn, history]);
+  }, [auth, history]);
+
+  if (!auth.isLoggedIn && auth.isLoading) {
+    return <div>loading</div>;
+  }
 
   return (
     <UiContext.Provider value={{ uiSettings, setUiSettings }}>
       <ErrorBoundary>
         <div className="page">
-          {location && (
-            <div
-              style={{
-                position: 'fixed',
-                right: '0',
-                background: '#fff',
-                color: '#000',
-                padding: '5px',
-              }}
-            >
-              {location}
-            </div>
-          )}
+          {auth.isLoggedIn && <Geolocation />}
           {uiSettings.showHeader && <Header />}
           <Switch>
-            <Route path="/" component={Home} exact />
-            <Route path="/game" component={Game} exact />
-            <Route path="/leaderboard" component={Leaderboard} exact />
+            <ProtectedRoute path="/" component={Home} exact />
+            <ProtectedRoute path="/game" component={Game} exact />
+            <ProtectedRoute path="/leaderboard" component={Leaderboard} exact />
+            <ProtectedRoute path="/user" component={UserPage} exact />
             <Route path="/signin" component={SignIn} exact />
             <Route path="/signup" component={SignUp} exact />
-            <Route path="/user" component={UserPage} exact />
           </Switch>
         </div>
       </ErrorBoundary>

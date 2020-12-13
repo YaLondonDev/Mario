@@ -5,6 +5,6 @@ export interface IProps {
 }
 
 export interface IState {
-  error: any,
-  errorInfo: any,
+  error: any;
+  errorInfo: any;
 }

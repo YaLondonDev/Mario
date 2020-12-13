@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 
+import { FormGroup } from 'src/components';
+
 import styles from './input.module.scss';
-import { FormGroup } from '../index';
 import { Props } from './types';
 
 const Input: FC<Props> = ({

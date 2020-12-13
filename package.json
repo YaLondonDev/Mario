@@ -22,6 +22,11 @@
     "url": "https://github.com/YaLondonDev/Mario/issues"
   },
   "homepage": "https://github.com/YaLondonDev/Mario#readme",
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
@@ -51,6 +56,7 @@
     "css-loader": "^5.0.0",
     "eslint": "^7.12.0",
     "eslint-config-airbnb": "^18.2.0",
+    "eslint-import-resolver-typescript": "^2.3.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
@@ -78,6 +84,7 @@
     "webpack-notifier": "^1.8.0"
   },
   "dependencies": {
+    "@types/reselect": "^2.2.0",
     "axios": "^0.21.0",
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",

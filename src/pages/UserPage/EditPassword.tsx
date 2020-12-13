@@ -7,12 +7,9 @@ export const EditPassword: FC = () => {
   const [oldP, setOldP] = useState('');
   const [newP, setNewP] = useState('');
 
-  const handleEdit = useCallback(
-    () => {
-      setEdit(!edit);
-    },
-    [setEdit],
-  );
+  const handleEdit = useCallback(() => {
+    setEdit(!edit);
+  }, [setEdit, edit]);
 
   const handleChangeOld = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,62 +25,43 @@ export const EditPassword: FC = () => {
     [setNewP],
   );
 
-  const onSave = useCallback(
-    () => {
-      changePassword(oldP, newP)
-        .then(({ status }) => {
-          if (status === 200) {
-            setOldP('');
-            setNewP('');
+  const onSave = useCallback(() => {
+    changePassword(oldP, newP)
+      .then(({ status }) => {
+        if (status === 200) {
+          setOldP('');
+          setNewP('');
 
-            setEdit(false);
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    },
-    [oldP, newP, setOldP, setNewP, setEdit],
-  );
+          setEdit(false);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [oldP, newP, setOldP, setNewP, setEdit]);
 
   return (
     <div className={styles.password}>
       <div className={styles.password__wrapBtn}>
-        <button
-          type="button"
-          className={styles.password__btn}
-          onClick={handleEdit}
-        >
+        <button type="button" className={styles.password__btn} onClick={handleEdit}>
           {edit ? 'Отменить' : 'Изменить пароль'}
         </button>
       </div>
 
-      { edit ? (
+      {edit ? (
         <>
           <form className={styles.password__form}>
-            <input
-              type="text"
-              placeholder="Введите текущий пароль"
-              onChange={handleChangeOld}
-            />
-            <input
-              type="text"
-              placeholder="Введите новый пароль"
-              onChange={handleChangeNew}
-            />
+            <input type="text" placeholder="Введите текущий пароль" onChange={handleChangeOld} />
+            <input type="text" placeholder="Введите новый пароль" onChange={handleChangeNew} />
           </form>
 
           <div className={styles.password__wrapBtn}>
-            <button
-              type="submit"
-              className={styles.password__btn}
-              onClick={onSave}
-            >
+            <button type="submit" className={styles.password__btn} onClick={onSave}>
               Сохранить
             </button>
           </div>
         </>
-      ) : null }
+      ) : null}
     </div>
   );
 };

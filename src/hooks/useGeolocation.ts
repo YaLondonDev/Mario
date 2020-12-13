@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { get } from '../utils/deepFind';
-import { useApi } from './useApi';
+import api from '../services/api.service';
 
 const yaApiKey = '6c93de1d-bd6a-4804-af16-361e2056abfa';
 
@@ -8,7 +8,6 @@ const getApiUrl = (longitude: number, latitude: number) =>
   `https://geocode-maps.yandex.ru/1.x/?apikey=${yaApiKey}&geocode=${longitude},${latitude}&results=1&format=json`;
 
 export const useGeolocation = (): [string, () => void] => {
-  const api = useApi();
   const [location, setLocation] = useState('');
 
   const handleSuccess = useCallback(
@@ -37,7 +36,7 @@ export const useGeolocation = (): [string, () => void] => {
         setLocation('');
       }
     },
-    [api, setLocation],
+    [setLocation],
   );
 
   const requestLocation = useCallback(() => {

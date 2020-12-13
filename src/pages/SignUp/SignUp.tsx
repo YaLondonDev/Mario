@@ -4,22 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { TSignUpPayload } from '../../actions/authActions/auth.types';
 import { authRequest } from '../../actions/authActions/auth.actions';
-import base from '../../styles/base.module.scss';
-import { loggedSelector } from '../../selector';
-import { Meta } from '../../components/Meta';
 import { SignUpForm } from './SignUpForm';
+import base from '../../styles/base.module.scss';
 import styles from './signup.module.scss';
+import { authSelector } from '../../selectors';
 
 const SignUp: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(loggedSelector);
+  const auth = useSelector(authSelector);
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (auth.isLoggedIn) {
       history.push('/');
     }
-  }, [isLoggedIn, history]);
+  }, [auth.isLoggedIn, history]);
 
   const handleSubmit = useCallback(
     (form: TSignUpPayload) => {
@@ -30,7 +29,6 @@ const SignUp: FC = () => {
 
   return (
     <div className={base.wrapper}>
-      <Meta title="SignUp" />
       <div className={styles.auth_form}>
         <div className={styles.auth_form__content}>
           <h1 className={base.title}>Регистрация</h1>
