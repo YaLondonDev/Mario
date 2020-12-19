@@ -1,4 +1,4 @@
-import { TUserProfile } from 'src/reducers/reducers.types';
+import { TUserProfile } from 'src/reducers/redux';
 
 import {
   AuthActions,

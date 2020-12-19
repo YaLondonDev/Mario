@@ -2,9 +2,9 @@ import {
   AuthActions,
   TAuthActionTypes,
 } from '../actions/authActions/auth.types';
-import { TAuthReducerState } from './reducers.types';
+import { TAuthReducerState } from './redux';
 
-const initialState: TAuthReducerState = {
+export const initialState: TAuthReducerState = {
   isLoggedIn: false,
   isLoading: true,
   isFailed: false,
