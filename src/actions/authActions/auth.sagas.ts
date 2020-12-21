@@ -1,4 +1,4 @@
-import { takeEvery, put, call, takeLatest } from 'redux-saga/effects';
+import { takeEvery, put, call } from 'redux-saga/effects';
 
 import {
   authLogoutSuccess,
@@ -25,7 +25,6 @@ function* signUp(action: TSignUpRequestedAction) {
 }
 
 function* fetchProfile() {
-  console.log('fetch profile');
   try {
     yield put(authRequested());
     const profile = yield call(authApi.fetchProfile);
@@ -55,7 +54,7 @@ function* signIn(action: TSignInRequestedAction) {
 }
 
 export function* authWather() {
-  yield takeLatest(AuthActions.SIGN_UP_REQUESTED, signUp);
+  yield takeEvery(AuthActions.SIGN_UP_REQUESTED, signUp);
   yield takeEvery(AuthActions.SIGN_IN_REQUESTED, signIn);
   yield takeEvery(AuthActions.FETCH_PROFILE_REQUESTED, fetchProfile);
   yield takeEvery(AuthActions.AUTH_LOGOUT_REQUESTED, logout);

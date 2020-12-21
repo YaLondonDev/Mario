@@ -51,8 +51,9 @@ export default (req: Request, res: Response) => {
     .then(() => {
       renderApp();
     })
-    .then(() => store.close())
     .catch((err: any) => {
       throw err;
     });
+
+  store.close();
 };
