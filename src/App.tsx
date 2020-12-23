@@ -18,15 +18,45 @@ export const App: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const auth = useSelector(authSelector);
+
   const [uiSettings, setUiSettings] = useState<TUiSettings>({
     showHeader: true,
   });
 
   useEffect(() => {
-    dispatch(fetchProfileRequested());
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+
+    if (code) {
+      fetch('https://ya-praktikum.tech/api/v2/oauth/yandex', {
+        method: 'POST',
+        // @ts-ignore
+        // RequestCredentials: 'include',
+        withCredentials: true,
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          code,
+        }),
+      })
+        .then((res) => res)
+        .then(({ status }) => {
+          if (status === 200) {
+            dispatch(fetchProfileRequested());
+          }
+        })
+        .catch((err) => {
+          console.log('err - ', err);
+        });
+    } else {
+      dispatch(fetchProfileRequested());
+    }
   }, []);
 
   useEffect(() => {
+    // console.log('PINK - ', window.location.href);
+
     if (!auth.isLoading && !auth.isLoggedIn) {
       history.push('/signin');
     }
