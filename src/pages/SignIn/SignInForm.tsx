@@ -3,10 +3,13 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
+import { getServiceIdYandex } from '../../actions/authActions/auth.actions';
 import { TSignInPayload } from '../../actions/authActions/auth.types';
 import { Button, Input } from '../../components';
 import { TSignInFormProps } from './types';
-import styles from './signin.module.scss';
+
+import styles from './signinform.module.scss';
 
 const signInValidationSchema = Yup.object({
   login: Yup.string().required('Заполните поле'),
@@ -14,6 +17,8 @@ const signInValidationSchema = Yup.object({
 });
 
 export const SignInForm: FC<TSignInFormProps> = ({ onSubmit }) => {
+  const dispatch = useDispatch();
+
   const { handleSubmit, handleChange, values, errors, touched } = useFormik({
     initialValues: {
       login: '',
@@ -27,8 +32,16 @@ export const SignInForm: FC<TSignInFormProps> = ({ onSubmit }) => {
     },
   });
 
+  const yLogin = () => {
+    dispatch(getServiceIdYandex());
+  };
+
   return (
-    <form action="#" className={styles.form} onSubmit={handleSubmit}>
+    <form
+      action="#"
+      className={styles.form}
+      onSubmit={handleSubmit}
+    >
       <Input
         label="Логин"
         name="login"
@@ -50,6 +63,20 @@ export const SignInForm: FC<TSignInFormProps> = ({ onSubmit }) => {
       <Button className="btn_submit" type="submit">
         <span>Войти</span>
       </Button>
+
+      <div className={styles.yLogin}>
+        <span className={styles.yLogin__text}>
+          Войти с помощью
+        </span>
+        <button
+          className={styles.yLogin__button}
+          onClick={yLogin}
+          type="button"
+        >
+          Яндек
+        </button>
+      </div>
+
       <Link to="/signup">У меня нет аккаунта</Link>
     </form>
   );

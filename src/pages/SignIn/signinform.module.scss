@@ -1,0 +1,25 @@
+.form {
+    display: flex;
+    flex-wrap: wrap;
+
+    a {
+        display: block;
+        margin-top: 10px;
+        text-align: center;
+        text-decoration: underline;
+        width: 100%;
+    }
+}
+
+.btn_submit {
+    margin-top: auto;
+}
+
+.yLogin {
+    text-align: center;
+    width: 100%;
+
+    &__text {
+        display: block;
+    }
+}

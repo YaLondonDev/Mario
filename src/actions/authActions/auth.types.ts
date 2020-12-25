@@ -24,6 +24,7 @@ export enum AuthActions {
   AUTH_LOGOUT_SUCCESS = 'AUTH_LOGOUT_SUCCESS',
   AUTH_LOGOUT_REQUESTED = 'AUTH_LOGOUT_REQUESTED',
   PROFILE_UPDATE = 'PROFILE_UPDATE',
+  SIGN_IN_YANDEX = 'SIGN_IN_YANDEX',
 }
 
 export type TAuthRequestedAction = {
@@ -67,10 +68,15 @@ export type TProfileUpdate = {
   payload: TUserProfile;
 };
 
+export type TSignInYandex = {
+  type: AuthActions.SIGN_IN_YANDEX
+}
+
 export type TAuthActionTypes =
   | TAuthRequestedAction
   | TAuthRequestFailed
   | TSignUpRequestedAction
   | TFetchProfileSuccessAction
   | TAuthLogoutSuccessAction
-  | TProfileUpdate;
+  | TProfileUpdate
+  | TSignInYandex;

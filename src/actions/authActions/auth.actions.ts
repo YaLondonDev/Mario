@@ -12,6 +12,7 @@ import {
   TSignInRequestedAction,
   TSignUpPayload,
   TSignUpRequestedAction,
+  TSignInYandex,
 } from './auth.types';
 
 export const authRequest = (
@@ -59,4 +60,8 @@ export const authLogoutRequested = (): TAuthLogoutRequestedAction => ({
 export const profileUpdate = (profile: TUserProfile) => ({
   type: AuthActions.PROFILE_UPDATE,
   payload: profile,
+});
+
+export const getServiceIdYandex = (): TSignInYandex => ({
+  type: AuthActions.SIGN_IN_YANDEX,
 });
