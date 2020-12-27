@@ -7,7 +7,7 @@ import { initializeServiceWorkers } from './workbox';
 import { axiosConfig } from './utils/axiosConfig';
 import { store } from './store';
 import './styles/default.scss';
-import { App } from './App';
+import App from './App';
 
 axiosConfig();
 

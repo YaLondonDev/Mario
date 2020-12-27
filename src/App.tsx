@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { hot } from 'react-hot-loader/root';
 
 import { Home, Game, Leaderboard, SignIn, SignUp, UserPage } from './pages';
 import { fetchProfileRequested } from './actions/authActions/auth.actions';
@@ -14,7 +16,7 @@ export type TUiSettings = {
   showHeader: boolean;
 };
 
-export const App: FC = () => {
+const App: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const auth = useSelector(authSelector);
@@ -55,3 +57,5 @@ export const App: FC = () => {
     </UiContext.Provider>
   );
 };
+
+export default hot(App);
