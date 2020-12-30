@@ -42,6 +42,7 @@
     "class-methods-use-this": "off",
     "react/button-has-type": "off",
     "operator-linebreak": "off",
+    "no-underscore-dangle": "off",
     "import/no-unresolved": [0],
     "import/extensions": [
       "error",

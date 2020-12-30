@@ -12,7 +12,7 @@ const Button: FC<Props> = ({
   ...props
 }) => (
   <button
-    className={classNames(styles.btn, styles[className])}
+    className={classNames(styles.btn, className)}
     type={type}
     onClick={onClick}
     {...props}

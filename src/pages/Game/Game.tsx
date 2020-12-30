@@ -8,10 +8,10 @@ import React, {
 } from 'react';
 import { Game as WizardGame } from '../../game/core/Game';
 import { UiContext } from '../../components/UiContext';
-import { CANVAS } from '../../game/consts/size';
 import { Meta } from '../../components/Meta';
 import { Button } from '../../components';
 import styles from './game.module.scss';
+import ExpandIcon from './expand.svg';
 
 const Game: FC = () => {
   const { uiSettings, setUiSettings } = useContext(UiContext);
@@ -33,18 +33,28 @@ const Game: FC = () => {
       return;
     }
 
-    setGame(
-      new WizardGame(canvasRef.current, {
-        width: CANVAS.width,
-        height: CANVAS.height,
-        scale: 0.8,
-      }),
-    );
+    setGame(new WizardGame(canvasRef.current));
   }, [canvasRef]);
+
+  const handleFullScreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    }
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }, []);
 
   return (
     <div>
       <Meta title="Game" />
+      {started && (
+        <div className={styles.tools}>
+          <Button onClick={handleFullScreen} className={styles.expandButton}>
+            <ExpandIcon className={styles.expandIcon} />
+          </Button>
+        </div>
+      )}
       {!started && (
         <div className={styles.wrapper}>
           <Button onClick={startGame} type="button">

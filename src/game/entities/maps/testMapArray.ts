@@ -1,10 +1,10 @@
-import { CANVAS, PLATFORM } from '../../consts/size';
+import { PLATFORM } from '../../consts/size';
 
-export const MapArray:any = {
+export const MapArray: any = {
   player: {
     name: 'Wizard',
     position: {
-      x: -200,
+      x: 0,
       y: 1444,
     },
   },
@@ -12,8 +12,8 @@ export const MapArray:any = {
     {
       name: 'Ground',
       position: {
-        x: 200,
-        y: CANVAS.height + 59,
+        x: 800,
+        y: 139,
       },
       size: {
         width: PLATFORM.width,
@@ -23,8 +23,63 @@ export const MapArray:any = {
     {
       name: 'Ground',
       position: {
-        x: PLATFORM.width + 300,
-        y: CANVAS.height - 200,
+        x: 800,
+        y: 759,
+      },
+      size: {
+        width: PLATFORM.width,
+        height: PLATFORM.height,
+      },
+    },
+    {
+      name: 'Ground',
+      position: {
+        x: 900 + PLATFORM.width,
+        y: 259,
+      },
+      size: {
+        width: PLATFORM.width,
+        height: PLATFORM.height,
+      },
+    },
+    {
+      name: 'Ground',
+      position: {
+        x: 900 + PLATFORM.width * 1.3,
+        y: 520,
+      },
+      size: {
+        width: PLATFORM.width,
+        height: PLATFORM.height,
+      },
+    },
+    {
+      name: 'Ground',
+      position: {
+        x: 900 + PLATFORM.width * 1.5,
+        y: 720,
+      },
+      size: {
+        width: PLATFORM.width,
+        height: PLATFORM.height,
+      },
+    },
+    {
+      name: 'Ground',
+      position: {
+        x: 900 + PLATFORM.width * 1.6,
+        y: 920,
+      },
+      size: {
+        width: PLATFORM.width,
+        height: PLATFORM.height,
+      },
+    },
+    {
+      name: 'Ground',
+      position: {
+        x: 900 + PLATFORM.width / 3,
+        y: 1120,
       },
       size: {
         width: PLATFORM.width,
@@ -37,7 +92,7 @@ export const MapArray:any = {
       name: 'Coin',
       position: {
         x: PLATFORM.width,
-        y: CANVAS.height - 220,
+        y: 220,
       },
       size: {
         width: 512,
@@ -48,7 +103,7 @@ export const MapArray:any = {
       name: 'Coin',
       position: {
         x: PLATFORM.width + 400,
-        y: CANVAS.height - 280,
+        y: 280,
       },
       size: {
         width: 512,

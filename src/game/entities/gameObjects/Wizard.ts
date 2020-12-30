@@ -2,7 +2,7 @@ import {
   MovableGameObject,
   TMovableGameObjectProps,
 } from '../../core/models/MovableGameObject';
-import { TGameObjectProps } from '../../core/models/GameObject';
+import { GameObject } from '../../core/models/GameObject';
 
 import WizardSprite from '../../../assets/img/sprites/wizard-sprite.png';
 import WizardSpriteIdle from '../../../assets/img/sprites/wizard_sprite-idle.png';
@@ -10,8 +10,9 @@ import WizardSpriteJump from '../../../assets/img/sprites/wizard_sprite-jump.png
 import { ImageResource } from '../../core/ImageResource';
 import { keyMap } from '../../core/services/KeyboardService';
 import { GameContainer } from '../../core/GameContainer';
-import { CANVAS, WIZARD } from '../../consts/size';
-import { MapArray } from '../maps/testMapArray';
+import { WIZARD } from '../../consts/size';
+import { Coin } from './Coin';
+import { CanvasService } from '../../core/services/CanvasService';
 
 enum sprites {
   move = 0,
@@ -66,81 +67,75 @@ export class Wizard extends MovableGameObject {
     });
   }
 
-  isCollided = (obstacle: TGameObjectProps, player: any) => {
+  // Доделать колизию монеток
+  isCollided = (obstacle: GameObject) => {
     const isCollideLeft =
-      player.position.x + (player.size.width + WIZARD.horizontal_indent) >
-      obstacle.position.x;
+      this.x + this.size.width - WIZARD.horizontal_indent >= obstacle.x;
     const isCollideRight =
-      player.position.x - WIZARD.horizontal_indent <
-      obstacle.position.x + obstacle.size.width;
-    const isCollideTop =
-      player.position.y <
-      obstacle.position.y + obstacle.size.height - WIZARD.vertical_indent;
-    const isCollideBottom =
-      player.position.y - WIZARD.vertical_indent + player.size.height >
-      obstacle.position.y;
+      this.x - WIZARD.horizontal_indent <= obstacle.x + obstacle.size.width;
+    const isCollideTop = this.y - this.size.height >= obstacle.y;
+    const isCollideBottom = this.y <= obstacle.y + obstacle.size.height;
 
-    if (isCollideLeft && isCollideRight && isCollideTop && isCollideBottom) {
+    if (isCollideLeft || isCollideRight || isCollideTop || isCollideBottom) {
       return true;
     }
     return false;
   };
 
-  collideHandler = (obstacle: TGameObjectProps, player: any) => {
-    if (this.isCollided(obstacle, player)) {
-      const isCollideRight =
-        this.prevPosition.x + (this.size.width + WIZARD.horizontal_indent) >=
-        obstacle.position.x + obstacle.size.width;
-      const isCollideLeft =
-        this.prevPosition.x + (this.size.width + WIZARD.horizontal_indent) <=
-        obstacle.position.x;
-      const isCollideTop =
-        this.prevPosition.y - WIZARD.vertical_indent + this.size.height <=
-        obstacle.position.y;
-      const isCollideBottom =
-        this.prevPosition.y >= obstacle.position.y + obstacle.size.height;
-
-      if (isCollideRight) {
-        this.position.x =
-          obstacle.position.x + obstacle.size.width + WIZARD.horizontal_indent;
+  collideHandler = (obstacle: GameObject) => {
+    if (this.checkCollision(obstacle)) {
+      if (
+        this.prevPosition.x + WIZARD.horizontal_indent >=
+        obstacle.x + obstacle.size.width
+      ) {
+        this.x = obstacle.x + obstacle.size.width - WIZARD.horizontal_indent;
         this.moveSettings.xVelocity = 0;
       }
-      if (isCollideLeft) {
-        this.position.x =
-          obstacle.position.x - (this.size.width + WIZARD.horizontal_indent);
+      if (
+        this.prevPosition.x + this.size.width - WIZARD.horizontal_indent <=
+        obstacle.x
+      ) {
+        this.x = obstacle.x - this.size.width + WIZARD.horizontal_indent;
         this.moveSettings.xVelocity = 0;
       }
-      if (isCollideTop) {
-        this.position.y =
-          obstacle.position.y - player.size.height + WIZARD.vertical_indent;
+      if (
+        this.prevPosition.y - (this.size.height - WIZARD.vertical_indent) >=
+        obstacle.y
+      ) {
+        this.y = obstacle.y + this.size.height - WIZARD.vertical_indent;
         this.moveSettings.yVelocity = 0;
         this.moveSettings.jumping = false;
       }
-      if (isCollideBottom) {
-        this.position.y = obstacle.position.y + obstacle.size.height;
-        this.moveSettings.yVelocity = 0;
+      if (
+        this.prevPosition.y - WIZARD.vertical_indent <=
+        obstacle.y - obstacle.size.height
+      ) {
+        this.moveSettings.yVelocity += 30;
       }
     }
   };
 
-  coinHandler = (coin: TGameObjectProps, player: any) => {
-    if (this.isCollided(coin, player)) {
+  checkCollision = (obstacle: GameObject) =>
+    this.x < obstacle.x + obstacle.size.width - WIZARD.horizontal_indent &&
+    this.x + this.size.width - WIZARD.horizontal_indent > obstacle.x &&
+    this.y > obstacle.y - (obstacle.size.height - WIZARD.vertical_indent) &&
+    this.y - (this.size.height - WIZARD.vertical_indent) < obstacle.y;
+
+  coinHandler = (coin: GameObject) => {
+    if (this.checkCollision(coin)) {
       this.points += 1;
       // eslint-disable-next-line no-param-reassign
-      coin.position.x = -9999;
+      coin.x = -9999;
     }
   };
 
   move = () => {
     const { keyboard } = GameContainer;
-    const {
-      allowedMoveDirections: directions,
-      moveSettings: move,
-      position,
-    } = this;
+    const { allowedMoveDirections: directions, moveSettings: move } = this;
+    const cs = CanvasService.getInstance();
 
-    this.prevPosition.x = position.x;
-    this.prevPosition.y = position.y;
+    this.prevPosition.x = this.x;
+    this.prevPosition.y = this.y;
 
     if (directions.left && keyboard.isKeyPressed(keyMap.LEFT)) {
       this.changeCurrentSpriteIndex(sprites.move);
@@ -158,33 +153,40 @@ export class Wizard extends MovableGameObject {
       move.jumping = true;
     }
     move.yVelocity += 1.5;
-    position.x += move.xVelocity;
-    position.y += move.yVelocity;
+    this.incrementX(move.xVelocity);
+    this.decrementY(move.yVelocity);
     move.xVelocity *= 0.9;
     move.yVelocity *= 0.9;
-    if (position.y > CANVAS.height + WIZARD.horizontal_indent) {
-      position.y = CANVAS.height + WIZARD.horizontal_indent;
+    if (this.y - (WIZARD.height - WIZARD.vertical_indent) <= 0) {
+      this.y = this.size.height - WIZARD.vertical_indent;
       move.yVelocity = 0;
       move.jumping = false;
     }
 
-    if (position.x < WIZARD.horizontal_indent) {
-      position.x = WIZARD.horizontal_indent;
+    if (this.x < WIZARD.horizontal_indent) {
+      this.x = WIZARD.horizontal_indent;
     }
 
-    if (position.x > CANVAS.width) {
-      position.x = CANVAS.width;
+    if (this.x > cs.size.width) {
+      this.x = cs.size.width - this.size.width;
     }
     if (move.xVelocity < 1) {
       this.changeCurrentSpriteIndex(sprites.stay);
     }
 
-    MapArray.coins.forEach((element: TGameObjectProps) => {
-      this.coinHandler(element, this);
-    });
+    this.collideObjects();
+  };
 
-    MapArray.obstacles.forEach((element: TGameObjectProps) => {
-      this.collideHandler(element, this);
+  collideObjects = () => {
+    this.map.getObjects().forEach((obj) => {
+      if (obj instanceof Wizard) {
+        return;
+      }
+      if (obj instanceof Coin) {
+        this.coinHandler(obj);
+      } else {
+        this.collideHandler(obj);
+      }
     });
   };
 }

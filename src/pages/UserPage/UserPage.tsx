@@ -11,8 +11,6 @@ import { authSelector } from '../../selectors';
 const UserPage: FC = () => {
   const auth = useSelector(authSelector);
 
-  console.log(auth);
-
   return (
     <div className={base.wrapper}>
       <div className={styles.formWrapper}>

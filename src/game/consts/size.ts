@@ -4,8 +4,8 @@ export const CANVAS = {
 };
 
 export const WIZARD = {
-  horizontal_indent: -220,
-  vertical_indent: 180,
+  horizontal_indent: 220,
+  vertical_indent: 130,
   width: 512,
   height: 512,
 };

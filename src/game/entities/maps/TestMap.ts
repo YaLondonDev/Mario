@@ -12,26 +12,25 @@ export class TestMap extends GameMap {
 
     this.mapObjects.push(
       new Wizard({
+        map: this,
         context,
         position: MapArray.player.position,
       }),
     );
 
-    MapArray.obstacles.forEach((item:any) => {
+    MapArray.obstacles.forEach((item: any) => {
       this.mapObjects.push(
         new Ground({
+          map: this,
           context,
           position: item.position,
         }),
       );
     });
 
-    MapArray.coins.forEach((item:any) => {
+    MapArray.coins.forEach((item: any) => {
       this.mapObjects.push(
-        new Coin({
-          context,
-          position: item.position,
-        }),
+        new Coin({ map: this, context, position: item.position }),
       );
     });
 

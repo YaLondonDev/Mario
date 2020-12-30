@@ -32,10 +32,11 @@ export class GameMap {
       await Promise.all(resourcesQueue);
       this.resourcesLoaded = true;
     } catch (error) {
-      console.error(error);
       this.resourcesLoaded = false;
     }
   };
+
+  public getObjects = () => this.mapObjects;
 
   // Пробегается по всему массиву объектов и вызывает у каждого метод render
   // таким образом каждый объект будет отрисован

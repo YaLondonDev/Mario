@@ -7,3 +7,29 @@
   align-items: center;
   justify-content: center;
 }
+
+.expandButton {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: unset;
+  width: 30px;
+  height: 30px;
+  min-width: unset;
+}
+
+.expandIcon {
+  width: 90%;
+  fill: #fff;
+}
+
+.tools {
+  border-radius: 3px;
+  padding: 10px;
+  background: rgba($color: #fff, $alpha: 0.3);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
