@@ -12,7 +12,8 @@ import { keyMap } from '../../core/services/KeyboardService';
 import { GameContainer } from '../../core/GameContainer';
 import { WIZARD } from '../../consts/size';
 import { Coin } from './Coin';
-import { CanvasService } from '../../core/services/CanvasService';
+import { Enemy } from './Enemy';
+import { Finish } from './Finish';
 
 enum sprites {
   move = 0,
@@ -25,12 +26,22 @@ export type TPosition = {
   y: number;
 };
 
+export type TGameStatus = {
+  gameOver: boolean;
+  gameFinish: boolean;
+};
+
 export class Wizard extends MovableGameObject {
   // Координаты x,y объекта на холсте
   protected prevPosition: TPosition = {
     x: 0,
     y: 0,
   };
+
+  public gameStatus: TGameStatus = {
+    gameOver: false,
+    gameFinish: false,
+  }
 
   constructor(props: TMovableGameObjectProps) {
     super({
@@ -129,10 +140,15 @@ export class Wizard extends MovableGameObject {
     }
   };
 
+  gameOver = (enemy?: GameObject) => {
+    if (this.checkCollision(enemy)) {
+      this.gameStatus.gameOver = true;
+    }
+  }
+
   move = () => {
     const { keyboard } = GameContainer;
     const { allowedMoveDirections: directions, moveSettings: move } = this;
-    const cs = CanvasService.getInstance();
 
     this.prevPosition.x = this.x;
     this.prevPosition.y = this.y;
@@ -149,7 +165,7 @@ export class Wizard extends MovableGameObject {
       keyboard.isKeyPressed(keyMap.UP) &&
       move.jumping === false
     ) {
-      move.yVelocity -= 50;
+      move.yVelocity -= 70;
       move.jumping = true;
     }
     move.yVelocity += 1.5;
@@ -158,18 +174,13 @@ export class Wizard extends MovableGameObject {
     move.xVelocity *= 0.9;
     move.yVelocity *= 0.9;
     if (this.y - (WIZARD.height - WIZARD.vertical_indent) <= 0) {
-      this.y = this.size.height - WIZARD.vertical_indent;
-      move.yVelocity = 0;
-      move.jumping = false;
+      this.gameStatus.gameOver = true;
     }
 
     if (this.x < WIZARD.horizontal_indent) {
       this.x = WIZARD.horizontal_indent;
     }
 
-    if (this.x > cs.size.width) {
-      this.x = cs.size.width - this.size.width;
-    }
     if (move.xVelocity < 1) {
       this.changeCurrentSpriteIndex(sprites.stay);
     }
@@ -177,10 +188,22 @@ export class Wizard extends MovableGameObject {
     this.collideObjects();
   };
 
+  finishHandler = (finish: GameObject) => {
+    if (this.checkCollision(finish)) {
+      this.gameStatus.gameFinish = true;
+    }
+  }
+
   collideObjects = () => {
     this.map.getObjects().forEach((obj) => {
       if (obj instanceof Wizard) {
         return;
+      }
+      if (obj instanceof Finish) {
+        this.finishHandler(obj);
+      }
+      if (obj instanceof Enemy) {
+        this.gameOver(obj);
       }
       if (obj instanceof Coin) {
         this.coinHandler(obj);

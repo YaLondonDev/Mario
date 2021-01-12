@@ -1,6 +1,7 @@
 import { TestMap } from '../entities/maps/TestMap';
 import { GameMap } from './models/GameMap';
 import { CanvasService } from './services/CanvasService';
+import { GameObject } from './models/GameObject';
 
 export type Params = {
   width: number;
@@ -28,14 +29,42 @@ export class Game {
     this.gameLoop();
   };
 
+  gameOver = () => {
+    const locationObj = document.location;
+    locationObj.href = `${locationObj.origin + locationObj.pathname}?status=gameOver`;
+  }
+
+  showPoints = (player:GameObject) => {
+    const cs = CanvasService.getInstance();
+    if (player.points) {
+      cs.context.fillStyle = '#f93b3b';
+      cs.context.font = 'normal 120px Arial';
+      cs.context.fillText(player.points.toString(), 20, 220);
+    }
+  }
+
+  gameFinish = (player:GameObject) => {
+    const locationObj = document.location;
+    locationObj.href = `${locationObj.origin + locationObj.pathname}?status=gameFinish&points=${player.points.toString()}`;
+  }
+
   // игровой цикл
   private gameLoop = () => {
     const cs = CanvasService.getInstance();
+    cs.context.save();
+    const wizard:any = this.currentMap.getHero();
+    const cameraX = (cs.size.width / 2 - 212) - (wizard.getX());
     cs.redrawContext();
-    cs.context.fillStyle = 'red';
-    cs.context.fillRect(0, cs.size.height - 10, cs.size.width - 10, 3);
-    this.currentMap.render(); // Просим карту отрисовать все её объекты
-    window.requestAnimationFrame(this.gameLoop); // встроенная функция,
-    // которая будет вызывать gameLoop 60 раз в 1 секунду
+    this.showPoints(wizard);
+    cs.context.translate(cameraX, 0);
+    this.currentMap.render();
+    if (wizard.gameStatus.gameFinish) {
+      this.gameFinish(wizard);
+    }
+    if (wizard.gameStatus.gameOver) {
+      this.gameOver();
+    }
+    cs.context.restore();
+    window.requestAnimationFrame(this.gameLoop); // встроенная функция
   };
 }

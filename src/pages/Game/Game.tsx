@@ -18,6 +18,8 @@ const Game: FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [game, setGame] = useState<WizardGame | null>(null);
   const [started, setStarted] = useState(false);
+  const urlParams = new URLSearchParams(window.location.search);
+  const status = urlParams.get('status') || 'start';
 
   const startGame = useCallback(() => {
     setStarted(true);
@@ -32,7 +34,6 @@ const Game: FC = () => {
     if (!canvasRef.current) {
       return;
     }
-
     setGame(new WizardGame(canvasRef.current));
   }, [canvasRef]);
 
@@ -57,8 +58,9 @@ const Game: FC = () => {
       )}
       {!started && (
         <div className={styles.wrapper}>
+          {status !== 'start' && (<h1 className={styles.status}>Игра окончена</h1>) }
           <Button onClick={startGame} type="button">
-            Start
+            {status === 'start' ? 'Играть' : 'Играть заново'}
           </Button>
         </div>
       )}

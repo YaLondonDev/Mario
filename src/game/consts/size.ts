@@ -21,3 +21,13 @@ export const COIN = {
   width: 120,
   height: 111,
 };
+
+export const FINISH = {
+  width: 128,
+  height: 128,
+};
+
+export const ENEMY = {
+  width: 255,
+  height: 205,
+};

@@ -123,6 +123,10 @@ export class GameObject {
     this._x -= value;
   };
 
+  getX() {
+    return this._x;
+  }
+
   // Возвращает все ресуры текущего игрового объекта.
   // К этому методу обращается карта, когда загружает все ресуры
   public getResources = () =>
@@ -195,11 +199,6 @@ export class GameObject {
         this.size.width, // ширина в которую будет вмещен текущий кадр
         this.size.height, // высота в которую будет вмещен текущий кадр
       );
-      if (this.points) {
-        context.fillStyle = '#f93b3b';
-        context.font = 'normal 120px Arial';
-        context.fillText(this.points.toString(), 20, 220);
-      }
       this.spriteTick(); // после отрисовки меняем кадр на следующий
     }
     if (GameContainer.config.isDebug()) {

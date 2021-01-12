@@ -1,4 +1,5 @@
 import { GameObject } from './GameObject';
+import { Wizard } from '../../entities/gameObjects/Wizard';
 
 export type MapObjects = GameObject[];
 
@@ -37,6 +38,13 @@ export class GameMap {
   };
 
   public getObjects = () => this.mapObjects;
+
+  public getHero = () => this.mapObjects.find((obj) => {
+    if (obj instanceof Wizard) {
+      return true;
+    }
+    return false;
+  })
 
   // Пробегается по всему массиву объектов и вызывает у каждого метод render
   // таким образом каждый объект будет отрисован
