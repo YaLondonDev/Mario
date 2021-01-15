@@ -26,8 +26,8 @@ const Leaderboard: FC = () => {
             Таблица лидеров
           </h1>
           <ul className={styles.leaderboard__list}>
-            {leaderboard.map((item, index) => (
-              <li className={styles.leaderboard__list_item} key={item.data.name + index}>
+            {leaderboard.map((item) => (
+              <li className={styles.leaderboard__list_item} key={item.data[ratingFieldName]}>
                 <span className={styles.leaderboard__list_item_text}>
                   {item.data.name}
                 </span>

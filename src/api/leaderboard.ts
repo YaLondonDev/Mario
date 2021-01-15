@@ -1,6 +1,6 @@
 import { host, defaultRequestOptions, ratingFieldName } from '../helpers/api';
 
-const GetLeaderboardData = {
+const getLeaderboardData = {
   ratingFieldName,
   cursor: 0,
   limit: 10,
@@ -15,7 +15,7 @@ export const getLeaderboard = (): Promise<Response> => fetch(`${host}/api/v2/lea
   ...defaultRequestOptions,
   method: 'POST',
   credentials: 'include',
-  body: JSON.stringify(GetLeaderboardData),
+  body: JSON.stringify(getLeaderboardData),
 });
 
 export const addToLeaderboard = (result:TLeaderboard): Promise<Response> => {
