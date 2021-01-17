@@ -1,3 +1,11 @@
+import { Store } from 'redux';
+import { SagaMiddleware } from 'redux-saga';
+
+export type AppStore = Store & {
+  runSaga: SagaMiddleware['run'];
+  close: () => void;
+};
+
 export type TUserProfile = {
   id?: number;
   firstName: string;

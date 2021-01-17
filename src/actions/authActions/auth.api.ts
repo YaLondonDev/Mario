@@ -1,4 +1,4 @@
-import { TUserProfile } from 'src/reducers/reducers.types';
+import { TUserProfile } from 'src/reducers/redux';
 import { ApiService } from 'src/services/api.service';
 import { toCamelCase } from 'src/utils/toCamelCase';
 import { toSnakeCase } from 'src/utils/toSnakeCase';

@@ -2,7 +2,7 @@ import React, { FC, useCallback, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { profileUpdate } from 'src/actions/authActions/auth.actions';
-import { TUserProfile } from 'src/reducers/reducers.types';
+import { TUserProfile } from 'src/reducers/redux';
 import { toCamelCase } from 'src/utils/toCamelCase';
 import { IconUser } from 'src/components/Icon/Icon';
 import userApi from 'src/api/user.api';

@@ -43,6 +43,7 @@
     "react/button-has-type": "off",
     "operator-linebreak": "off",
     "import/no-unresolved": [0],
+    "no-underscore-dangle": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
