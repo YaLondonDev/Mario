@@ -1,9 +1,12 @@
-import { Configuration, WebpackPluginInstance } from 'webpack'; // eslint-disable-line
+import {
+  Configuration,
+  WebpackPluginInstance,
+  HotModuleReplacementPlugin,
+} from 'webpack'; // eslint-disable-line
 import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin'; // eslint-disable-line
 import { GenerateSW } from 'workbox-webpack-plugin';
 
-import { BUILD_DIR, IS_DEV, PUBLIC_DIR, SRC_DIR } from './env';
+import { BUILD_DIR, IS_DEV, SRC_DIR } from './env';
 import fileLoader from './loaders/file';
 import cssLoader from './loaders/css';
 import svgLoader from './loaders/svg';
@@ -25,7 +28,15 @@ const googleFontsPattern = new RegExp(
 
 const config: Configuration & DevServerConfiguration = {
   name: 'client',
-  entry: path.join(SRC_DIR, 'index'),
+  mode: 'development',
+  cache: false,
+  entry: {
+    main: [
+      IS_DEV && 'react-hot-loader/patch',
+      IS_DEV && 'webpack-hot-middleware/client',
+      path.join(SRC_DIR, 'index'),
+    ].filter((item) => !!item),
+  },
   module: {
     rules: [
       jsLoader.client,
@@ -37,11 +48,13 @@ const config: Configuration & DevServerConfiguration = {
   output: {
     path: BUILD_DIR,
     filename: '[name].js',
+    publicPath: '/',
   },
   resolve: {
     extensions,
     alias: {
       src: path.resolve(__dirname, '../src'),
+      'react-dom': '@hot-loader/react-dom',
     },
   },
   stats: {
@@ -55,10 +68,6 @@ const config: Configuration & DevServerConfiguration = {
   },
   plugins: [
     // @ts-ignore
-    IS_DEV &&
-      new HtmlWebpackPlugin({
-        template: path.resolve(PUBLIC_DIR, 'index.html'),
-      }),
     new GenerateSW({
       runtimeCaching: [
         {
@@ -75,6 +84,7 @@ const config: Configuration & DevServerConfiguration = {
         },
       ],
     }),
+    new HotModuleReplacementPlugin(),
   ].filter((plugin) => Boolean(plugin)) as WebpackPluginInstance[],
 };
 
