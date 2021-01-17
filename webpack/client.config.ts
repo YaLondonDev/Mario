@@ -64,7 +64,7 @@ const config: Configuration & DevServerConfiguration = {
     contentBase: path.join(__dirname, 'public'),
     compress: true,
     historyApiFallback: true,
-    port: process.env.PORT || 9000,
+    port: process.env.PORT || 5000,
   },
   plugins: [
     // @ts-ignore

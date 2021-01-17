@@ -26,7 +26,18 @@ function* signUp(action: TSignUpRequestedAction) {
 
 function* fetchProfile() {
   try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+
     yield put(authRequested());
+
+    if (code) {
+      yield call(authApi.fetchYandexCode, code);
+
+      // redirect to /user
+      document.location.href = `${document.location.href.replace(window.location.search, '')}user`;
+    }
+
     const profile = yield call(authApi.fetchProfile);
     yield put(fetchProfileSuccess(profile));
   } catch (error) {
@@ -53,9 +64,22 @@ function* signIn(action: TSignInRequestedAction) {
   }
 }
 
+function* getServiceYandex() {
+  try {
+    yield put(authRequested());
+    const serviceId = yield call(authApi.getServiceYandex);
+
+    const redirectUrl = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}`;
+    document.location.href = redirectUrl;
+  } catch (error) {
+    yield put(authRequestedFailed(error.message));
+  }
+}
+
 export function* authWather() {
   yield takeEvery(AuthActions.SIGN_UP_REQUESTED, signUp);
   yield takeEvery(AuthActions.SIGN_IN_REQUESTED, signIn);
   yield takeEvery(AuthActions.FETCH_PROFILE_REQUESTED, fetchProfile);
   yield takeEvery(AuthActions.AUTH_LOGOUT_REQUESTED, logout);
+  yield takeEvery(AuthActions.SIGN_IN_YANDEX, getServiceYandex);
 }
