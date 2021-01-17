@@ -1,7 +1,9 @@
 node_modules
 build
+secure
 .idea
 .vscode
 .env
+yarn-error.log
 
 .DS_Store

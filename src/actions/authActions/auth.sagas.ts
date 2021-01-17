@@ -10,6 +10,7 @@ import {
 import authApi from './auth.api';
 import {
   AuthActions,
+  TFetchProfileRequestedAction,
   TSignInRequestedAction,
   TSignUpRequestedAction,
 } from './auth.types';
@@ -24,21 +25,10 @@ function* signUp(action: TSignUpRequestedAction) {
   }
 }
 
-function* fetchProfile() {
+function* fetchProfile(action: TFetchProfileRequestedAction) {
   try {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-
     yield put(authRequested());
-
-    if (code) {
-      yield call(authApi.fetchYandexCode, code);
-
-      // redirect to /user
-      document.location.href = `${document.location.href.replace(window.location.search, '')}user`;
-    }
-
-    const profile = yield call(authApi.fetchProfile);
+    const profile = yield call(authApi.fetchProfile, action.payload);
     yield put(fetchProfileSuccess(profile));
   } catch (error) {
     yield put(authRequestedFailed(error.message));
