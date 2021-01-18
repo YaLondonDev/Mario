@@ -12,7 +12,10 @@ export class ImageResource {
   }
 
   // геттер для изображения
-  getImage = () => this.image;
+  getImage = () => {
+    this.image.src = this.path;
+    return this.image;
+  }
 
   // этот метод возвращает промис, который разрешается либо окончанием загрузки
   // изображения, либо выбросом ошибки, в случае неудачи

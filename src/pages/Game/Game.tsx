@@ -8,16 +8,24 @@ import React, {
 } from 'react';
 import { Game as WizardGame } from '../../game/core/Game';
 import { UiContext } from '../../components/UiContext';
-import { CANVAS } from '../../game/consts/size';
 import { Meta } from '../../components/Meta';
 import { Button } from '../../components';
 import styles from './game.module.scss';
+import ExpandIcon from './expand.svg';
+
+enum GameStatus {
+  Start = 'Start',
+  gameOver = 'gameOver',
+  gameFinish = 'gameFinish'
+}
 
 const Game: FC = () => {
   const { uiSettings, setUiSettings } = useContext(UiContext);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [game, setGame] = useState<WizardGame | null>(null);
   const [started, setStarted] = useState(false);
+  const urlParams = new URLSearchParams(window.location.search);
+  const status = urlParams.get('status') || GameStatus.Start;
 
   const startGame = useCallback(() => {
     setStarted(true);
@@ -32,23 +40,33 @@ const Game: FC = () => {
     if (!canvasRef.current) {
       return;
     }
-
-    setGame(
-      new WizardGame(canvasRef.current, {
-        width: CANVAS.width,
-        height: CANVAS.height,
-        scale: 0.8,
-      }),
-    );
+    setGame(new WizardGame(canvasRef.current));
   }, [canvasRef]);
+
+  const handleFullScreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    }
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }, []);
 
   return (
     <div>
       <Meta title="Game" />
+      {started && (
+        <div className={styles.tools}>
+          <Button onClick={handleFullScreen} className={styles.expandButton}>
+            <ExpandIcon className={styles.expandIcon} />
+          </Button>
+        </div>
+      )}
       {!started && (
         <div className={styles.wrapper}>
+          {status !== GameStatus.Start && (<h1 className={styles.status}>Игра окончена</h1>) }
           <Button onClick={startGame} type="button">
-            Start
+            {status === GameStatus.Start ? 'Играть' : 'Играть заново'}
           </Button>
         </div>
       )}
