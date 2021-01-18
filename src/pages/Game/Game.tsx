@@ -13,13 +13,19 @@ import { Button } from '../../components';
 import styles from './game.module.scss';
 import ExpandIcon from './expand.svg';
 
+enum GameStatus {
+  Start = 'Start',
+  gameOver = 'gameOver',
+  gameFinish = 'gameFinish'
+}
+
 const Game: FC = () => {
   const { uiSettings, setUiSettings } = useContext(UiContext);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [game, setGame] = useState<WizardGame | null>(null);
   const [started, setStarted] = useState(false);
   const urlParams = new URLSearchParams(window.location.search);
-  const status = urlParams.get('status') || 'start';
+  const status = urlParams.get('status') || GameStatus.Start;
 
   const startGame = useCallback(() => {
     setStarted(true);
@@ -58,9 +64,9 @@ const Game: FC = () => {
       )}
       {!started && (
         <div className={styles.wrapper}>
-          {status !== 'start' && (<h1 className={styles.status}>Игра окончена</h1>) }
+          {status !== GameStatus.Start && (<h1 className={styles.status}>Игра окончена</h1>) }
           <Button onClick={startGame} type="button">
-            {status === 'start' ? 'Играть' : 'Играть заново'}
+            {status === GameStatus.Start ? 'Играть' : 'Играть заново'}
           </Button>
         </div>
       )}

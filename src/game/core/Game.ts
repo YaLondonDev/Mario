@@ -3,6 +3,7 @@ import { GameMap } from './models/GameMap';
 import { CanvasService } from './services/CanvasService';
 import { GameObject } from './models/GameObject';
 import { ImageResource } from './ImageResource';
+import { WIZARD } from '../consts/size';
 import bg from '../../assets/img/sprites/background/bg.png';
 
 export type Params = {
@@ -55,7 +56,7 @@ export class Game {
     const cs = CanvasService.getInstance();
     cs.context.save();
     const wizard:any = this.currentMap.getHero();
-    const cameraX = (cs.size.width / 2 - 212) - (wizard.getX());
+    const cameraX = (cs.size.width / 2 - WIZARD.horizontal_indent) - (wizard.getX());
     cs.redrawContext();
     const backgroundImage = new ImageResource(bg);
     cs.context.drawImage(backgroundImage.getImage(), 0, 0, cs.size.width, cs.size.height);

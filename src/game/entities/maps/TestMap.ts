@@ -27,13 +27,13 @@ export class TestMap extends GameMap {
       }),
     );
 
-    MapArray.enemy.forEach((item: any) => {
+    MapArray.enemy.forEach((item) => {
       this.mapObjects.push(
         new Enemy({ map: this, context, position: item.position }),
       );
     });
 
-    MapArray.obstacles.forEach((item: any) => {
+    MapArray.obstacles.forEach((item) => {
       this.mapObjects.push(
         new Ground({
           map: this,
@@ -43,7 +43,7 @@ export class TestMap extends GameMap {
       );
     });
 
-    MapArray.coins.forEach((item: any) => {
+    MapArray.coins.forEach((item) => {
       this.mapObjects.push(
         new Coin({ map: this, context, position: item.position }),
       );
