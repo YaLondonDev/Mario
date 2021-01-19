@@ -10,6 +10,7 @@ import { Button, Input } from '../../components';
 import { TSignInFormProps } from './types';
 
 import styles from './signinform.module.scss';
+import yandexLogin from '../../assets/img/yandex.png';
 
 const signInValidationSchema = Yup.object({
   login: Yup.string().required('Заполните поле'),
@@ -73,7 +74,7 @@ export const SignInForm: FC<TSignInFormProps> = ({ onSubmit }) => {
           onClick={yLogin}
           type="button"
         >
-          Яндек
+          <img src={yandexLogin} alt="yndex login" />
         </button>
       </div>
 
