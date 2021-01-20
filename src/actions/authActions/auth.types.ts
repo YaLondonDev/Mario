@@ -43,6 +43,7 @@ export type TSignUpRequestedAction = {
 
 export type TFetchProfileRequestedAction = {
   type: AuthActions.FETCH_PROFILE_REQUESTED;
+  payload?: string;
 };
 
 export type TFetchProfileSuccessAction = {

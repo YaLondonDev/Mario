@@ -13,8 +13,12 @@ class AuthApiService extends ApiService {
   signIn = (signInPayload: TSignInPayload) =>
     this.post(`/auth/signin`, toSnakeCase(signInPayload));
 
-  fetchProfile = async (): Promise<TUserProfile> => {
-    const user = await this.get(`/auth/user`);
+  fetchProfile = async (cookie?: string): Promise<TUserProfile> => {
+    const headers = cookie ? { Cookie: cookie } : {};
+
+    const user = await this.get(`/auth/user`, {
+      headers,
+    });
     return toCamelCase(user.data) as TUserProfile;
   };
 
@@ -26,7 +30,7 @@ class AuthApiService extends ApiService {
     return data.service_id;
   };
 
-  fetchYandexCode = (code: string) => this.post(`/oauth/yandex`, { code })
+  fetchYandexCode = (code: string) => this.post(`/oauth/yandex`, { code });
 }
 
 export default new AuthApiService();

@@ -8,6 +8,7 @@ import App from 'src/App';
 import { configureStore } from './store';
 import { getInitialState } from './reducers/getInitialState';
 import { rootSaga } from './actions/rootSaga';
+import { fetchProfileRequested } from './actions/authActions/auth.actions';
 
 export default (req: Request, res: Response) => {
   const location = req.url;
@@ -54,6 +55,8 @@ export default (req: Request, res: Response) => {
     .catch((err: any) => {
       throw err;
     });
+
+  store.dispatch(fetchProfileRequested(req.headers.cookie));
 
   store.close();
 };

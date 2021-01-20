@@ -25,7 +25,7 @@ const Home: FC = () => (
           accusantium explicabo mollitia, ullam odio quis dolor sint porro,
           sapiente, atque ad illo eum! Deleniti, voluptates?
         </p>
-        <Button className="btn__with_bg">
+        <Button>
           <Link to="/game">Играть</Link>
         </Button>
       </div>

@@ -1,4 +1,11 @@
-import { Game, Home, Leaderboard, SignIn, SignUp, UserPage } from './pages';
+import loadable from '@loadable/component';
+
+const Game = loadable(() => import('./pages/Game/Game'));
+const Home = loadable(() => import('./pages/Home/Home'));
+const Leaderboard = loadable(() => import('./pages/Leaderboard/Leaderboard'));
+const SignIn = loadable(() => import('./pages/SignIn/SignIn'));
+const SignUp = loadable(() => import('./pages/SignUp/SignUp'));
+const UserPage = loadable(() => import('./pages/UserPage/UserPage'));
 
 export default [
   {
