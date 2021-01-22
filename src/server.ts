@@ -9,10 +9,10 @@ import config from '../webpack/client.config';
 import serverRenderMiddleware from './server-render-middleware';
 
 const app = express();
-const compiler = webpack(config);
 
 app.use(express.static(path.resolve(__dirname, '../build')));
 if (IS_DEV) {
+  const compiler = webpack(config);
   app.use(
     webpackDevMiddleware(compiler, {
       publicPath: '/',
