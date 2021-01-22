@@ -1,23 +1,20 @@
 const https = require('https');
+const http = require('http');
 const fs = require('fs');
 const { app } = require('./build/server.js');
 
 const port = process.env.PORT || 5000;
+const credentials = {
+  key: fs.readFileSync('./secure/key.pem'),
+  cert: fs.readFileSync('./secure/cert.pem'),
+};
 
-const certificateIsExist = fs.existsSync('server/certificate/server.key') && fs.existsSync('server/certificate/server.cert');
+console.log(process.env.SSL_ENABLED, process.env.NODE_ENV);
 
-if (process.env.NODE_ENV === 'development' && certificateIsExist) {
-  https.createServer({
-    key: fs.readFileSync('server/certificate/server.key'),
-    cert: fs.readFileSync('server/certificate/server.cert'),
-  }, app)
-    .listen(port, () => {
-      // eslint-disable-next-line no-console
-      console.log('Application is started on localhost HTTPS:', port);
-    });
-} else {
-  app.listen(port, () => {
-    // eslint-disable-next-line no-console
-    console.log('Application is started on localhost HTTP:', port);
-  });
-}
+const server = process.env.SSL_ENABLED
+  ? https.createServer(credentials, app)
+  : http.createServer(app);
+
+server.listen(port, () => {
+  console.log(`App listen on ${port}`);
+});
