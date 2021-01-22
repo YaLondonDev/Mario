@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start:lint": "eslint ./src/**/*.ts ./src/**/*.tsx",
-    "start:server": "node server.js",
-    "start:sslserver": " cross-env SSL_ENABLED=true node server.js",
+    "start:server": "npm run ssr-build && npm-run-all --parallel start:dev start:server",
+    "start:sslserver": "cross-env SSL_ENABLED=true node server.js",
     "start:dev": "webpack --config ./webpack/client.config.ts --watch",
-    "start": "npm run ssr-build && npm-run-all --parallel start:dev start:server",
+    "start": "cross-env SSL_ENABLED=false NODE_ENV=production node server.js",
     "start:https": "npm run ssr-build && npm-run-all --parallel start:dev start:sslserver",
     "ssr-build": "rimraf build && cross-env NODE_ENV=development webpack --mode development",
     "build": "rimraf build && cross-env NODE_ENV=production webpack --mode production"

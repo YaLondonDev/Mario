@@ -9,7 +9,7 @@ const credentials = {
   cert: fs.readFileSync('./secure/cert.pem'),
 };
 
-console.log(process.env.SSL_ENABLED);
+console.log(process.env.SSL_ENABLED, process.env.NODE_ENV);
 
 const server = process.env.SSL_ENABLED
   ? https.createServer(credentials, app)
