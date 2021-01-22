@@ -1,5 +1,5 @@
 import path from 'path';
-import { Configuration } from 'webpack'; // eslint-disable-line
+// import { Configuration } from 'webpack'; // eslint-disable-line
 import nodeExternals from 'webpack-node-externals'; // eslint-disable-line
 import { SRC_DIR, BUILD_DIR } from './env';
 
@@ -9,7 +9,7 @@ import cssLoader from './loaders/css';
 import jsLoader from './loaders/js';
 import extensions from './extensions';
 
-const config: Configuration = {
+const config = {
   name: 'server',
   target: 'node',
   node: { __dirname: false },
