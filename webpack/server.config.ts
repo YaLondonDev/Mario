@@ -26,7 +26,6 @@ const config: Configuration = {
     filename: 'server.js',
     libraryTarget: 'commonjs2',
     path: BUILD_DIR,
-    publicPath: '/static/',
   },
   resolve: {
     modules: ['src', 'node_modules'],
