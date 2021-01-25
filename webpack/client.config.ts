@@ -5,6 +5,7 @@ import {
 } from 'webpack'; // eslint-disable-line
 import path from 'path';
 import { GenerateSW } from 'workbox-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import { BUILD_DIR, IS_DEV, SRC_DIR } from './env';
 import fileLoader from './loaders/file';
@@ -67,6 +68,10 @@ const config: Configuration & DevServerConfiguration = {
     port: process.env.PORT || 5000,
   },
   plugins: [
+    IS_DEV &&
+      new HtmlWebpackPlugin({
+        template: path.resolve(__dirname, '../public/index.html'),
+      }),
     // @ts-ignore
     new GenerateSW({
       runtimeCaching: [

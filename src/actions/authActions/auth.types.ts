@@ -1,4 +1,4 @@
-import { TUserProfile } from 'src/reducers/redux';
+import { TTheme, TUserProfile } from 'src/reducers/redux';
 
 export type TSignUpPayload = {
   firstName: string;
@@ -48,7 +48,7 @@ export type TFetchProfileRequestedAction = {
 
 export type TFetchProfileSuccessAction = {
   type: AuthActions.FETCH_PROFILE_SUCCESS;
-  payload: TUserProfile;
+  payload: { profile: TUserProfile; theme: TTheme };
 };
 
 export type TSignInRequestedAction = {
@@ -70,8 +70,8 @@ export type TProfileUpdate = {
 };
 
 export type TSignInYandex = {
-  type: AuthActions.SIGN_IN_YANDEX
-}
+  type: AuthActions.SIGN_IN_YANDEX;
+};
 
 export type TAuthActionTypes =
   | TAuthRequestedAction

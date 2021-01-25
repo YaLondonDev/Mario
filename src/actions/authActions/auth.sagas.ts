@@ -29,7 +29,9 @@ function* fetchProfile(action: TFetchProfileRequestedAction) {
   try {
     yield put(authRequested());
     const profile = yield call(authApi.fetchProfile, action.payload);
-    yield put(fetchProfileSuccess(profile));
+    const theme = yield call(authApi.fetchTheme, action.payload);
+    console.log(theme);
+    yield put(fetchProfileSuccess(profile, theme));
   } catch (error) {
     yield put(authRequestedFailed(error.message));
   }

@@ -9,6 +9,7 @@ export const initialState: TAuthReducerState = {
   isLoading: true,
   isFailed: false,
   profile: null,
+  theme: null,
 };
 
 export const authReducer = (
@@ -30,7 +31,8 @@ export const authReducer = (
     case AuthActions.FETCH_PROFILE_SUCCESS:
       return {
         ...state,
-        profile: action.payload,
+        profile: action.payload.profile,
+        theme: action.payload.theme,
         isLoading: false,
         isLoggedIn: true,
         isFailed: false,
