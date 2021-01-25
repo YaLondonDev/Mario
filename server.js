@@ -4,15 +4,15 @@ const fs = require('fs');
 const { app } = require('./build/server');
 
 const port = process.env.PORT || 5000;
-const credentials = {
-  key: fs.readFileSync('./secure/key.pem'),
-  cert: fs.readFileSync('./secure/cert.pem'),
-};
-
-console.log(process.env.SSL_ENABLED);
 
 const server = process.env.SSL_ENABLED
-  ? https.createServer(credentials, app)
+  ? https.createServer(
+      {
+        key: fs.readFileSync('./secure/key.pem'),
+        cert: fs.readFileSync('./secure/cert.pem'),
+      },
+      app,
+    )
   : http.createServer(app);
 
 server.listen(port, () => {
