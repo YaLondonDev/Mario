@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start:lint": "eslint ./src/**/*.ts ./src/**/*.tsx",
-    "start:server": "node server.js",
-    "start:sslserver": " cross-env SSL_ENABLED=true node server.js",
-    "start:dev": "webpack serve --config ./webpack/client.config.ts --watch",
-    "start:front": "cross-env NODE_ENV=development webpack serve --config ./webpack/client.config.ts --watch",
-    "start": "npm run ssr-build && npm-run-all --parallel start:dev start:server",
-    "start:https": "npm run ssr-build && npm-run-all --parallel start:dev start:sslserver",
+    "dev": "cross-env SERVE=true webpack serve --config ./webpack/client.config.ts --watch",
+    "dev:ssr": "webpack --config ./webpack/client.config.ts --watch",
+    "server": "node server.js",
+    "server:ssl": "cross-env SSL_ENABLED=true node server.js",
+    "start": "npm run ssr-build && npm-run-all --parallel dev:ssr server",
+    "start:https": "npm run ssr-build && npm-run-all --parallel dev:ssr server:ssl",
     "ssr-build": "rimraf build && cross-env NODE_ENV=development webpack --mode development",
     "build": "rimraf build && cross-env NODE_ENV=production webpack --mode production"
   },
