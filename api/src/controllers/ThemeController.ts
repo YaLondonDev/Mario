@@ -1,9 +1,38 @@
-import { getRepository } from 'typeorm';
+import { createQueryBuilder, getRepository } from 'typeorm';
+import { TCreateThemeDto } from '../dto/createThemeDto';
 import { ThemeEntity } from '../entities/postgres/themeEntity';
 import { UserThemeEntity } from '../entities/postgres/userThemeEntity';
 
 export class ThemeController {
-  static createTheme = () => {};
+  static createTheme = async (user: any, themeDto: TCreateThemeDto) => {
+    const themesRepository = getRepository(ThemeEntity, 'postgres');
+
+    const theme = await themesRepository.create({
+      ...themeDto,
+      creatorId: user.id,
+      default: false,
+    });
+
+    const result = await themesRepository.save(theme);
+    return result.id;
+  };
+
+  static getThemes = async (user?: any) => {
+    let themes: ThemeEntity[] = [];
+    const themesRepository = getRepository(ThemeEntity, 'postgres');
+
+    if (!user) {
+      themes = await themesRepository.find({ default: true });
+    } else {
+      themes = await createQueryBuilder(ThemeEntity, 'theme_entity', 'postgres')
+        .where('"default" = :default', { default: true })
+        .orWhere('"creatorId" = :creatorId', { creatorId: user.id })
+        .orderBy('id')
+        .getMany();
+    }
+
+    return themes.map((theme) => theme.toObject());
+  };
 
   static getCurrentTheme = async (user: any) => {
     const userThemeRepository = getRepository(UserThemeEntity, 'postgres');

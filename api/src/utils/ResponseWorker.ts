@@ -1,6 +1,8 @@
 export type TdataType =
   | Record<string, unknown>
-  | Array<Record<string, unknown>>;
+  | Array<Record<string, unknown>>
+  | number
+  | string;
 
 export type TResponse = {
   message?: string;

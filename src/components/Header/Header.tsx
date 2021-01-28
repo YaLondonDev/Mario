@@ -7,6 +7,7 @@ import { Logo, Menu, Button } from 'src/components';
 import { authSelector } from 'src/selectors';
 
 import styles from './header.module.scss';
+import { ThemeSwitcher } from '../ThemeSwitcher';
 
 const Header: FC = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const Header: FC = () => {
     <header className={styles.header}>
       <Logo />
       <div className={styles.header__right}>
+        <ThemeSwitcher />
         <Menu />
         {!auth.isLoggedIn && (
           <Button className="btn_base" type="button">

@@ -36,6 +36,7 @@ export default (req: Request, res: Response) => {
       </head>
       <body>
         <div id="root">${html}</div>
+        <div id="modal-root"></div>
       </body>
       <script>
         window.__INITIAL_STATE__ = ${JSON.stringify(reduxState)}

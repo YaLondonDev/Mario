@@ -8,7 +8,8 @@ const app = express();
 app
   .use(
     cors({
-      origin: 'http://localhost:5000',
+      origin: process.env.ORIGIN || 'http://localhost:5000',
+      credentials: true,
     }),
   )
   .use(express.json())

@@ -33,7 +33,13 @@ export type TAuthReducerState = {
   isLoading: boolean;
   isFailed: boolean;
   profile: TUserProfile | null;
+};
+
+export type TUiReducerState = {
+  isLoading: boolean;
   theme: TTheme;
+  themes: TTheme[];
+  error: null | string;
 };
 
 export type TUserReducerState = TUserProfile;

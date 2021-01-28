@@ -1,4 +1,4 @@
-import { TTheme, TUserProfile } from 'src/reducers/redux';
+import { TUserProfile } from 'src/reducers/redux';
 import { ApiService } from 'src/services/api.service';
 import { toCamelCase } from 'src/utils/toCamelCase';
 import { toSnakeCase } from 'src/utils/toSnakeCase';
@@ -20,18 +20,6 @@ class AuthApiService extends ApiService {
       headers,
     });
     return toCamelCase(user.data) as TUserProfile;
-  };
-
-  fetchTheme = async (cookie?: string): Promise<TTheme> => {
-    const headers = cookie ? { Cookie: cookie } : {};
-
-    const theme = await this.get(
-      `https://mario.ya-praktikum.tech:4444/api/v1/themes/current`,
-      {
-        headers,
-      },
-    );
-    return theme.data.data as TTheme;
   };
 
   logout = () => this.post(`/auth/logout`);

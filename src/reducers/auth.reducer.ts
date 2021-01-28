@@ -9,7 +9,6 @@ export const initialState: TAuthReducerState = {
   isLoading: true,
   isFailed: false,
   profile: null,
-  theme: null,
 };
 
 export const authReducer = (
@@ -32,7 +31,6 @@ export const authReducer = (
       return {
         ...state,
         profile: action.payload.profile,
-        theme: action.payload.theme,
         isLoading: false,
         isLoggedIn: true,
         isFailed: false,

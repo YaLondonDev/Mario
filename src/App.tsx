@@ -9,8 +9,9 @@ import { fetchProfileRequested } from './actions/authActions/auth.actions';
 import { Geolocation } from './components/Geolocation';
 import { Header, ErrorBoundary } from './components';
 import { UiContext } from './components/UiContext';
-import { authSelector } from './selectors';
+import { authSelector, uiSelector } from './selectors';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { Theme } from './components/Theme/Theme';
 
 export type TUiSettings = {
   showHeader: boolean;
@@ -20,6 +21,7 @@ const App: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const auth = useSelector(authSelector);
+  const ui = useSelector(uiSelector);
   const [uiSettings, setUiSettings] = useState<TUiSettings>({
     showHeader: true,
   });
@@ -34,13 +36,14 @@ const App: FC = () => {
     }
   }, [auth, history]);
 
-  if (!auth.isLoggedIn && auth.isLoading) {
+  if ((!auth.isLoggedIn && auth.isLoading) || ui.isLoading) {
     return <div>loading</div>;
   }
 
   return (
     <UiContext.Provider value={{ uiSettings, setUiSettings }}>
       <ErrorBoundary>
+        <Theme />
         <div className="page">
           {auth.isLoggedIn && <Geolocation />}
           {uiSettings.showHeader && <Header />}

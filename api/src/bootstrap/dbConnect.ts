@@ -12,10 +12,6 @@ export const dbConnect = async () => {
     database: process.env.POSTGRES_DB || 'mario-api',
     synchronize: true,
     entities: [`${path.resolve(__dirname, '../entities/postgres/*.{js,ts}')}`],
-    migrations: [`${(path.resolve(__dirname), '../migrations/*.{js,ts}')}`],
-    cli: {
-      migrationsDir: path.resolve(__dirname, '../migrations'),
-    },
     logging: true,
   });
   console.log('postgres connect success');

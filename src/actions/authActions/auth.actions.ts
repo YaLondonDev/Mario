@@ -1,4 +1,4 @@
-import { TTheme, TUserProfile } from 'src/reducers/redux';
+import { TUserProfile } from 'src/reducers/redux';
 
 import {
   AuthActions,
@@ -40,10 +40,9 @@ export const fetchProfileRequested = (
 
 export const fetchProfileSuccess = (
   profile: TUserProfile,
-  theme: TTheme,
 ): TFetchProfileSuccessAction => ({
   type: AuthActions.FETCH_PROFILE_SUCCESS,
-  payload: { profile, theme },
+  payload: profile,
 });
 
 export const signInRequested = (
