@@ -12,6 +12,13 @@ services:
       - POSTGRES_USER=mario
       - POSTGRES_DB=mario-api
     volumes:
-      - pg_project:/var/lib/postgresql/data
+      - ./postgres-initdb.sh:/docker-entrypoint-initdb.d/init.sh
     ports:
       - ${POSTGRES_PORT:-5432}:5432
+
+  mongo:
+    image: mongo:4.4.3-bionic
+    ports:
+      - "27017:27017"
+    volumes:
+      - pg_project:/data/db

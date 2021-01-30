@@ -2,9 +2,7 @@ import { TestMap } from '../entities/maps/TestMap';
 import { GameMap } from './models/GameMap';
 import { CanvasService } from './services/CanvasService';
 import { GameObject } from './models/GameObject';
-import { ImageResource } from './ImageResource';
 import { WIZARD } from '../consts/size';
-import bg from '../../assets/img/sprites/background/bg.png';
 
 export type Params = {
   width: number;
@@ -32,11 +30,6 @@ export class Game {
     this.gameLoop();
   };
 
-  gameOver = () => {
-    const locationObj = document.location;
-    locationObj.href = `${locationObj.origin + locationObj.pathname}?status=gameOver`;
-  }
-
   showPoints = (player:GameObject) => {
     const cs = CanvasService.getInstance();
     if (player.points) {
@@ -44,6 +37,11 @@ export class Game {
       cs.context.font = 'normal 120px Arial';
       cs.context.fillText(player.points.toString(), 20, 220);
     }
+  }
+
+  gameOver = () => {
+    const locationObj = document.location;
+    locationObj.href = `${locationObj.origin + locationObj.pathname}?status=gameOver`;
   }
 
   gameFinish = (player:GameObject) => {
@@ -58,16 +56,16 @@ export class Game {
     const wizard:any = this.currentMap.getHero();
     const cameraX = (cs.size.width / 2 - WIZARD.horizontal_indent) - (wizard.getX());
     cs.redrawContext();
-    const backgroundImage = new ImageResource(bg);
-    cs.context.drawImage(backgroundImage.getImage(), 0, 0, cs.size.width, cs.size.height);
     this.showPoints(wizard);
     cs.context.translate(cameraX, 0);
     this.currentMap.render();
     if (wizard.gameStatus.gameFinish) {
       this.gameFinish(wizard);
+      return false;
     }
     if (wizard.gameStatus.gameOver) {
       this.gameOver();
+      return false;
     }
     cs.context.restore();
     window.requestAnimationFrame(this.gameLoop); // встроенная функция

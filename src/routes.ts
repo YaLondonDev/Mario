@@ -6,6 +6,7 @@ const Leaderboard = loadable(() => import('./pages/Leaderboard/Leaderboard'));
 const SignIn = loadable(() => import('./pages/SignIn/SignIn'));
 const SignUp = loadable(() => import('./pages/SignUp/SignUp'));
 const UserPage = loadable(() => import('./pages/UserPage/UserPage'));
+const Feedback = loadable(() => import('./pages/Feedback/Feedback'));
 
 export default [
   {
@@ -41,5 +42,11 @@ export default [
     path: '/signup',
     component: SignUp,
     exact: true,
+  },
+  {
+    path: '/feedback',
+    component: Feedback,
+    exact: true,
+    isProtected: true,
   },
 ];
