@@ -24,7 +24,7 @@ feedbackRouter.post("/", [identityMiddleware()], async (req: Request, res: Respo
   });
   try {
     const newFeedback = await feedback.save();
-    res.json({'test': 'daasd'});
+    res.json(ResponseWorker.response200('true'));
   } catch (error) {
     res.status(500).json(ResponseWorker.response500(error.message));
   }
