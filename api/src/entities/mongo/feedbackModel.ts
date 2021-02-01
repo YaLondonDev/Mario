@@ -3,21 +3,21 @@ import mongoose, { Schema } from 'mongoose';
 const feedbackSchema: Schema = new Schema({
   userName: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
-    required: true
+    required: true,
   },
   message: {
     type: String,
-    required: true
+    required: true,
   },
   date: {
     type: Date,
     required: true,
-    default: new Date()
-  }
+    default: new Date(),
+  },
 });
 
-export const Feedback = mongoose.model("Feedback", feedbackSchema);
+export const Feedback = mongoose.model('Feedback', feedbackSchema);

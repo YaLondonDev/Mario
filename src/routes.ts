@@ -47,6 +47,5 @@ export default [
     path: '/feedback',
     component: Feedback,
     exact: true,
-    isProtected: true,
   },
 ];
