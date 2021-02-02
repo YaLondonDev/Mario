@@ -24,10 +24,10 @@
 
 Сгенирировать ssl сертификат, для этого выполняем следующие команды:
 (Для windows нужно выполнять эти команды через git bash, данная утилита есть если в системе установлен git)
-`openssl genrsa -out secure/key.pem`
-`openssl req -new -key secure/key.pem -out secure/csr.pem`
-`openssl x509 -req -days 9999 -in secure/csr.pem -signkey secure/key.pem -out secure/cert.pem`
-`rm secure/csr.pem`
+`openssl genrsa -out ./secure/key.pem`
+`openssl req -new -key ./secure/key.pem -out ./secure/csr.pem`
+`openssl x509 -req -days 9999 -in ./secure/csr.pem -signkey ./secure/key.pem -out ./secure/cert.pem`
+`rm ./secure/csr.pem`
 
 После данных действий в папке secure будет расположен сертификат,
 Chrome этот серт принимать не станет, я все тестил через firefox.
