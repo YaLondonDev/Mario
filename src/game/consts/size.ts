@@ -4,8 +4,8 @@ export const CANVAS = {
 };
 
 export const WIZARD = {
-  horizontal_indent: -220,
-  vertical_indent: 180,
+  horizontal_indent: 220,
+  vertical_indent: 130,
   width: 512,
   height: 512,
 };
@@ -20,4 +20,14 @@ export const PLATFORM = {
 export const COIN = {
   width: 120,
   height: 111,
+};
+
+export const FINISH = {
+  width: 128,
+  height: 128,
+};
+
+export const ENEMY = {
+  width: 255,
+  height: 205,
 };

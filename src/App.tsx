@@ -1,8 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { hot } from 'react-hot-loader/root';
 
-import { Home, Game, Leaderboard, SignIn, SignUp, UserPage } from './pages';
+import routes from './routes';
 import { fetchProfileRequested } from './actions/authActions/auth.actions';
 import { Geolocation } from './components/Geolocation';
 import { Header, ErrorBoundary } from './components';
@@ -14,7 +16,7 @@ export type TUiSettings = {
   showHeader: boolean;
 };
 
-export const App: FC = () => {
+const App: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const auth = useSelector(authSelector);
@@ -43,15 +45,18 @@ export const App: FC = () => {
           {auth.isLoggedIn && <Geolocation />}
           {uiSettings.showHeader && <Header />}
           <Switch>
-            <ProtectedRoute path="/" component={Home} exact />
-            <ProtectedRoute path="/game" component={Game} exact />
-            <ProtectedRoute path="/leaderboard" component={Leaderboard} exact />
-            <ProtectedRoute path="/user" component={UserPage} exact />
-            <Route path="/signin" component={SignIn} exact />
-            <Route path="/signup" component={SignUp} exact />
+            {routes.map(({ isProtected, ...route }) => {
+              if (isProtected) {
+                return <ProtectedRoute key={route.path} {...route} />;
+              }
+
+              return <Route key={route.path} {...route} />;
+            })}
           </Switch>
         </div>
       </ErrorBoundary>
     </UiContext.Provider>
   );
 };
+
+export default hot(App);

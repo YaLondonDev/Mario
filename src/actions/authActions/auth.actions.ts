@@ -1,4 +1,4 @@
-import { TUserProfile } from 'src/reducers/reducers.types';
+import { TUserProfile } from 'src/reducers/redux';
 
 import {
   AuthActions,
@@ -12,6 +12,7 @@ import {
   TSignInRequestedAction,
   TSignUpPayload,
   TSignUpRequestedAction,
+  TSignInYandex,
 } from './auth.types';
 
 export const authRequest = (
@@ -30,8 +31,9 @@ export const authRequestedFailed = (message: string): TAuthRequestFailed => ({
   payload: message,
 });
 
-export const fetchProfileRequested = (): TFetchProfileRequestedAction => ({
+export const fetchProfileRequested = (cookie?: string): TFetchProfileRequestedAction => ({
   type: AuthActions.FETCH_PROFILE_REQUESTED,
+  payload: cookie,
 });
 
 export const fetchProfileSuccess = (
@@ -59,4 +61,8 @@ export const authLogoutRequested = (): TAuthLogoutRequestedAction => ({
 export const profileUpdate = (profile: TUserProfile) => ({
   type: AuthActions.PROFILE_UPDATE,
   payload: profile,
+});
+
+export const getServiceIdYandex = (): TSignInYandex => ({
+  type: AuthActions.SIGN_IN_YANDEX,
 });

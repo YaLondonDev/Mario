@@ -1,5 +1,7 @@
 import { GameContainer } from '../GameContainer';
 import { ImageResource } from '../ImageResource';
+import { CanvasService } from '../services/CanvasService';
+import { GameMap } from './GameMap';
 
 export type TPosition = {
   x: number;
@@ -12,6 +14,7 @@ export type TSize = {
 };
 
 export type TGameObjectProps = {
+  map: GameMap;
   context: CanvasRenderingContext2D;
   size?: TSize;
   position?: TPosition;
@@ -32,6 +35,8 @@ export type TSprite = {
 // Супер-класс, который представляет игровой объект, имеющий
 // свои размеры, координаты и поведение
 export class GameObject {
+  map: GameMap;
+
   // 2d контекст
   context: CanvasRenderingContext2D;
 
@@ -48,41 +53,84 @@ export class GameObject {
     currentSpriteIndex: 0,
   };
 
-  // Координаты x,y объекта на холсте
-  protected position: TPosition = {
-    x: 0,
-    y: 0,
-  };
+  protected originalPosition: TPosition = { x: 0, y: 0 };
+
+  protected _x: number = 0;
+
+  protected _y: number = 0;
 
   // высота и ширина объекта
-  protected size: TSize = {
+  public size: TSize = {
     width: 100,
     height: 100,
   };
 
   constructor(props: TGameObjectProps) {
-    const { size, position, context, sprites } = props;
+    const cs = CanvasService.getInstance();
+    const { size, position, context, sprites, map } = props;
+    this.map = map;
     this.context = context;
     if (size) {
       this.size = size;
     }
     if (position) {
-      this.position = position;
+      this.y = position.y;
+      this.x = position.x;
+      this.originalPosition = { ...position };
     }
     if (sprites) {
       this.spriteOptions.sprites = sprites;
     }
+    cs.handleResize(this.onCanvasResize);
+  }
+
+  private onCanvasResize = () => {
+    this.y = this.originalPosition.y;
+    this.x = this.originalPosition.x;
+  };
+
+  set y(value: number) {
+    const cs = CanvasService.getInstance();
+    this._y = cs.y(value);
+  }
+
+  get y() {
+    const cs = CanvasService.getInstance();
+    return cs.y(this._y);
+  }
+
+  set x(value: number) {
+    this._x = value;
+  }
+
+  get x() {
+    return this._x;
+  }
+
+  incrementY = (value: number) => {
+    this._y -= value;
+  };
+
+  decrementY = (value: number) => {
+    this._y += value;
+  };
+
+  incrementX = (value: number) => {
+    this._x += value;
+  };
+
+  decrementX = (value: number) => {
+    this._x -= value;
+  };
+
+  getX() {
+    return this._x;
   }
 
   // Возвращает все ресуры текущего игрового объекта.
   // К этому методу обращается карта, когда загружает все ресуры
   public getResources = () =>
     this.spriteOptions.sprites.map((sprite) => sprite.resource);
-
-  // устанавливает координаты объекта
-  public setPosition = (position: TPosition) => {
-    this.position = { ...position };
-  };
 
   // Изменяет индекс спрайта для объекта
   public changeCurrentSpriteIndex = (index: number) => {
@@ -135,6 +183,7 @@ export class GameObject {
   // Метод отрисовки объекта
   public render() {
     const currentSprite = this.getCurrentSprite();
+    const { context, size, y } = CanvasService.getInstance();
     // если объект со спрайтами, то
     if (currentSprite) {
       // рисуем текущий кадр спрайта
@@ -145,25 +194,23 @@ export class GameObject {
         0, // отступ по координате y от левого верънего края изображения
         this.size.width, // ширина обрезаемой области
         this.size.height, // высота обрезаемой области
-        this.position.x, // координата x на которой будет отрисовано изображение
-        this.position.y, // координата y на которой будет отрисовано изображение
+        this.x, // координата x на которой будет отрисовано изображение
+        y(size.height - this._y), // координата y на которой будет отрисовано изображение
         this.size.width, // ширина в которую будет вмещен текущий кадр
         this.size.height, // высота в которую будет вмещен текущий кадр
       );
-      if (this.points) {
-        this.context.fillStyle = '#f93b3b';
-        this.context.font = 'normal 120px Arial';
-        this.context.fillText(this.points.toString(), 20, 120);
-      }
       this.spriteTick(); // после отрисовки меняем кадр на следующий
     }
-    if (GameContainer.config.isDebug()) { // если включен дебаг, то рисуем
-      this.context.strokeStyle = 'red'; // красную рамку вокруг объекта
-      this.context.strokeRect(
-        this.position.x,
-        this.position.y,
-        this.size.width,
-        this.size.height,
+    if (GameContainer.config.isDebug()) {
+      // если включен дебаг, то рисуем
+      context.strokeStyle = 'red'; // красную рамку вокруг объекта
+      context.strokeRect(this._x, this._y, this.size.width, this.size.height);
+      context.font = 'normal 30px Arial';
+      context.fillStyle = 'yellow';
+      context.fillText(
+        `[${this.x.toFixed(1)}, ${this.y.toFixed(1)}]`,
+        this._x,
+        this._y,
       );
     }
   }
