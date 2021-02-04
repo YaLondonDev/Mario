@@ -1,20 +1,8 @@
-import http from 'http';
-import https from 'https';
-import fs from 'fs';
-import path from 'path';
-
 import { app } from './server';
 import { dbConnect } from './bootstrap/dbConnect';
+import { createServer } from './utils/createServer';
 
-const server = !process.env.SSL_ENABLED
-  ? http.createServer(app)
-  : https.createServer(
-      {
-        key: fs.readFileSync(path.resolve(__dirname, '../secure/key.pem')),
-        cert: fs.readFileSync(path.resolve(__dirname, '../secure/cert.pem')),
-      },
-      app,
-    );
+const server = createServer(app);
 
 async function start() {
   const port = process.env.PORT || 4444;

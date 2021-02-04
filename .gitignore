@@ -1,7 +1,7 @@
 api/data
 node_modules
 build
-secure
+*.pem
 .idea
 .vscode
 .env

@@ -42,6 +42,7 @@ export const ThemeSwitcher: FC = () => {
           themeClassNames.accentColor,
           themeClassNames.foregroundAccentColor,
           styles.item,
+          styles.current,
         )}
       >
         {ui.theme?.name || 'По умолчанию'}

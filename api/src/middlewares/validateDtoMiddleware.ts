@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { ResponseWorker } from '../utils/ResponseWorker';
+import { ResponseUtils } from '../utils/ResponseUtils';
 import { validateDto } from '../utils/validateDto';
 
 export const validateDtoMiddleware = (dto: Record<string, unknown>) => (
@@ -9,7 +9,7 @@ export const validateDtoMiddleware = (dto: Record<string, unknown>) => (
 ) => {
   const value = req.body;
   if (!validateDto(value, dto)) {
-    res.json(ResponseWorker.response400());
+    res.json(ResponseUtils.response400());
     return;
   }
 
