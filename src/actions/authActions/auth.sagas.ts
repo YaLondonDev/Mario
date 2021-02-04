@@ -1,4 +1,8 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
+import {
+  uiFetchAllThemesRequested,
+  uiFetchCurrentThemeRequested,
+} from '../uiActions/ui.actions';
 
 import {
   authLogoutSuccess,
@@ -30,6 +34,8 @@ function* fetchProfile(action: TFetchProfileRequestedAction) {
     yield put(authRequested());
     const profile = yield call(authApi.fetchProfile, action.payload);
     yield put(fetchProfileSuccess(profile));
+    yield put(uiFetchCurrentThemeRequested());
+    yield put(uiFetchAllThemesRequested());
   } catch (error) {
     yield put(authRequestedFailed(error.message));
   }

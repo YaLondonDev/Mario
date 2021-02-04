@@ -30,7 +30,7 @@ export const authReducer = (
     case AuthActions.FETCH_PROFILE_SUCCESS:
       return {
         ...state,
-        profile: action.payload,
+        profile: action.payload.profile,
         isLoading: false,
         isLoggedIn: true,
         isFailed: false,

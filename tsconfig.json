@@ -15,5 +15,5 @@
       "appSrc/*": ["src/*"]
     }
   },
-  "exclude": ["server.js"]
+  "exclude": ["server.js", "node_modules"]
 }

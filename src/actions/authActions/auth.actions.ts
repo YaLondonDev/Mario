@@ -31,7 +31,9 @@ export const authRequestedFailed = (message: string): TAuthRequestFailed => ({
   payload: message,
 });
 
-export const fetchProfileRequested = (cookie?: string): TFetchProfileRequestedAction => ({
+export const fetchProfileRequested = (
+  cookie?: string,
+): TFetchProfileRequestedAction => ({
   type: AuthActions.FETCH_PROFILE_REQUESTED,
   payload: cookie,
 });

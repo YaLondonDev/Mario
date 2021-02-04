@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import styles from './button.module.scss';
 import { Props } from './types';
+import { themeClassNames } from '../Theme/Theme';
 
 const Button: FC<Props> = ({
   className,
@@ -12,7 +13,12 @@ const Button: FC<Props> = ({
   ...props
 }) => (
   <button
-    className={classNames(styles.btn, className)}
+    className={classNames(
+      themeClassNames.accentColor,
+      themeClassNames.foregroundAccentColor,
+      styles.btn,
+      className,
+    )}
     type={type}
     onClick={onClick}
     {...props}

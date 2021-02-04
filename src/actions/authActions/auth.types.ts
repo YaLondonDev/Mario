@@ -70,8 +70,8 @@ export type TProfileUpdate = {
 };
 
 export type TSignInYandex = {
-  type: AuthActions.SIGN_IN_YANDEX
-}
+  type: AuthActions.SIGN_IN_YANDEX;
+};
 
 export type TAuthActionTypes =
   | TAuthRequestedAction
