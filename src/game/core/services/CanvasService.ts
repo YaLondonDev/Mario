@@ -1,5 +1,6 @@
 import { GameContainer } from '../GameContainer';
 import { TSize } from '../models/GameObject';
+import bg from '../../../assets/img/sprites/background/bg.png';
 
 export type TResizeListener = (size?: TSize) => void;
 
@@ -32,6 +33,7 @@ export class CanvasService {
     this.canvas.style.width = '100vw';
     this.canvas.style.height = '100vh';
     this.canvas.style.display = 'block';
+    this.canvas.style.background = `url(${bg}) no-repeat`;
     if (GameContainer.config.isDebug) {
       this.canvas.style.border = `1px solid red`;
     }
