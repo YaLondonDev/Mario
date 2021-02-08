@@ -24,11 +24,7 @@ export const ModalDialog: TModalDialog = ({ children, onClose }) => {
 
   const handleClick = useCallback(
     (e: MouseEvent) => {
-<<<<<<< HEAD
-      if (modalRef && modalRef.current && modalRef.current === e.target) {
-=======
       if (modalRef?.current === e.target) {
->>>>>>> ac2606fac9cf8865a17cc5b8820e2ed7d2d0f13c
         onClose();
       }
     },

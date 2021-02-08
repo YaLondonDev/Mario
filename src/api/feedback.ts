@@ -1,4 +1,5 @@
-import { API_PREFIX, API_VERSION, API_ENDPOINT } from '../../api/src/utils/consts';
+const baseUrl =
+    process.env.API_URL || 'https://mario.ya-praktikum.tech:4444/api/v1';
 
 export type TCreateFeedbackPayload = {
   userName: string;
@@ -6,11 +7,11 @@ export type TCreateFeedbackPayload = {
   message: string;
 };
 
-export const getFeedback = (): Promise<Response> => fetch(`${API_ENDPOINT}/${API_PREFIX}/${API_VERSION}/feedback`, {
+export const getFeedback = (): Promise<Response> => fetch(`${baseUrl}/feedback`, {
   method: 'GET',
 });
 
-export const addFeedback = (data:TCreateFeedbackPayload): Promise<Response> => fetch(`${API_ENDPOINT}/${API_PREFIX}/${API_VERSION}/feedback`, {
+export const addFeedback = (data:TCreateFeedbackPayload): Promise<Response> => fetch(`${baseUrl}/feedback`, {
   method: 'POST',
   body: JSON.stringify(data),
 });
