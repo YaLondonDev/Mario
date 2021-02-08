@@ -2,6 +2,7 @@ import {
   Configuration,
   WebpackPluginInstance,
   HotModuleReplacementPlugin,
+  ProvidePlugin,
 } from 'webpack'; // eslint-disable-line
 import path from 'path';
 import { GenerateSW } from 'workbox-webpack-plugin';
@@ -90,6 +91,9 @@ const config: Configuration & DevServerConfiguration = {
       ],
     }),
     new HotModuleReplacementPlugin(),
+    new ProvidePlugin({
+      process: 'process/browser',
+    }),
   ].filter((plugin) => Boolean(plugin)) as WebpackPluginInstance[],
 };
 

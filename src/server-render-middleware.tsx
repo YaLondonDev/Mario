@@ -52,9 +52,6 @@ export default (req: Request, res: Response) => {
     .toPromise()
     .then(() => {
       renderApp();
-    })
-    .catch((err: any) => {
-      throw err;
     });
 
   store.dispatch(fetchProfileRequested(req.headers.cookie));

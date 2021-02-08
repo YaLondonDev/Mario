@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import { ResponseWorker } from '../../utils/ResponseWorker';
+import { ResponseUtils } from '../../utils/ResponseUtils';
 import { Feedback } from '../../entities/mongo/feedbackModel';
 import { identityMiddleware } from '../../middlewares/identity.middleware';
 
@@ -8,10 +8,10 @@ const feedbackRouter = Router();
 // Get All
 feedbackRouter.get('/', [identityMiddleware()], async (req: Request, res: Response) => {
   try {
-    const feedbacks = await Feedback.find();
-    res.json(ResponseWorker.response200(feedbacks));
+    const feedbacks: any = await Feedback.find();
+    res.json(ResponseUtils.response200(feedbacks));
   } catch (error) {
-    res.status(500).json(ResponseWorker.response500(error.message));
+    res.status(500).json(ResponseUtils.response500(error.message));
   }
 });
 
@@ -25,9 +25,9 @@ feedbackRouter.post('/', [identityMiddleware()], async (req: Request, res: Respo
   });
   try {
     await feedback.save();
-    res.json(ResponseWorker.response200({ success: true }));
+    res.json(ResponseUtils.response200({ succes: true }));
   } catch (error) {
-    res.status(500).json(ResponseWorker.response500(error.message));
+    res.status(500).json(ResponseUtils.response500(error.message));
   }
 });
 

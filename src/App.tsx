@@ -50,10 +50,10 @@ const App: FC = () => {
           <Switch>
             {routes.map(({ isProtected, ...route }) => {
               if (isProtected) {
-                return <ProtectedRoute {...route} />;
+                return <ProtectedRoute key={route.path} {...route} />;
               }
 
-              return <Route {...route} />;
+              return <Route key={route.path} {...route} />;
             })}
           </Switch>
         </div>
