@@ -14,6 +14,20 @@
 Для запуска eslint: `npm run start:lint`  
 Для сборки продакшена: `npm run build`
 
+## Docker сборка
+
+```
+# build docker image named mario
+docker build --tag mario .
+
+# run docker image mario with container name mario at port 80.
+# Docker will be published at port 8080.
+docker run --name mario --publish 8080:80 mario
+
+# stop mario container
+docker container stop mario
+```
+
 ## Аудит проекта
 
 Во время аудита утечки памяти обнаружено не было
