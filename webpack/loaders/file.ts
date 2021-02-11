@@ -1,4 +1,4 @@
-const fileMatch = /\.(png|jpg|gif|woff|woff2|eot|ttf|otf)$/;
+const fileMatch = /\.(png|jpg|gif|woff|woff2|eot|ttf|otf|wav)$/;
 
 export default {
   client: {

@@ -21,6 +21,6 @@ export class LeaderboardApi extends ApiService {
         [ratingFieldName]: payload.point,
       };
 
-      return this.post(`/leaderboard`, { ...data, ratingFieldName });
+      return this.post(`/leaderboard`, { data, ratingFieldName });
     }
 }

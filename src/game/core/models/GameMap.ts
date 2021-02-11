@@ -8,6 +8,8 @@ export class GameMap {
   // 2d контекст, который передается каждому объекту, содержащемуся в карте
   context: CanvasRenderingContext2D;
 
+  countLevel: number
+
   // объекты, которые необходимо отрисовать на карте, у каждого объекта
   // свои координаты и размеры
   mapObjects: MapObjects = [];

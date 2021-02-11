@@ -64,6 +64,7 @@
     ],
     "import/prefer-default-export": "off",
     "react-hooks/rules-of-hooks": "error", // Проверяем правила хуков
-    "react-hooks/exhaustive-deps": "warn" // Проверяем зависимости эффекта
+    "react-hooks/exhaustive-deps": "warn", // Проверяем зависимости эффекта
+    "linebreak-style": 0
   }
 }

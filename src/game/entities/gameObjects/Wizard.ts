@@ -8,12 +8,16 @@ import WizardSprite from '../../../assets/img/sprites/wizard-sprite.png';
 import WizardSpriteIdle from '../../../assets/img/sprites/wizard_sprite-idle.png';
 import WizardSpriteJump from '../../../assets/img/sprites/wizard_sprite-jump.png';
 import { ImageResource } from '../../core/ImageResource';
+import { AudioResource } from '../../core/AudioResource';
 import { keyMap } from '../../core/services/KeyboardService';
 import { GameContainer } from '../../core/GameContainer';
 import { WIZARD } from '../../consts/size';
 import { Coin } from './Coin';
 import { Enemy } from './Enemy';
 import { Finish } from './Finish';
+
+import AudioJump from '../../../assets/audio/jump.wav';
+import AudioEat from '../../../assets/audio/eat.wav';
 
 enum sprites {
   move = 0,
@@ -28,7 +32,7 @@ export type TPosition = {
 
 export type TGameStatus = {
   gameOver: boolean;
-  gameFinish: boolean;
+  levelFinish: boolean;
 };
 
 export class Wizard extends MovableGameObject {
@@ -40,7 +44,7 @@ export class Wizard extends MovableGameObject {
 
   public gameStatus: TGameStatus = {
     gameOver: false,
-    gameFinish: false,
+    levelFinish: false,
   }
 
   constructor(props: TMovableGameObjectProps) {
@@ -134,6 +138,8 @@ export class Wizard extends MovableGameObject {
 
   coinHandler = (coin: GameObject) => {
     if (this.checkCollision(coin)) {
+      const audio = new AudioResource(AudioEat).getAudio();
+      audio.play();
       this.points += 1;
       // eslint-disable-next-line no-param-reassign
       coin.x = -9999;
@@ -165,6 +171,8 @@ export class Wizard extends MovableGameObject {
       keyboard.isKeyPressed(keyMap.UP) &&
       move.jumping === false
     ) {
+      const audio = new AudioResource(AudioJump).getAudio();
+      audio.play();
       move.yVelocity -= 70;
       move.jumping = true;
     }
@@ -190,7 +198,7 @@ export class Wizard extends MovableGameObject {
 
   finishHandler = (finish: GameObject) => {
     if (this.checkCollision(finish)) {
-      this.gameStatus.gameFinish = true;
+      this.gameStatus.levelFinish = true;
     }
   }
 
