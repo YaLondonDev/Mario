@@ -4,18 +4,29 @@ import { Wizard } from '../gameObjects/Wizard';
 import { Coin } from '../gameObjects/Coin';
 import { Finish } from '../gameObjects/Finish';
 import { Enemy } from '../gameObjects/Enemy';
-import { MapArray } from './testMapArray';
+import { Map } from './level1Array';
 
-export class TestMap extends GameMap {
-  constructor(context: CanvasRenderingContext2D) {
+export class LevelBuilder extends GameMap {
+  countLevel: number;
+
+  MapArray: Map;
+
+  constructor(context: CanvasRenderingContext2D, level: Map) {
     super(context);
-
     this.mapObjects = [];
+    this.countLevel = 2;
+    this.MapArray = level;
+
+    this.levelBuild(context);
+    this.loadResources();
+  }
+
+  levelBuild = (context: CanvasRenderingContext2D) => {
     this.mapObjects.push(
       new Wizard({
         map: this,
         context,
-        position: MapArray.player.position,
+        position: this.MapArray.player.position,
       }),
     );
 
@@ -23,17 +34,17 @@ export class TestMap extends GameMap {
       new Finish({
         map: this,
         context,
-        position: MapArray.finish.position,
+        position: this.MapArray.finish.position,
       }),
     );
 
-    MapArray.enemy.forEach((item) => {
+    this.MapArray.enemy.forEach((item) => {
       this.mapObjects.push(
         new Enemy({ map: this, context, position: item.position }),
       );
     });
 
-    MapArray.obstacles.forEach((item) => {
+    this.MapArray.obstacles.forEach((item) => {
       this.mapObjects.push(
         new Ground({
           map: this,
@@ -43,12 +54,10 @@ export class TestMap extends GameMap {
       );
     });
 
-    MapArray.coins.forEach((item) => {
+    this.MapArray.coins.forEach((item) => {
       this.mapObjects.push(
         new Coin({ map: this, context, position: item.position }),
       );
     });
-
-    this.loadResources();
   }
 }

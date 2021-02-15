@@ -1,6 +1,6 @@
 import { PLATFORM } from '../../consts/size';
 
-type Map = {
+export type Map = {
   obstacles: gameObject[],
   enemy: gameObject[],
   coins: gameObject[],
@@ -16,7 +16,7 @@ type gameObject = {
   }
 }
 
-export const MapArray: Map = {
+export const Level1: Map = {
   player: {
     name: 'Wizard',
     position: {

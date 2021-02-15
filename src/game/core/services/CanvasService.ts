@@ -34,6 +34,7 @@ export class CanvasService {
     this.canvas.style.height = '100vh';
     this.canvas.style.display = 'block';
     this.canvas.style.background = `url(${bg}) no-repeat`;
+    this.canvas.style.backgroundSize = 'cover';
     if (GameContainer.config.isDebug) {
       this.canvas.style.border = `1px solid red`;
     }
