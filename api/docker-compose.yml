@@ -7,10 +7,6 @@ services:
   pg_db:
     image: postgres
     restart: always
-    environment:
-      - POSTGRES_PASSWORD=mario
-      - POSTGRES_USER=mario
-      - POSTGRES_DB=mario-api
     volumes:
       - pg_project:/var/lib/postgresql/data
     ports:

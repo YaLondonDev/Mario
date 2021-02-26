@@ -3,7 +3,7 @@ import { TCreateThemePayload, TSetCurrentThemePayload } from './ui.types';
 
 class UiApiService extends ApiService {
   baseUrl =
-    process.env.API_URL || 'https://mario.ya-praktikum.tech:4444/api/v1';
+    process.env.REACT_APP_API_URL || 'https://mario.ya-praktikum.tech:4444/api/v1';
 
   fetchCurrentTheme = () => this.get(`/themes/current`);
 

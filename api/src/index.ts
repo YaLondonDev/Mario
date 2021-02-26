@@ -5,7 +5,7 @@ import { createServer } from './utils/createServer';
 const server = createServer(app);
 
 async function start() {
-  const port = process.env.PORT || 4444;
+  const port = process.env.API_PORT || 4444;
 
   await dbConnect();
 
