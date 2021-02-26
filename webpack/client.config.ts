@@ -3,7 +3,6 @@ import {
   WebpackPluginInstance,
   HotModuleReplacementPlugin,
   ProvidePlugin,
-  DefinePlugin,
 } from 'webpack'; // eslint-disable-line
 import path from 'path';
 import { GenerateSW } from 'workbox-webpack-plugin';
@@ -74,9 +73,6 @@ const config: Configuration & DevServerConfiguration = {
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, '../public/index.html'),
       }),
-    new DefinePlugin({
-      REACT_APP_API_URL: JSON.stringify(process.env.REACT_APP_API_URL)
-    }),
     // @ts-ignore
     new GenerateSW({
       runtimeCaching: [
